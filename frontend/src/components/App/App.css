@@ -1,0 +1,22 @@
+:root {
+    --black: rgb(40, 40, 40);
+    --orange: rgb(255,200,0);
+    --blue: rgb(0, 195, 250);
+    --cream: rgb(240, 225, 220);
+    --gray: rgb(120,115,115);
+    --opaque: rgba(0,0,0,0); 
+    --orangeHover: rgb(255,215,15);
+    --grayHover: rgb(140, 135, 135);
+    --blackHover: rgb(55, 55, 55);
+}
+
+body {
+    margin: 0;
+}
+
+#root {
+    min-height: 100vh;
+    width: 100%; 
+    display: flex;
+    flex-direction: column;
+}

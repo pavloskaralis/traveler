@@ -1,0 +1,23 @@
+{
+  "name": "traveler",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pavloskaralis/traveler.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pavloskaralis/traveler/issues"
+  },
+  "homepage": "https://github.com/pavloskaralis/traveler#readme",
+  "dependencies": {
+    "create-react-app": "^3.3.0"
+  }
+}

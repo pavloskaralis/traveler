@@ -1,0 +1,21 @@
+.dropdown-menu {
+    z-index: 1;
+    position: absolute;
+    width: 35%;
+    background-color: var(--black);
+    top: 40px;
+    right: 0; 
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+nav a {
+    text-decoration-line: none;
+    padding: 10px 8px;
+    color: white;
+    text-transform: capitalize;
+    font-family: Verdana;
+    border-top: 1px solid var(--gray);
+    cursor: pointer;
+}
