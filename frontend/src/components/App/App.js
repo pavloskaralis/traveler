@@ -12,7 +12,8 @@ class App extends Component {
   state = {
     isLoggedIn: false,
     username: '',
-    form: ''
+    form: '',
+    dropdown: false
   }
 
   componentDidMount = () => {
@@ -21,7 +22,8 @@ class App extends Component {
       .then(response => this.setState({
         isLoggedIn: true, 
         username: response.data.username, 
-        form: ''
+        form: '',
+        dropdown: false
       }));
     } else {
       this.setState({isLoggedIn: false})
@@ -34,16 +36,19 @@ class App extends Component {
     this.setState({
       isLoggedIn: false,
       username: '', 
+      dropdown: false
     });
     history.push('/')
   }
 
   toggleForm = (e) => this.setState({form: e.target.id })
 
+  toggleDropdown = () => this.setState({dropdown: !this.state.dropdown});
+
   render () {
     return (
       <React.Fragment>
-        <Nav isLoggedIn={this.state.isLoggedIn} toggleForm={this.toggleForm} handleLogOut={this.handleLogOut}/>
+        <Nav isLoggedIn={this.state.isLoggedIn} toggleForm={this.toggleForm} toggleDropdown={this.toggleDropdown} dropdown={this.state.dropdown} handleLogOut={this.handleLogOut}/>
         {this.state.form && <Form toggleForm={this.toggleForm} type={this.state.form} remount={this.componentDidMount}/>}
         <Switch>
           <Route path={'/'} render={()=> this.state.isLoggedIn? <Index/> : <Home toggleForm={this.toggleForm}/>}/>
