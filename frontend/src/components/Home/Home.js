@@ -23,12 +23,8 @@ class Home extends Component {
                     </div>
                     <div className="home-wrap mobile-home-wrap">
                         <div className="button-container">
-                            <div onClick={this.props.toggleForm} className="sign-up" id="Sign Up">
-                                Sign Up
-                            </div>
-                            <div onClick={this.props.toggleForm} className="login" id="login">
-                                Login
-                            </div>
+                            <div onClick={this.props.toggleForm} className="sign-up" id="signup">Sign Up</div>
+                            <div onClick={this.props.toggleForm} className="login" id="login">Login</div>
                         </div>
                     </div>
             </div>

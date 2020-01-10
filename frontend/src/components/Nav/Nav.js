@@ -8,9 +8,11 @@ class Nav extends Component {
     state = {
         dropdown: false
     }
+
     toggleDropdown = () => {
         this.setState({dropdown: !this.state.dropdown});
     }
+
     render () {
         return (
             <nav>
@@ -18,7 +20,7 @@ class Nav extends Component {
                 <div className="dropdown-icon-container">
                     <div className="dropdown-icon" onClick={this.toggleDropdown}></div>
                 </div>
-                {this.state.dropdown && <Dropdown toggleForm={this.props.toggleForm} isLoggedIn={this.props.isLoggedIn}/>}
+                {this.state.dropdown && <Dropdown toggleForm={this.props.toggleForm} toggleDropdown={this.toggleDropdown} isLoggedIn={this.props.isLoggedIn} handleLogOut={this.props.handleLogOut}/>}
             </nav>
         )
     }

@@ -17,6 +17,7 @@ router.get('/verify/:token', (req, res) => {
 })
 
 router.post('/signup', (req, res) => {
+    console.log(req.body)
     if (req.body.username && req.body.password) {
         let newUser = {
             username: req.body.username,
@@ -29,7 +30,7 @@ router.post('/signup', (req, res) => {
                         .then(user => {
                             if (user) {
                                 const payload = {
-                                    id: newUser.id
+                                    id: user.id
                                 }
                                 const token = jwt.encode(payload, config.jwtSecret)
                                 res.json({
@@ -49,6 +50,7 @@ router.post('/signup', (req, res) => {
 })
 
 router.post('/login', (req, res) => {
+    console.log(req.body)
     if (req.body.username && req.body.password) {
     User.findOne({username: req.body.username}).then(user => {
         if (user) {

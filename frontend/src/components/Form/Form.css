@@ -1,0 +1,79 @@
+
+.form-container {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    background-color: rgba(25,25,25,.5);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.form-container form {
+    width: 350px;
+    margin: 0 auto; 
+    background-color: var(--black);
+    border-radius: 15px; 
+    box-shadow: 0 5px 10px 0 rgba(0,0,0,.5);
+}
+
+legend {
+    text-transform: capitalize;
+    color: var(--orange); 
+    text-align: center;
+    margin: 24px; 
+    font-family: 'Verdana';
+    cursor: default;
+}
+
+.form-container .input-container {
+    display: flex; 
+    justify-content: space-between;
+    padding: 0 64px;
+    padding-bottom: 16px;
+}
+
+label {
+    color: white;
+    font-family: 'Georgia';
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.form-container .input-container input[type="text"] {
+    padding: 4px; 
+    font-family: 'Georgia';
+}
+
+.form-container .button-container {
+    margin: 8px 0 24px 0;
+}
+
+.cancel, .submit {
+    padding: 6px; 
+    border-radius: 6px; 
+    width: 60px; 
+    text-align: center;
+    font-family: 'Verdana';
+    cursor: pointer;
+}
+
+.submit {
+    background-color: var(--orange); 
+}
+
+.submit:hover {
+    background-color: var(--orangeHover);
+}
+
+.cancel {
+    background-color: gray; 
+    color: white; 
+}
+
+.cancel:hover {
+    background-color: var(--grayHover);
+}

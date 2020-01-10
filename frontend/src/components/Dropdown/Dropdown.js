@@ -6,15 +6,15 @@ import './Dropdown.css'
 class Dropdown extends Component {
     render () {
         return (
-            <div className="dropdown-menu">
+            <div className='dropdown-menu'>
                 {this.props.isLoggedIn ? 
                     <React.Fragment>
-                        <a href="#">itineraries</a>
-                        <a href="#">log out</a>
+                        <a href='/'>itineraries</a>
+                        <a href='/' onClick={this.props.handleLogOut}>log out</a>
                     </React.Fragment> : 
                     <React.Fragment>
-                        <a onClick={this.props.toggleForm} id="Sign Up">sign up</a>
-                        <a onClick={this.props.toggleForm}  id="Login">login</a>
+                        <a onClick={this.props.toggleForm} id='signup'>sign up</a>
+                        <a onClick={this.props.toggleForm} id='login'>login</a>
                     </React.Fragment> }
             </div>
         )

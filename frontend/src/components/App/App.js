@@ -4,12 +4,15 @@ import history from '../../history'
 import axios from 'axios'
 import './App.css'
 import Nav from '../Nav/Nav.js'
+import Form from '../Form/Form.js'
 import Home from '../Home/Home.js'
+import Index from '../Index/Index.js'
 
 class App extends Component {
   state = {
     isLoggedIn: false,
-    username: ''
+    username: '',
+    form: ''
   }
 
   componentDidMount = () => {
@@ -18,32 +21,11 @@ class App extends Component {
       .then(response => this.setState({
         isLoggedIn: true, 
         username: response.data.username, 
+        form: ''
       }));
     } else {
       this.setState({isLoggedIn: false})
     }
-  }
-
-  handleSignUp = (e) => {
-    e.preventDefault();
-    axios.post('http://localhost:3001/users/signup', {
-        email: this.state.email,
-        password: this.state.password
-    }).then(response => {
-        localStorage.token = response.data.token;
-        this.setState({isLoggedIn: true});
-    }).catch(err => console.log(err))
-  }
-
-  handleLogIn = (e) => {
-      e.preventDefault();
-      axios.post('http://localhost:3001/users/login', {
-          email: this.state.email,
-          password: this.state.password
-      }).then(response => {
-          localStorage.token = response.data.token;
-          this.setState({isLoggedIn: true});
-      }).catch(err => console.log(err))
   }
 
   handleLogOut = (e) => {
@@ -56,12 +38,15 @@ class App extends Component {
     history.push('/')
   }
 
+  toggleForm = (e) => this.setState({form: e.target.id })
+
   render () {
     return (
       <React.Fragment>
-        <Nav isLoggedIn={this.state.isLoggedIn}/>
+        <Nav isLoggedIn={this.state.isLoggedIn} toggleForm={this.toggleForm} handleLogOut={this.handleLogOut}/>
+        {this.state.form && <Form toggleForm={this.toggleForm} type={this.state.form} remount={this.componentDidMount}/>}
         <Switch>
-        <Route path={'/'} render={()=> <Home toggleForm={this.toggleForm}/>}/>
+          <Route path={'/'} render={()=> this.state.isLoggedIn? <Index/> : <Home toggleForm={this.toggleForm}/>}/>
         </Switch>
       </React.Fragment>            
     )

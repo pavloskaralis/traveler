@@ -27,5 +27,5 @@ const itinerarySchema = new mongoose.Schema({
     ] 
 }, {timestamps: true});
 
-const Itinerary = mongoose.model('Itinerary', userSchema);
+const Itinerary = mongoose.model('Itinerary', itinerarySchema);
 module.exports = Itinerary;
