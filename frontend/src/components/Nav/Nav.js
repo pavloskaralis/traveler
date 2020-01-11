@@ -8,9 +8,11 @@ class Nav extends Component {
     render () {
         return (
             <nav>
-                <h3>Traveler</h3>
-                <div className="dropdown-icon-container">
-                    <div className="dropdown-icon" onClick={this.props.toggleDropdown}></div>
+                <h2>Traveler</h2>
+                <div className="dropdown-icon-container" onClick={this.props.toggleDropdown}>
+                    <span> </span>
+                    <span> </span>
+                    <span> </span>
                 </div>
                 {this.props.dropdown && <Dropdown toggleForm={this.props.toggleForm} toggleDropdown={this.toggleDropdown} isLoggedIn={this.props.isLoggedIn} handleLogOut={this.props.handleLogOut}/>}
             </nav>

@@ -67,6 +67,7 @@ label {
 
 .submit:hover {
     background-color: var(--orangeHover);
+    transition: .3s; 
 }
 
 .cancel {
@@ -76,4 +77,5 @@ label {
 
 .cancel:hover {
     background-color: var(--grayHover);
+    transition: .3s; 
 }

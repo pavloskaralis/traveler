@@ -1,16 +1,16 @@
 nav {
     z-index: 1;
-    height: 40px;
+    height: 60px;
     width: 100%;
     background-color: var(--black);
     display: flex;
     justify-content: space-between;
 }
 
-nav h3 {
+nav h2 {
     display: flex;
     flex-direction: column;
-    padding: 0 8px;
+    padding: 0 16px;
     justify-content: center;
     margin: 0; 
     color: var(--orange);
@@ -18,39 +18,24 @@ nav h3 {
     cursor: default;
 }
 
-nav a:hover {
-    color: var(--gray);
-}
-
 .dropdown-icon-container {
-    height: 40px; 
-    width: 40px;
+    height: 60px; 
+    width: 60px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-}
-.dropdown-icon {
-    height: 15px;
-    width: 20px;
-    margin: 0 auto;
-    background-image: linear-gradient(
-        to bottom,
-        white 0%, white 15%,
-        var(--opaque) 15%, var(--opaque) 42.5%,
-        white 42.5%, white 57.5%,
-        var(--opaque) 57.5%, var(--opaque) 87%,
-        white 87%, white 100%
-    );
+    justify-content: space-between;
+    padding: 20px 16px; 
+    box-sizing: border-box;
     cursor: pointer;
 }
+nav span {
+    height: 2px;
+    cursor: pointer;
+    background-color: white;
+    display: block;
+  }
 
-.dropdown-icon:hover{
-    background-image: linear-gradient(
-        to bottom,
-        var(--gray) 0%, var(--gray) 15%,
-        var(--opaque) 15%, var(--opaque) 42.5%,
-        var(--gray) 42.5%, var(--gray) 57.5%,
-        var(--opaque) 57.5%, var(--opaque) 85%,
-        var(--gray) 85%, var(--gray) 100%
-    );
+.dropdown-icon-container:hover span {
+    background-color: var(--gray);
+    transition: .3s; 
 }

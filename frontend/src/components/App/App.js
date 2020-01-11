@@ -7,6 +7,7 @@ import Nav from '../Nav/Nav.js'
 import Form from '../Form/Form.js'
 import Home from '../Home/Home.js'
 import Index from '../Index/Index.js'
+import Show from '../Show/Show.js'
 
 class App extends Component {
   state = {
@@ -49,9 +50,10 @@ class App extends Component {
     return (
       <React.Fragment>
         <Nav isLoggedIn={this.state.isLoggedIn} toggleForm={this.toggleForm} toggleDropdown={this.toggleDropdown} dropdown={this.state.dropdown} handleLogOut={this.handleLogOut}/>
-        {this.state.form && <Form toggleForm={this.toggleForm} type={this.state.form} remount={this.componentDidMount}/>}
+        {this.state.form && <Form toggleForm={this.toggleForm} form={this.state.form} remount={this.componentDidMount}/>}
         <Switch>
-          <Route path={'/'} render={()=> this.state.isLoggedIn? <Index/> : <Home toggleForm={this.toggleForm}/>}/>
+          <Route path={'/'} render={()=> this.state.isLoggedIn? <Index username={this.state.username}/> : <Home toggleForm={this.toggleForm}/>}/>
+          <Route path={'/:id'} render={<Show/>}/>
         </Switch>
       </React.Fragment>            
     )

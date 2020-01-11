@@ -49,8 +49,8 @@ class Form extends Component {
     render () {
         return (
             <div className="form-container">
-                <form onSubmit={this.props.type === 'signup' ? this.handleSignUp : this.handleLogIn}>
-                    <legend>{this.state.error? this.state.error : this.props.type}</legend>
+                <form onSubmit={this.props.form === 'signup' ? this.handleSignUp : this.handleLogIn}>
+                    <legend>{this.state.error? this.state.error : this.props.form}</legend>
                     <div className="input-container">
                         <label>Username</label>
                         <input type="text" onChange={this.handleChange} id="username"/>
@@ -61,7 +61,7 @@ class Form extends Component {
                     </div>
                     <div className="button-container">
                         <div onClick={this.props.toggleForm} className="cancel" id="">Cancel</div>
-                        <div className="submit" onClick={this.props.type === 'signup' ? this.handleSignUp : this.handleLogIn}>Submit</div>
+                        <div className="submit" onClick={this.props.form === 'signup' ? this.handleSignUp : this.handleLogIn}>Submit</div>
                     </div>
                 </form>
             </div>

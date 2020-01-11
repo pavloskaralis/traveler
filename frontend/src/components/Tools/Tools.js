@@ -1,20 +1,18 @@
 import React, { Component } from 'react'
 import history from '../../history'
 import axios from 'axios'
-import './Index.css'
-import Tools from '../Tools/Tools.js'
+import './Tools.css'
 
-class Index extends Component {
+class Tools extends Component {
     render () {
         return (
-            <div className='index-container'>
-                <Tools/>
+            <div className='tools-container'>
                
             </div>
         )
     }
 }
 
-export default Index
+export default Tools
 
   
