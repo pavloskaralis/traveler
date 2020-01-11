@@ -3,7 +3,7 @@
     position: absolute;
     width: 35%;
     background-color: var(--black);
-    top: 40px;
+    top: 60px;
     right: 0; 
     display: flex;
     flex-direction: column;
