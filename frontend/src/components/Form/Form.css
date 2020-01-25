@@ -79,3 +79,7 @@ label {
     background-color: var(--grayHover);
     transition: .3s; 
 }
+
+.invisible {
+    display: none;
+}

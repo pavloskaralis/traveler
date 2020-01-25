@@ -1,7 +1,17 @@
 import React, { Component } from 'react'
-import history from '../../history'
-import axios from 'axios'
+import logOut from '../../actions/logOut.js'
+import { connect } from 'react-redux'
+import toggleForm from '../../actions/toggleForm.js'
 import './Dropdown.css'
+
+const mapStateToProps = state => {
+    return { isLoggedIn: state.isLoggedIn}
+}
+
+const mapDispatchToProps = {
+    logOut,
+    toggleForm
+}
 
 class Dropdown extends Component {
     render () {
@@ -10,16 +20,21 @@ class Dropdown extends Component {
                 {this.props.isLoggedIn ? 
                     <React.Fragment>
                         <a href='/'>itineraries</a>
-                        <a href='/' onClick={this.props.handleLogOut}>log out</a>
+                        <a href='/' onClick={this.props.logOut}>log out</a>
                     </React.Fragment> : 
                     <React.Fragment>
-                        <a onClick={this.props.toggleForm} id='signup'>sign up</a>
-                        <a onClick={this.props.toggleForm} id='login'>login</a>
-                    </React.Fragment> }
+                        <a onClick={()=> this.props.toggleForm('signup')}>sign up</a>
+                        <a onClick={()=> this.props.toggleForm('login')}>login</a>
+                    </React.Fragment>}
             </div>
         )
     }
 }
+
+Dropdown = connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Dropdown)
 
 export default Dropdown
 

@@ -1,73 +1,63 @@
 import React, { Component } from 'react'
-import history from '../../history'
-import axios from 'axios'
+import { connect } from 'react-redux'
+import toggleForm from '../../actions/toggleForm.js'
+import signUp from '../../actions/signUp.js'
+import logIn from '../../actions/logIn.js'
 import './Form.css'
 
+
+const mapStateToProps = state => {
+    return {
+        form: state.form,
+        error: state.error
+    }
+}
+
+const mapDispatchToProps = {
+    toggleForm,
+    signUp,
+    logIn
+}
+
 class Form extends Component {
-    state = {
-        username: '',
-        password: '',
-        error: ''
-    }
-
-    handleChange = (e) => this.setState({[e.target.id]: e.target.value});
-
-    handleSignUp = (e) => {
-        e.preventDefault();
-        if(this.state.username && this.state.password) {
-            axios.post('http://localhost:3001/user/signup', {
-                username: this.state.username,
-                password: this.state.password
-            }).then(response => {
-                localStorage.token = response.data.token;
-                this.props.remount();
-            }).catch(err => this.setState({
-                username: '',
-                password: '',
-                error: 'Username Already Taken'
-            }))
-        }
-      }
-
-    handleLogIn = (e) => {
-        e.preventDefault();
-        if(this.state.username && this.state.password) {
-            axios.post('http://localhost:3001/user/login', {
-                username: this.state.username,
-                password: this.state.password
-            }).then(response => {
-                localStorage.token = response.data.token;
-                this.props.remount();
-            }).catch(err => this.setState({
-                username: '',
-                password: '',
-                error: 'Invalid Username/Password'
-            }))
-        }
-    }
-
     render () {
+        let username;
+        let password;
+        const submit = e => {
+            e.preventDefault();
+            if(!username.value || !password.value) return;
+            if(this.props.form === 'signup') this.props.signUp(username.value,password.value);
+            if(this.props.form === 'login') this.props.logIn(username.value,password.value);
+            username.value = '';
+            password.value = '';
+        }
         return (
             <div className="form-container">
-                <form onSubmit={this.props.form === 'signup' ? this.handleSignUp : this.handleLogIn}>
-                    <legend>{this.state.error? this.state.error : this.props.form}</legend>
+                <form onSubmit={ submit } >
+                    <legend>{this.props.error? this.props.error : this.props.form}</legend>
                     <div className="input-container">
                         <label>Username</label>
-                        <input type="text" onChange={this.handleChange} id="username"/>
+                        <input type="text" ref={node => username = node}/>
                     </div>
                     <div className="input-container">
                         <label>Password</label>
-                        <input type="text" onChange={this.handleChange} id="password"/>
+                        <input type={this.props.form==="login" ? "password" : "text"} ref={node => password = node}/>
                     </div>
                     <div className="button-container">
-                        <div onClick={this.props.toggleForm} className="cancel" id="">Cancel</div>
-                        <div className="submit" onClick={this.props.form === 'signup' ? this.handleSignUp : this.handleLogIn}>Submit</div>
+                        <div onClick={()=> this.props.toggleForm('')} className="cancel">Cancel</div>
+                        <div type="submit" className="submit" onClick={ submit }>Submit</div>
+                        <input className="invisible" type="submit"/>
                     </div>
                 </form>
             </div>
         )
     }
 }
+
+Form = connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Form)
 
 export default Form
 

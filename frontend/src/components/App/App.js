@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
 import { Route, Switch } from 'react-router-dom'
+import { connect } from 'react-redux'
+import fetchUsername from '../../actions/fetchUsername.js'
+import logOut from '../../actions/logOut.js'
 import history from '../../history'
 import axios from 'axios'
 import './App.css'
@@ -9,56 +12,42 @@ import Home from '../Home/Home.js'
 import Index from '../Index/Index.js'
 import Show from '../Show/Show.js'
 
-class App extends Component {
-  state = {
-    isLoggedIn: false,
-    username: '',
-    form: '',
-    dropdown: false
+const mapStateToProps = state => {
+  return {
+    isLoggedIn: state.isLoggedIn,
+    username: state.username,
+    form: state.form
   }
+}
+const mapDispatchToProps = {
+  fetchUsername,
+  logOut
+}
+
+class App extends Component {
 
   componentDidMount = () => {
-    if(localStorage.token) {
-      axios.get('http://localhost:3001/user/verify/' + localStorage.token)
-      .then(response => this.setState({
-        isLoggedIn: true, 
-        username: response.data.username, 
-        form: '',
-        dropdown: false
-      }));
-    } else {
-      this.setState({isLoggedIn: false})
-    }
+    this.props.fetchUsername();
   }
-
-  handleLogOut = (e) => {
-    e.preventDefault();
-    localStorage.clear();
-    this.setState({
-      isLoggedIn: false,
-      username: '', 
-      dropdown: false
-    });
-    history.push('/')
-  }
-
-  toggleForm = (e) => this.setState({form: e.target.id })
-
-  toggleDropdown = () => this.setState({dropdown: !this.state.dropdown});
 
   render () {
     return (
       <React.Fragment>
-        <Nav isLoggedIn={this.state.isLoggedIn} toggleForm={this.toggleForm} toggleDropdown={this.toggleDropdown} dropdown={this.state.dropdown} handleLogOut={this.handleLogOut}/>
-        {this.state.form && <Form toggleForm={this.toggleForm} form={this.state.form} remount={this.componentDidMount}/>}
+        <Nav/>
+        {this.props.form && <Form/>}
         <Switch>
-          <Route path={'/'} render={()=> this.state.isLoggedIn? <Index username={this.state.username}/> : <Home toggleForm={this.toggleForm}/>}/>
-          <Route path={'/:id'} render={<Show/>}/>
+          <Route path={'/'} render={()=> this.props.isLoggedIn? <Index/> : <Home/>}/>
+          {this.props.isLoggedIn && <Route path={'/:id'} render={()=> <Show/>}/>}
         </Switch>
       </React.Fragment>            
     )
   }
 }
+
+App = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App) 
 
 export default App
 
