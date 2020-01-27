@@ -1,0 +1,2 @@
+class PlanningRow < ApplicationRecord
+end

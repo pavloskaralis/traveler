@@ -1,0 +1,2 @@
+class SchedulingRow < ApplicationRecord
+end

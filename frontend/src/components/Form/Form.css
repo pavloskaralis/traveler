@@ -43,7 +43,7 @@ label {
     justify-content: center;
 }
 
-.form-container .input-container input[type="text"] {
+.input-container input {
     padding: 4px; 
     font-family: 'Georgia';
 }

@@ -19,39 +19,37 @@ const mapDispatchToProps = {
     logIn
 }
 
-class Form extends Component {
-    render () {
-        let username;
-        let password;
-        const submit = e => {
-            e.preventDefault();
-            if(!username.value || !password.value) return;
-            if(this.props.form === 'signup') this.props.signUp(username.value,password.value);
-            if(this.props.form === 'login') this.props.logIn(username.value,password.value);
-            username.value = '';
-            password.value = '';
-        }
-        return (
-            <div className="form-container">
-                <form onSubmit={ submit } >
-                    <legend>{this.props.error? this.props.error : this.props.form}</legend>
-                    <div className="input-container">
-                        <label>Username</label>
-                        <input type="text" ref={node => username = node}/>
-                    </div>
-                    <div className="input-container">
-                        <label>Password</label>
-                        <input type={this.props.form==="login" ? "password" : "text"} ref={node => password = node}/>
-                    </div>
-                    <div className="button-container">
-                        <div onClick={()=> this.props.toggleForm('')} className="cancel">Cancel</div>
-                        <div type="submit" className="submit" onClick={ submit }>Submit</div>
-                        <input className="invisible" type="submit"/>
-                    </div>
-                </form>
-            </div>
-        )
+function Form({form, error, toggleForm, signUp, logIn}) {
+    let username;
+    let password;
+    const submit = e => {
+        e.preventDefault();
+        if(!username.value || !password.value) return;
+        if(form === 'signup') signUp(username.value,password.value);
+        if(form === 'login') logIn(username.value,password.value);
+        username.value = '';
+        password.value = '';
     }
+    return (
+        <div className="form-container">
+            <form onSubmit={ submit } >
+                <legend>{error? error : form}</legend>
+                <div className="input-container">
+                    <label>Username</label>
+                    <input type="text" ref={node => username = node}/>
+                </div>
+                <div className="input-container">
+                    <label>Password</label>
+                    <input type={form==="login" ? "password" : "text"} ref={node => password = node}/>
+                </div>
+                <div className="button-container">
+                    <div onClick={()=> toggleForm('')} className="cancel">Cancel</div>
+                    <div type="submit" className="submit" onClick={ submit }>Submit</div>
+                    <input className="invisible" type="submit"/>
+                </div>
+            </form>
+        </div>
+    )
 }
 
 Form = connect(

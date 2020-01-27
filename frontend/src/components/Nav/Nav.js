@@ -15,20 +15,18 @@ const mapDispatchToProps = {
     toggleDropdown
 }
 
-class Nav extends Component {
-    render () {
-        return (
-            <nav>
-                <h2>Traveler</h2>
-                <div className="dropdown-icon-container" onClick={() => this.props.toggleDropdown(!this.props.dropdown)}>
-                    <span> </span>
-                    <span> </span>
-                    <span> </span>
-                </div>
-                {this.props.dropdown && <Dropdown/>}
-            </nav>
-        )
-    }
+function Nav({dropdown, toggleDropdown}) {
+    return (
+        <nav>
+            <h2>Traveler</h2>
+            <div className="dropdown-icon-container" onClick={() => toggleDropdown(!dropdown)}>
+                <span> </span>
+                <span> </span>
+                <span> </span>
+            </div>
+            {dropdown && <Dropdown/>}
+        </nav>
+    )
 }
 
 Nav = connect(

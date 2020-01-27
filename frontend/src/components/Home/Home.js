@@ -3,17 +3,13 @@ import { connect } from 'react-redux'
 import toggleForm from '../../actions/toggleForm.js'
 import './Home.css'
 
-
-
 const mapDispatchToProps = {
     toggleForm
 }
 
-
-class Home extends Component {
-    render () {
-        return (
-            <React.Fragment>
+function Home({toggleForm}) {
+    return (
+        <React.Fragment>
             <div className="color-overlay"></div>
             <div className="image-overlay"></div>
             <div className="gradient-overlay"></div>
@@ -30,14 +26,13 @@ class Home extends Component {
                     </div>
                     <div className="home-wrap mobile-home-wrap">
                         <div className="button-container">
-                            <div onClick={()=> this.props.toggleForm('signup')} className="sign-up">Sign Up</div>
-                            <div onClick={()=> this.props.toggleForm('login')} className="login">Login</div>
+                            <div onClick={()=> toggleForm('signup')} className="sign-up">Sign Up</div>
+                            <div onClick={()=> toggleForm('login')} className="login">Login</div>
                         </div>
                     </div>
             </div>
-            </React.Fragment>
-        )
-    }
+        </React.Fragment>
+    )
 }
 
 Home = connect(
