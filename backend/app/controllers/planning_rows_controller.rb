@@ -46,6 +46,6 @@ class PlanningRowsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def planning_row_params
-      params.require(:planning_row).permit(:date, :itinerary_id, :activity, :type, :website, :address, :interest)
+      params.require(:planning_row).permit(:itinerary_id, :activity, :type, :website, :address, :interest)
     end
 end

@@ -3,13 +3,15 @@
 one:
   date: MyString
   itinerary_id: 1
+  time: MyString
   activity: MyString
   type: 
-  adress: MyString
+  address: MyString
 
 two:
   date: MyString
   itinerary_id: 1
+  time: MyString
   activity: MyString
   type: 
-  adress: MyString
+  address: MyString

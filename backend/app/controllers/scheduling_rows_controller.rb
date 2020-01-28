@@ -46,6 +46,6 @@ class SchedulingRowsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def scheduling_row_params
-      params.require(:scheduling_row).permit(:date, :itinerary_id, :activity, :type, :adress)
+      params.require(:scheduling_row).permit(:date, :itinerary_id, :time, :activity, :type, :address)
     end
 end

@@ -12,7 +12,7 @@ class PlanningRowsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create planning_row" do
     assert_difference('PlanningRow.count') do
-      post planning_rows_url, params: { planning_row: { activity: @planning_row.activity, address: @planning_row.address, date: @planning_row.date, interest: @planning_row.interest, itinerary_id: @planning_row.itinerary_id, type: @planning_row.type, website: @planning_row.website } }, as: :json
+      post planning_rows_url, params: { planning_row: { activity: @planning_row.activity, address: @planning_row.address, interest: @planning_row.interest, itinerary_id: @planning_row.itinerary_id, type: @planning_row.type, website: @planning_row.website } }, as: :json
     end
 
     assert_response 201
@@ -24,7 +24,7 @@ class PlanningRowsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update planning_row" do
-    patch planning_row_url(@planning_row), params: { planning_row: { activity: @planning_row.activity, address: @planning_row.address, date: @planning_row.date, interest: @planning_row.interest, itinerary_id: @planning_row.itinerary_id, type: @planning_row.type, website: @planning_row.website } }, as: :json
+    patch planning_row_url(@planning_row), params: { planning_row: { activity: @planning_row.activity, address: @planning_row.address, interest: @planning_row.interest, itinerary_id: @planning_row.itinerary_id, type: @planning_row.type, website: @planning_row.website } }, as: :json
     assert_response 200
   end
 

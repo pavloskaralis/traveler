@@ -6,27 +6,19 @@ import toggleDropdown from './toggleDropdown.js'
 
 export default function fetchUsername() {
     return dispatch => {
-        // if(localStorage.token) {
-        //     axios.get('http://localhost:3001/user/verify/' + localStorage.token)
-        //     .then(response => {
-        //         dispatch(setUsername(response.data.username));
-        //         dispatch(toggleLogin(true));
-        //         dispatch(toggleDropdown(false));
-        //     }); 
-        // } else {
-        //     dispatch(toggleLogin(false));
-        // }
-
-        axios.get('http://localhost:3001/logged_in', {withCredentials: true})
-        .then(({data})=> {
-            console.log('this is the data!!!!',data)
-            if (data.logged_in) {
-                dispatch(setUsername(data.user));
+        const token = localStorage.getItem("token");
+        if(token) {
+            axios.get('http://localhost:3001/auto_login', {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }).then(({data}) => {
+                dispatch(setUsername(data.username));
                 dispatch(toggleLogin(true));
                 dispatch(toggleDropdown(false));
-            } else {
-                dispatch(toggleLogin(false));
-            }
-         }).catch(error => console.log('api errors:', error))
+            }); 
+        } else {
+            dispatch(toggleLogin(false));
+        }
     }
 }
