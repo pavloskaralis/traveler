@@ -1,2 +1,0 @@
-class UserItinerary < ApplicationRecord
-end

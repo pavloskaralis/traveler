@@ -1,0 +1,1114 @@
+  [1m[35m (174.9ms)[0m  [1m[35mCREATE DATABASE "traveler_backend_development" ENCODING = 'unicode'[0m
+  [1m[35m (190.8ms)[0m  [1m[35mCREATE DATABASE "traveler_backend_test" ENCODING = 'unicode'[0m
+  [1m[35m (4.2ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[35m (2.5ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_try_advisory_lock(7635286923579269115)[0m
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateUsers (20200129043528)
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (3.4ms)[0m  [1m[35mCREATE TABLE "users" ("id" bigserial primary key, "username" character varying, "password_digest" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (1.5ms)[0m  [1m[35mCREATE UNIQUE INDEX  "index_users_on_username" ON "users"  ("username")[0m
+  [1m[36mprimary::SchemaMigration Create (0.5ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20200129043528"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateItineraries (20200129043534)
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (3.8ms)[0m  [1m[35mCREATE TABLE "itineraries" ("id" bigserial primary key, "location" character varying, "shared" boolean, "dates" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[36mprimary::SchemaMigration Create (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20200129043534"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateUserItineraries (20200129043545)
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (2.7ms)[0m  [1m[35mCREATE TABLE "user_itineraries" ("id" bigserial primary key, "user_id" integer, "itinerary_id" integer, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[36mprimary::SchemaMigration Create (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20200129043545"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreatePlanningRows (20200129043554)
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (3.7ms)[0m  [1m[35mCREATE TABLE "planning_rows" ("id" bigserial primary key, "itinerary_id" integer, "activity" character varying, "type" character varying, "website" character varying, "address" character varying, "interest" integer, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[36mprimary::SchemaMigration Create (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20200129043554"]]
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateSchedulingRows (20200129043613)
+  [1m[35m (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (4.0ms)[0m  [1m[35mCREATE TABLE "scheduling_rows" ("id" bigserial primary key, "date" character varying, "itinerary_id" integer, "time" character varying, "activity" character varying, "type" character varying, "address" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[36mprimary::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20200129043613"]]
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.5ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", "2020-01-29 04:37:44.868694"], ["updated_at", "2020-01-29 04:37:44.868694"]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_advisory_unlock(7635286923579269115)[0m
+  [1m[35m (0.9ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Started GET "/auto_login" for ::1 at 2020-01-28 23:42:01 -0500
+  [1m[35m (0.9ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by AuthController#auto_login as HTML
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 53], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:28:in `session_user'
+Completed 200 OK in 26ms (Views: 0.4ms | ActiveRecord: 2.9ms | Allocations: 5091)
+
+
+Started GET "/auto_login" for ::1 at 2020-01-28 23:42:13 -0500
+Processing by AuthController#auto_login as HTML
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 53], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:28:in `session_user'
+Completed 200 OK in 4ms (Views: 0.2ms | ActiveRecord: 0.5ms | Allocations: 724)
+
+
+Started POST "/users" for ::1 at 2020-01-28 23:42:47 -0500
+Processing by UsersController#create as HTML
+  Parameters: {"username"=>"test", "password"=>"[FILTERED]"}
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/users_controller.rb:8:in `create'
+  [1m[36mUser Create (0.8ms)[0m  [1m[32mINSERT INTO "users" ("username", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["username", "test"], ["password_digest", "$2a$12$MFkJSw7SMl8MVswAfuOrp.YTOy.6Kehf5PaOD.sFdeCEJMRxJ1Vfu"], ["created_at", "2020-01-29 04:42:47.812500"], ["updated_at", "2020-01-29 04:42:47.812500"]]
+  ↳ app/controllers/users_controller.rb:8:in `create'
+  [1m[35m (4.9ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/users_controller.rb:8:in `create'
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT location, dates, shared FROM user_itineraries 
+          JOIN users ON users.id = 46 
+          JOIN itineraries ON itineraries.id = user_itineraries.itinerary_id;[0m
+  ↳ app/controllers/users_controller.rb:15:in `create'
+Completed 201 Created in 256ms (Views: 0.2ms | ActiveRecord: 10.2ms | Allocations: 5430)
+
+
+Started GET "/auto_login" for ::1 at 2020-01-28 23:42:49 -0500
+Processing by AuthController#auto_login as HTML
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:28:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:28:in `session_user'
+Completed 200 OK in 5ms (Views: 0.6ms | ActiveRecord: 0.5ms | Allocations: 1372)
+
+
+Started POST "/users" for ::1 at 2020-01-28 23:42:55 -0500
+Processing by UsersController#create as HTML
+  Parameters: {"username"=>"test", "password"=>"[FILTERED]"}
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/users_controller.rb:8:in `create'
+  [1m[36mUser Create (0.8ms)[0m  [1m[32mINSERT INTO "users" ("username", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["username", "test"], ["password_digest", "$2a$12$qbOX/r8H6aNrxviOtFY9GOpcn.qUnWkDbcnmUC8sl8onp6kaOfMVi"], ["created_at", "2020-01-29 04:42:55.787762"], ["updated_at", "2020-01-29 04:42:55.787762"]]
+  ↳ app/controllers/users_controller.rb:8:in `create'
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  ↳ app/controllers/users_controller.rb:8:in `create'
+Completed 500 Internal Server Error in 245ms (ActiveRecord: 1.2ms | Allocations: 2352)
+
+
+  
+ActiveRecord::RecordNotUnique (PG::UniqueViolation: ERROR:  duplicate key value violates unique constraint "index_users_on_username"
+DETAIL:  Key (username)=(test) already exists.
+):
+  
+app/controllers/users_controller.rb:8:in `create'
+Started POST "/login" for ::1 at 2020-01-28 23:43:01 -0500
+Processing by AuthController#login as HTML
+  Parameters: {"username"=>"test", "password"=>"[FILTERED]"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "test"], ["LIMIT", 1]]
+  ↳ app/controllers/concerns/auth_controller.rb:6:in `login'
+  [1m[36mUserItinerary Load (0.3ms)[0m  [1m[34mSELECT "location", "dates", "shared" FROM "user_itineraries" INNER JOIN "users" ON "users"."id" = 1 INNER JOIN "itineraries" ON "itineraries"."id" = "user_itineraries"."itinerary_id"[0m
+  ↳ app/controllers/concerns/auth_controller.rb:18:in `login'
+Completed 200 OK in 248ms (Views: 6.3ms | ActiveRecord: 1.5ms | Allocations: 5073)
+
+
+Started GET "/auto_login" for ::1 at 2020-01-28 23:43:03 -0500
+Processing by AuthController#auto_login as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:28:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:28:in `session_user'
+Completed 200 OK in 6ms (Views: 1.0ms | ActiveRecord: 0.5ms | Allocations: 1330)
+
+
+Started GET "/auto_login" for ::1 at 2020-01-28 23:43:04 -0500
+Processing by AuthController#auto_login as HTML
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:28:in `session_user'
+  [1m[36mCACHE User Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:28:in `session_user'
+Completed 200 OK in 4ms (Views: 0.3ms | ActiveRecord: 0.5ms | Allocations: 1330)
+
+
+Started POST "/login" for ::1 at 2020-01-29 11:55:04 -0500
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by AuthController#login as HTML
+  Parameters: {"username"=>"test", "password"=>"[FILTERED]"}
+Completed 500 Internal Server Error in 11ms (ActiveRecord: 0.0ms | Allocations: 5411)
+
+
+  
+NoMethodError (undefined method `many' for #<Class:0x00007fec4493fdb8>
+Did you mean?  many?):
+  
+app/models/user.rb:4:in `<class:User>'
+app/models/user.rb:1:in `<main>'
+app/controllers/auth_controller.rb:6:in `login'
+Started POST "/users" for ::1 at 2020-01-29 11:55:09 -0500
+Processing by UsersController#create as HTML
+  Parameters: {"username"=>"test", "password"=>"[FILTERED]"}
+Completed 500 Internal Server Error in 6ms (ActiveRecord: 0.0ms | Allocations: 4232)
+
+
+  
+NoMethodError (undefined method `many' for #<Class:0x00007fec4493fdb8>
+Did you mean?  many?):
+  
+app/models/user.rb:4:in `<class:User>'
+app/models/user.rb:1:in `<main>'
+app/controllers/users_controller.rb:6:in `create'
+Started POST "/login" for ::1 at 2020-01-29 11:55:35 -0500
+Processing by AuthController#login as HTML
+  Parameters: {"username"=>"test", "password"=>"[FILTERED]"}
+Completed 500 Internal Server Error in 12ms (ActiveRecord: 0.0ms | Allocations: 5367)
+
+
+  
+NoMethodError (undefined method `many' for #<Class:0x00007fec4493fdb8>
+Did you mean?  many?):
+  
+app/models/user.rb:4:in `<class:User>'
+app/models/user.rb:1:in `<main>'
+app/controllers/auth_controller.rb:6:in `login'
+Started POST "/login" for ::1 at 2020-01-29 11:56:13 -0500
+Processing by AuthController#login as HTML
+  Parameters: {"username"=>"test", "password"=>"[FILTERED]"}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "test"], ["LIMIT", 1]]
+  ↳ app/controllers/auth_controller.rb:6:in `login'
+  [1m[36mUserItinerary Load (0.7ms)[0m  [1m[34mSELECT "location", "dates", "shared" FROM "user_itineraries" INNER JOIN "users" ON "users"."id" = 1 INNER JOIN "itineraries" ON "itineraries"."id" = "user_itineraries"."itinerary_id"[0m
+  ↳ app/controllers/auth_controller.rb:18:in `login'
+Completed 200 OK in 249ms (Views: 2.9ms | ActiveRecord: 6.3ms | Allocations: 9132)
+
+
+  [1m[36mUser Load (1.1ms)[0m  [1m[34mSELECT "users".* FROM "users" LIMIT $1[0m  [["LIMIT", 11]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mItinerary Create (8.0ms)[0m  [1m[32mINSERT INTO "itineraries" ("location", "shared", "dates", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["location", "Greece"], ["shared", true], ["dates", "[\"12/12\", \"12/13\", \"12/14\"]"], ["created_at", "2020-01-29 16:57:41.677579"], ["updated_at", "2020-01-29 16:57:41.677579"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mItinerary Load (0.3ms)[0m  [1m[34mSELECT "itineraries".* FROM "itineraries" WHERE "itineraries"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mUserItinerary Create (0.6ms)[0m  [1m[32mINSERT INTO "user_itineraries" ("user_id", "itinerary_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["user_id", 1], ["itinerary_id", 1], ["created_at", "2020-01-29 16:58:04.562079"], ["updated_at", "2020-01-29 16:58:04.562079"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+Started GET "/auto_login" for ::1 at 2020-01-29 11:58:12 -0500
+Processing by AuthController#auto_login as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:28:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:28:in `session_user'
+Completed 200 OK in 25ms (Views: 0.8ms | ActiveRecord: 6.3ms | Allocations: 5289)
+
+
+Started GET "/auto_login" for ::1 at 2020-01-29 11:58:36 -0500
+Processing by AuthController#auto_login as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:28:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:28:in `session_user'
+Completed 200 OK in 5ms (Views: 0.9ms | ActiveRecord: 0.4ms | Allocations: 1341)
+
+
+Started GET "/auto_login" for ::1 at 2020-01-29 12:01:44 -0500
+Processing by AuthController#auto_login as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:28:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:28:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:28:in `session_user'
+Completed 200 OK in 15ms (Views: 0.3ms | ActiveRecord: 3.2ms | Allocations: 5866)
+
+
+Started GET "/auto_login" for ::1 at 2020-01-29 12:01:55 -0500
+Processing by AuthController#auto_login as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:28:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:28:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:28:in `session_user'
+Completed 200 OK in 18ms (Views: 0.4ms | ActiveRecord: 3.6ms | Allocations: 5861)
+
+
+Started GET "/auto_login" for ::1 at 2020-01-29 12:02:22 -0500
+Processing by AuthController#auto_login as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:28:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:28:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:28:in `session_user'
+Completed 200 OK in 23ms (Views: 0.4ms | ActiveRecord: 5.0ms | Allocations: 5856)
+
+
+Started GET "/auto_login" for ::1 at 2020-01-29 12:02:29 -0500
+Processing by AuthController#auto_login as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:28:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:28:in `session_user'
+Completed 200 OK in 15ms (Views: 0.3ms | ActiveRecord: 3.6ms | Allocations: 5249)
+
+
+Started GET "/auto_login" for ::1 at 2020-01-29 12:03:09 -0500
+Processing by AuthController#auto_login as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:28:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:28:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:28:in `session_user'
+Completed 200 OK in 18ms (Views: 0.3ms | ActiveRecord: 3.8ms | Allocations: 5804)
+
+
+Started GET "/auto_login" for ::1 at 2020-01-29 12:03:28 -0500
+Processing by AuthController#auto_login as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:28:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:28:in `session_user'
+  [1m[36mItinerary Load (0.3ms)[0m  [1m[34mSELECT "itineraries".* FROM "itineraries" INNER JOIN "user_itineraries" ON "itineraries"."id" = "user_itineraries"."itinerary_id" WHERE "user_itineraries"."user_id" = $1 LIMIT $2[0m  [["user_id", 1], ["LIMIT", 11]]
+  ↳ app/controllers/auth_controller.rb:20:in `p'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:28:in `session_user'
+Completed 200 OK in 60ms (Views: 0.3ms | ActiveRecord: 9.2ms | Allocations: 15480)
+
+
+Started GET "/auto_login" for ::1 at 2020-01-29 12:10:40 -0500
+Processing by AuthController#auto_login as HTML
+  [1m[36mUser Load (1.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:28:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:28:in `session_user'
+  [1m[36mItinerary Load (1.3ms)[0m  [1m[34mSELECT "itineraries".* FROM "itineraries" INNER JOIN "user_itineraries" ON "itineraries"."id" = "user_itineraries"."itinerary_id" WHERE "user_itineraries"."user_id" = $1 LIMIT $2[0m  [["user_id", 1], ["LIMIT", 11]]
+  ↳ app/controllers/auth_controller.rb:20:in `p'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:28:in `session_user'
+Completed 200 OK in 20ms (Views: 0.5ms | ActiveRecord: 2.8ms | Allocations: 2940)
+
+
+Started GET "/auto_login" for ::1 at 2020-01-29 12:10:53 -0500
+Processing by AuthController#auto_login as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:28:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:28:in `session_user'
+  [1m[36mItinerary Load (0.5ms)[0m  [1m[34mSELECT "itineraries".* FROM "itineraries" INNER JOIN "user_itineraries" ON "itineraries"."id" = "user_itineraries"."itinerary_id" WHERE "user_itineraries"."user_id" = $1 LIMIT $2[0m  [["user_id", 1], ["LIMIT", 11]]
+  ↳ app/controllers/auth_controller.rb:20:in `p'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:28:in `session_user'
+Completed 200 OK in 12ms (Views: 0.6ms | ActiveRecord: 0.9ms | Allocations: 2816)
+
+
+Started GET "/auto_login" for ::1 at 2020-01-29 12:11:00 -0500
+Processing by AuthController#auto_login as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:28:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:28:in `session_user'
+  [1m[36mItinerary Load (0.5ms)[0m  [1m[34mSELECT "itineraries".* FROM "itineraries" INNER JOIN "user_itineraries" ON "itineraries"."id" = "user_itineraries"."itinerary_id" WHERE "user_itineraries"."user_id" = $1 LIMIT $2[0m  [["user_id", 1], ["LIMIT", 11]]
+  ↳ app/controllers/auth_controller.rb:20:in `p'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:28:in `session_user'
+Completed 200 OK in 15ms (Views: 0.4ms | ActiveRecord: 0.9ms | Allocations: 2816)
+
+
+Started GET "/auto_login" for ::1 at 2020-01-29 12:13:04 -0500
+Processing by AuthController#auto_login as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:28:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:28:in `session_user'
+  [1m[36mItinerary Load (0.5ms)[0m  [1m[34mSELECT "itineraries".* FROM "itineraries" INNER JOIN "user_itineraries" ON "itineraries"."id" = "user_itineraries"."itinerary_id" WHERE "user_itineraries"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/controllers/auth_controller.rb:19:in `auto_login'
+Completed 200 OK in 39ms (Views: 0.1ms | ActiveRecord: 11.7ms | Allocations: 11657)
+
+
+Started GET "/auto_login" for ::1 at 2020-01-29 12:13:34 -0500
+Processing by AuthController#auto_login as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:28:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:28:in `session_user'
+  [1m[36mItinerary Load (1.2ms)[0m  [1m[34mSELECT "itineraries".* FROM "itineraries" INNER JOIN "user_itineraries" ON "itineraries"."id" = "user_itineraries"."itinerary_id" WHERE "user_itineraries"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/controllers/auth_controller.rb:19:in `auto_login'
+Completed 200 OK in 8ms (Views: 0.1ms | ActiveRecord: 1.6ms | Allocations: 2370)
+
+
+Started GET "/auto_login" for ::1 at 2020-01-29 12:13:59 -0500
+Processing by AuthController#auto_login as HTML
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:28:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:28:in `session_user'
+  [1m[36mItinerary Load (0.8ms)[0m  [1m[34mSELECT "itineraries".* FROM "itineraries" INNER JOIN "user_itineraries" ON "itineraries"."id" = "user_itineraries"."itinerary_id" WHERE "user_itineraries"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/controllers/auth_controller.rb:19:in `auto_login'
+Completed 200 OK in 7ms (Views: 0.1ms | ActiveRecord: 1.6ms | Allocations: 2369)
+
+
+Started GET "/auto_login" for ::1 at 2020-01-29 12:14:26 -0500
+Processing by AuthController#auto_login as HTML
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:28:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:28:in `session_user'
+  [1m[36mItinerary Load (1.6ms)[0m  [1m[34mSELECT "itineraries".* FROM "itineraries" INNER JOIN "user_itineraries" ON "itineraries"."id" = "user_itineraries"."itinerary_id" WHERE "user_itineraries"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/controllers/auth_controller.rb:19:in `auto_login'
+Completed 200 OK in 10ms (Views: 0.2ms | ActiveRecord: 2.3ms | Allocations: 2369)
+
+
+Started GET "/auto_login" for ::1 at 2020-01-29 12:15:10 -0500
+Processing by AuthController#auto_login as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:28:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:28:in `session_user'
+  [1m[36mItinerary Load (0.7ms)[0m  [1m[34mSELECT "itineraries".* FROM "itineraries" INNER JOIN "user_itineraries" ON "itineraries"."id" = "user_itineraries"."itinerary_id" WHERE "user_itineraries"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/controllers/auth_controller.rb:19:in `auto_login'
+Completed 200 OK in 6ms (Views: 0.1ms | ActiveRecord: 1.0ms | Allocations: 2369)
+
+
+Started GET "/auto_login" for ::1 at 2020-01-29 12:15:16 -0500
+Processing by AuthController#auto_login as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:28:in `session_user'
+  [1m[36mCACHE User Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:28:in `session_user'
+  [1m[36mItinerary Load (0.5ms)[0m  [1m[34mSELECT "itineraries".* FROM "itineraries" INNER JOIN "user_itineraries" ON "itineraries"."id" = "user_itineraries"."itinerary_id" WHERE "user_itineraries"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/controllers/auth_controller.rb:19:in `auto_login'
+Completed 200 OK in 7ms (Views: 0.2ms | ActiveRecord: 0.8ms | Allocations: 2369)
+
+
+Started POST "/users" for ::1 at 2020-01-29 12:15:38 -0500
+Processing by UsersController#create as HTML
+  Parameters: {"username"=>"aaa", "password"=>"[FILTERED]"}
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/users_controller.rb:9:in `create'
+  [1m[36mUser Create (0.6ms)[0m  [1m[32mINSERT INTO "users" ("username", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["username", "aaa"], ["password_digest", "$2a$12$VnyR8GBXvbLXmvb62ZiW4.bdsp17kN7S8PU7JvOZ6DtI0SZZUZOm6"], ["created_at", "2020-01-29 17:15:38.514813"], ["updated_at", "2020-01-29 17:15:38.514813"]]
+  ↳ app/controllers/users_controller.rb:9:in `create'
+  [1m[35m (5.8ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/users_controller.rb:9:in `create'
+Completed 500 Internal Server Error in 332ms (ActiveRecord: 6.6ms | Allocations: 62486)
+
+
+  
+NameError (undefined local variable or method `itineraries' for #<UsersController:0x00007fec48cf6d40>
+Did you mean?  itineraries_url):
+  
+app/controllers/users_controller.rb:13:in `create'
+Started POST "/users" for ::1 at 2020-01-29 12:16:03 -0500
+Processing by UsersController#create as HTML
+  Parameters: {"username"=>"abc", "password"=>"[FILTERED]"}
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/users_controller.rb:9:in `create'
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO "users" ("username", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["username", "abc"], ["password_digest", "$2a$12$5tSY3TmHxf1bS0BC6tqdMe4WcHRVZPdl4oLWO3bSsno/MIH9Gv8Cq"], ["created_at", "2020-01-29 17:16:03.233421"], ["updated_at", "2020-01-29 17:16:03.233421"]]
+  ↳ app/controllers/users_controller.rb:9:in `create'
+  [1m[35m (5.7ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/users_controller.rb:9:in `create'
+Completed 500 Internal Server Error in 318ms (ActiveRecord: 6.2ms | Allocations: 62125)
+
+
+  
+NameError (undefined local variable or method `itineraries' for #<UsersController:0x00007fec449ea678>
+Did you mean?  itineraries_url):
+  
+app/controllers/users_controller.rb:13:in `create'
+Started POST "/users" for ::1 at 2020-01-29 12:16:29 -0500
+Processing by UsersController#create as HTML
+  Parameters: {"username"=>"123", "password"=>"[FILTERED]"}
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/users_controller.rb:9:in `create'
+  [1m[36mUser Create (0.4ms)[0m  [1m[32mINSERT INTO "users" ("username", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["username", "123"], ["password_digest", "$2a$12$FAt8e7h8HUwGyH7DLBjW3eN3hqgIQAs9C4MrWRnZSt9nIb6LJpv.m"], ["created_at", "2020-01-29 17:16:29.459625"], ["updated_at", "2020-01-29 17:16:29.459625"]]
+  ↳ app/controllers/users_controller.rb:9:in `create'
+  [1m[35m (5.9ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/users_controller.rb:9:in `create'
+Completed 201 Created in 246ms (Views: 0.2ms | ActiveRecord: 9.0ms | Allocations: 6375)
+
+
+Started GET "/auto_login" for ::1 at 2020-01-29 12:16:37 -0500
+Processing by AuthController#auto_login as HTML
+  [1m[36mUser Load (2.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:28:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:28:in `session_user'
+  [1m[36mItinerary Load (0.3ms)[0m  [1m[34mSELECT "itineraries".* FROM "itineraries" INNER JOIN "user_itineraries" ON "itineraries"."id" = "user_itineraries"."itinerary_id" WHERE "user_itineraries"."user_id" = $1[0m  [["user_id", 5]]
+  ↳ app/controllers/auth_controller.rb:19:in `auto_login'
+Completed 200 OK in 26ms (Views: 0.1ms | ActiveRecord: 7.8ms | Allocations: 5155)
+
+
+Started GET "/auto_login" for ::1 at 2020-01-29 12:19:59 -0500
+Processing by AuthController#auto_login as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:28:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:28:in `session_user'
+  [1m[36mItinerary Load (0.2ms)[0m  [1m[34mSELECT "itineraries".* FROM "itineraries" INNER JOIN "user_itineraries" ON "itineraries"."id" = "user_itineraries"."itinerary_id" WHERE "user_itineraries"."user_id" = $1[0m  [["user_id", 5]]
+  ↳ app/controllers/auth_controller.rb:19:in `auto_login'
+Completed 200 OK in 6ms (Views: 0.1ms | ActiveRecord: 0.6ms | Allocations: 2255)
+
+
+Started GET "/auto_login" for ::1 at 2020-01-29 12:20:11 -0500
+Processing by AuthController#auto_login as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:28:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:28:in `session_user'
+  [1m[36mItinerary Load (0.8ms)[0m  [1m[34mSELECT "itineraries".* FROM "itineraries" INNER JOIN "user_itineraries" ON "itineraries"."id" = "user_itineraries"."itinerary_id" WHERE "user_itineraries"."user_id" = $1[0m  [["user_id", 5]]
+  ↳ app/controllers/auth_controller.rb:19:in `auto_login'
+Completed 200 OK in 7ms (Views: 0.2ms | ActiveRecord: 1.1ms | Allocations: 2255)
+
+
+Started GET "/auto_login" for ::1 at 2020-01-29 12:20:23 -0500
+Processing by AuthController#auto_login as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:28:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:28:in `session_user'
+  [1m[36mItinerary Load (0.3ms)[0m  [1m[34mSELECT "itineraries".* FROM "itineraries" INNER JOIN "user_itineraries" ON "itineraries"."id" = "user_itineraries"."itinerary_id" WHERE "user_itineraries"."user_id" = $1[0m  [["user_id", 5]]
+  ↳ app/controllers/auth_controller.rb:19:in `auto_login'
+Completed 200 OK in 5ms (Views: 0.1ms | ActiveRecord: 0.6ms | Allocations: 2255)
+
+
+Started GET "/auto_login" for ::1 at 2020-01-29 12:20:32 -0500
+Processing by AuthController#auto_login as HTML
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:28:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:28:in `session_user'
+  [1m[36mItinerary Load (3.7ms)[0m  [1m[34mSELECT "itineraries".* FROM "itineraries" INNER JOIN "user_itineraries" ON "itineraries"."id" = "user_itineraries"."itinerary_id" WHERE "user_itineraries"."user_id" = $1[0m  [["user_id", 5]]
+  ↳ app/controllers/auth_controller.rb:19:in `auto_login'
+Completed 200 OK in 12ms (Views: 0.2ms | ActiveRecord: 4.4ms | Allocations: 2255)
+
+
+Started POST "/users" for ::1 at 2020-01-29 12:20:55 -0500
+Processing by UsersController#create as HTML
+  Parameters: {"username"=>"vvv", "password"=>"[FILTERED]"}
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/users_controller.rb:9:in `create'
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO "users" ("username", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["username", "vvv"], ["password_digest", "$2a$12$tsvaBGDBbFnhwTWlOKp1ruB9jXqoAx5P6HPCdVxPUGNfbhKPkmSHi"], ["created_at", "2020-01-29 17:20:55.521525"], ["updated_at", "2020-01-29 17:20:55.521525"]]
+  ↳ app/controllers/users_controller.rb:9:in `create'
+  [1m[35m (5.7ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/users_controller.rb:9:in `create'
+Completed 201 Created in 244ms (Views: 0.1ms | ActiveRecord: 6.2ms | Allocations: 2373)
+
+
+Started GET "/auto_login" for ::1 at 2020-01-29 12:31:41 -0500
+Processing by AuthController#auto_login as HTML
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:28:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:28:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:28:in `session_user'
+  [1m[36mItinerary Load (0.6ms)[0m  [1m[34mSELECT "itineraries".* FROM "itineraries" INNER JOIN "user_itineraries" ON "itineraries"."id" = "user_itineraries"."itinerary_id" WHERE "user_itineraries"."user_id" = $1[0m  [["user_id", 6]]
+  ↳ app/controllers/auth_controller.rb:19:in `auto_login'
+Completed 200 OK in 20ms (Views: 3.4ms | ActiveRecord: 1.3ms | Allocations: 9152)
+
+
+Started POST "/login" for ::1 at 2020-01-29 12:31:53 -0500
+Processing by AuthController#login as HTML
+  Parameters: {"username"=>"test", "password"=>"[FILTERED]"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "test"], ["LIMIT", 1]]
+  ↳ app/controllers/auth_controller.rb:6:in `login'
+  [1m[36mItinerary Load (0.4ms)[0m  [1m[34mSELECT "itineraries".* FROM "itineraries" INNER JOIN "user_itineraries" ON "itineraries"."id" = "user_itineraries"."itinerary_id" WHERE "user_itineraries"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/controllers/auth_controller.rb:11:in `login'
+Completed 200 OK in 230ms (Views: 6.0ms | ActiveRecord: 0.7ms | Allocations: 4488)
+
+
+Started GET "/auto_login" for ::1 at 2020-01-29 12:32:54 -0500
+Processing by AuthController#auto_login as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:28:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:28:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:28:in `session_user'
+  [1m[36mItinerary Load (0.4ms)[0m  [1m[34mSELECT "itineraries".* FROM "itineraries" INNER JOIN "user_itineraries" ON "itineraries"."id" = "user_itineraries"."itinerary_id" WHERE "user_itineraries"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/controllers/auth_controller.rb:19:in `auto_login'
+Completed 200 OK in 8ms (Views: 2.5ms | ActiveRecord: 0.9ms | Allocations: 2932)
+
+
+Started GET "/auto_login" for ::1 at 2020-01-29 12:33:11 -0500
+Processing by AuthController#auto_login as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:28:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:28:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:28:in `session_user'
+  [1m[36mItinerary Load (0.6ms)[0m  [1m[34mSELECT "itineraries".* FROM "itineraries" INNER JOIN "user_itineraries" ON "itineraries"."id" = "user_itineraries"."itinerary_id" WHERE "user_itineraries"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/controllers/auth_controller.rb:19:in `auto_login'
+Completed 200 OK in 8ms (Views: 3.7ms | ActiveRecord: 1.1ms | Allocations: 2932)
+
+
+Started GET "/auto_login" for ::1 at 2020-01-29 12:33:33 -0500
+Processing by AuthController#auto_login as HTML
+  [1m[36mUser Load (1.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:28:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:28:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:28:in `session_user'
+  [1m[36mItinerary Load (0.4ms)[0m  [1m[34mSELECT "itineraries".* FROM "itineraries" INNER JOIN "user_itineraries" ON "itineraries"."id" = "user_itineraries"."itinerary_id" WHERE "user_itineraries"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/controllers/auth_controller.rb:19:in `auto_login'
+Completed 200 OK in 15ms (Views: 8.5ms | ActiveRecord: 1.7ms | Allocations: 2933)
+
+
+Started POST "/login" for ::1 at 2020-01-29 12:33:43 -0500
+Processing by AuthController#login as HTML
+  Parameters: {"username"=>"test", "password"=>"[FILTERED]"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "test"], ["LIMIT", 1]]
+  ↳ app/controllers/auth_controller.rb:6:in `login'
+  [1m[36mItinerary Load (0.4ms)[0m  [1m[34mSELECT "itineraries".* FROM "itineraries" INNER JOIN "user_itineraries" ON "itineraries"."id" = "user_itineraries"."itinerary_id" WHERE "user_itineraries"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/controllers/auth_controller.rb:11:in `login'
+Completed 200 OK in 226ms (Views: 1.7ms | ActiveRecord: 0.8ms | Allocations: 1878)
+
+
+Started POST "/users" for ::1 at 2020-01-29 12:33:54 -0500
+Processing by UsersController#create as HTML
+  Parameters: {"username"=>"cc", "password"=>"[FILTERED]"}
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/users_controller.rb:9:in `create'
+  [1m[36mUser Create (0.7ms)[0m  [1m[32mINSERT INTO "users" ("username", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["username", "cc"], ["password_digest", "$2a$12$u34goc94xbu1PyjxRI6kce5aAo180eBOLMqX/sHokMU/c/WafhYeW"], ["created_at", "2020-01-29 17:33:54.998172"], ["updated_at", "2020-01-29 17:33:54.998172"]]
+  ↳ app/controllers/users_controller.rb:9:in `create'
+  [1m[35m (5.9ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/users_controller.rb:9:in `create'
+Completed 201 Created in 232ms (Views: 0.2ms | ActiveRecord: 6.7ms | Allocations: 2556)
+
+
+Started POST "/login" for ::1 at 2020-01-29 16:51:14 -0500
+  
+SyntaxError (/Users/pavloskaralis/Desktop/traveler/traveler_backend/app/controllers/auth_controller.rb:13: syntax error, unexpected tLABEL, expecting `do' or '{' or '('
+...      render json: render json: {status: 422} 
+...                          ^~~~~
+):
+  
+app/controllers/auth_controller.rb:13: syntax error, unexpected tLABEL, expecting `do' or '{' or '('
+app/controllers/auth_controller.rb:13: syntax error, unexpected tLABEL, expecting `do' or '{' or '('
+Started POST "/login" for ::1 at 2020-01-29 16:52:27 -0500
+Processing by AuthController#login as HTML
+  Parameters: {"username"=>"123", "password"=>"[FILTERED]"}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "123"], ["LIMIT", 1]]
+  ↳ app/controllers/auth_controller.rb:6:in `login'
+  [1m[36mItinerary Load (0.4ms)[0m  [1m[34mSELECT "itineraries".* FROM "itineraries" INNER JOIN "user_itineraries" ON "itineraries"."id" = "user_itineraries"."itinerary_id" WHERE "user_itineraries"."user_id" = $1[0m  [["user_id", 5]]
+  ↳ app/controllers/auth_controller.rb:11:in `login'
+Completed 200 OK in 238ms (Views: 3.0ms | ActiveRecord: 9.3ms | Allocations: 8677)
+
+
+Started POST "/users" for ::1 at 2020-01-29 16:53:47 -0500
+Processing by UsersController#create as HTML
+  Parameters: {"username"=>"testing", "password"=>"[FILTERED]"}
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/users_controller.rb:9:in `create'
+  [1m[36mUser Create (0.7ms)[0m  [1m[32mINSERT INTO "users" ("username", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["username", "testing"], ["password_digest", "$2a$12$QaLQbGckD3QcTPeYNLADmeC3F30c4nbn5fco0ASV3cMykvVwAobti"], ["created_at", "2020-01-29 21:53:47.556565"], ["updated_at", "2020-01-29 21:53:47.556565"]]
+  ↳ app/controllers/users_controller.rb:9:in `create'
+  [1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/users_controller.rb:9:in `create'
+Completed 201 Created in 249ms (Views: 0.2ms | ActiveRecord: 1.5ms | Allocations: 2553)
+
+
+Started POST "/users" for ::1 at 2020-01-29 16:54:38 -0500
+Processing by UsersController#create as HTML
+  Parameters: {"username"=>"123", "password"=>"[FILTERED]"}
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/users_controller.rb:9:in `create'
+  [1m[36mUser Create (6.4ms)[0m  [1m[32mINSERT INTO "users" ("username", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["username", "123"], ["password_digest", "$2a$12$P/dusiNza/v3MN3iv/3rEORBIhtH3vOLwlPH4LSBV7eOL95XkWmGa"], ["created_at", "2020-01-29 21:54:38.841716"], ["updated_at", "2020-01-29 21:54:38.841716"]]
+  ↳ app/controllers/users_controller.rb:9:in `create'
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  ↳ app/controllers/users_controller.rb:9:in `create'
+Completed 500 Internal Server Error in 244ms (ActiveRecord: 6.7ms | Allocations: 2340)
+
+
+  
+ActiveRecord::RecordNotUnique (PG::UniqueViolation: ERROR:  duplicate key value violates unique constraint "index_users_on_username"
+DETAIL:  Key (username)=(123) already exists.
+):
+  
+app/controllers/users_controller.rb:9:in `create'
+Started POST "/users" for ::1 at 2020-01-29 16:54:43 -0500
+Processing by UsersController#create as HTML
+  Parameters: {"username"=>"avv", "password"=>"[FILTERED]"}
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/users_controller.rb:9:in `create'
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO "users" ("username", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["username", "avv"], ["password_digest", "$2a$12$nX4HZ1kEO1gqf8Udrjex6.IwAbWriPl5ZNr93xDj3VOsNYBenAI5y"], ["created_at", "2020-01-29 21:54:44.043771"], ["updated_at", "2020-01-29 21:54:44.043771"]]
+  ↳ app/controllers/users_controller.rb:9:in `create'
+  [1m[35m (5.7ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/users_controller.rb:9:in `create'
+Completed 201 Created in 241ms (Views: 0.2ms | ActiveRecord: 6.2ms | Allocations: 2366)
+
+
+Started POST "/users" for ::1 at 2020-01-29 16:55:09 -0500
+Processing by UsersController#create as HTML
+  Parameters: {"username"=>"sfdfsd", "password"=>"[FILTERED]"}
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/users_controller.rb:9:in `create'
+  [1m[36mUser Create (0.4ms)[0m  [1m[32mINSERT INTO "users" ("username", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["username", "sfdfsd"], ["password_digest", "$2a$12$nVRSLXbgU/PrtsILWHm0EO.hakRtl1H9ZtS2b8mFZvfxhwqBvYzLy"], ["created_at", "2020-01-29 21:55:09.756671"], ["updated_at", "2020-01-29 21:55:09.756671"]]
+  ↳ app/controllers/users_controller.rb:9:in `create'
+  [1m[35m (5.9ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/users_controller.rb:9:in `create'
+Completed 201 Created in 241ms (Views: 0.2ms | ActiveRecord: 6.4ms | Allocations: 2365)
+
+
+Started GET "/auto_login" for ::1 at 2020-01-29 16:55:09 -0500
+Processing by AuthController#auto_login as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 11], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:28:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 11], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:28:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 11], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:28:in `session_user'
+  [1m[36mItinerary Load (0.4ms)[0m  [1m[34mSELECT "itineraries".* FROM "itineraries" INNER JOIN "user_itineraries" ON "itineraries"."id" = "user_itineraries"."itinerary_id" WHERE "user_itineraries"."user_id" = $1[0m  [["user_id", 11]]
+  ↳ app/controllers/auth_controller.rb:19:in `auto_login'
+Completed 200 OK in 6ms (Views: 1.8ms | ActiveRecord: 0.8ms | Allocations: 2926)
+
+
+Started GET "/auto_login" for ::1 at 2020-01-29 16:55:45 -0500
+Processing by AuthController#auto_login as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 11], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:28:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 11], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:28:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 11], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:28:in `session_user'
+  [1m[36mItinerary Load (0.4ms)[0m  [1m[34mSELECT "itineraries".* FROM "itineraries" INNER JOIN "user_itineraries" ON "itineraries"."id" = "user_itineraries"."itinerary_id" WHERE "user_itineraries"."user_id" = $1[0m  [["user_id", 11]]
+  ↳ app/controllers/auth_controller.rb:19:in `auto_login'
+Completed 200 OK in 7ms (Views: 2.0ms | ActiveRecord: 0.9ms | Allocations: 2817)
+
+
+Started GET "/auto_login" for ::1 at 2020-01-29 16:56:00 -0500
+Processing by AuthController#auto_login as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 11], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:28:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 11], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:28:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 11], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:28:in `session_user'
+  [1m[36mItinerary Load (0.4ms)[0m  [1m[34mSELECT "itineraries".* FROM "itineraries" INNER JOIN "user_itineraries" ON "itineraries"."id" = "user_itineraries"."itinerary_id" WHERE "user_itineraries"."user_id" = $1[0m  [["user_id", 11]]
+  ↳ app/controllers/auth_controller.rb:19:in `auto_login'
+Completed 200 OK in 5ms (Views: 1.5ms | ActiveRecord: 0.8ms | Allocations: 2817)
+
+
+Started GET "/auto_login" for ::1 at 2020-01-29 16:56:27 -0500
+Processing by AuthController#auto_login as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 11], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:28:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 11], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:28:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 11], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:28:in `session_user'
+  [1m[36mItinerary Load (0.5ms)[0m  [1m[34mSELECT "itineraries".* FROM "itineraries" INNER JOIN "user_itineraries" ON "itineraries"."id" = "user_itineraries"."itinerary_id" WHERE "user_itineraries"."user_id" = $1[0m  [["user_id", 11]]
+  ↳ app/controllers/auth_controller.rb:19:in `auto_login'
+Completed 200 OK in 5ms (Views: 1.6ms | ActiveRecord: 0.8ms | Allocations: 2817)
+
+
+Started GET "/auto_login" for ::1 at 2020-01-29 16:56:39 -0500
+Processing by AuthController#auto_login as HTML
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 11], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:28:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 11], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:28:in `session_user'
+  [1m[36mCACHE User Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 11], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:28:in `session_user'
+  [1m[36mItinerary Load (1.0ms)[0m  [1m[34mSELECT "itineraries".* FROM "itineraries" INNER JOIN "user_itineraries" ON "itineraries"."id" = "user_itineraries"."itinerary_id" WHERE "user_itineraries"."user_id" = $1[0m  [["user_id", 11]]
+  ↳ app/controllers/auth_controller.rb:19:in `auto_login'
+Completed 200 OK in 9ms (Views: 2.4ms | ActiveRecord: 1.6ms | Allocations: 2817)
+
+
+Started GET "/auto_login" for ::1 at 2020-01-29 16:57:01 -0500
+Processing by AuthController#auto_login as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 11], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:28:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 11], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:28:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 11], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:28:in `session_user'
+  [1m[36mItinerary Load (0.2ms)[0m  [1m[34mSELECT "itineraries".* FROM "itineraries" INNER JOIN "user_itineraries" ON "itineraries"."id" = "user_itineraries"."itinerary_id" WHERE "user_itineraries"."user_id" = $1[0m  [["user_id", 11]]
+  ↳ app/controllers/auth_controller.rb:19:in `auto_login'
+Completed 200 OK in 5ms (Views: 1.3ms | ActiveRecord: 0.5ms | Allocations: 2817)
+
+
+Started GET "/auto_login" for ::1 at 2020-01-29 16:57:10 -0500
+Processing by AuthController#auto_login as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 11], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:28:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 11], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:28:in `session_user'
+  [1m[36mCACHE User Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 11], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:28:in `session_user'
+  [1m[36mItinerary Load (0.3ms)[0m  [1m[34mSELECT "itineraries".* FROM "itineraries" INNER JOIN "user_itineraries" ON "itineraries"."id" = "user_itineraries"."itinerary_id" WHERE "user_itineraries"."user_id" = $1[0m  [["user_id", 11]]
+  ↳ app/controllers/auth_controller.rb:19:in `auto_login'
+Completed 200 OK in 8ms (Views: 2.6ms | ActiveRecord: 0.6ms | Allocations: 2817)
+
+
+Started GET "/auto_login" for ::1 at 2020-01-29 16:57:24 -0500
+Processing by AuthController#auto_login as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 11], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:28:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 11], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:28:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 11], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:28:in `session_user'
+  [1m[36mItinerary Load (0.2ms)[0m  [1m[34mSELECT "itineraries".* FROM "itineraries" INNER JOIN "user_itineraries" ON "itineraries"."id" = "user_itineraries"."itinerary_id" WHERE "user_itineraries"."user_id" = $1[0m  [["user_id", 11]]
+  ↳ app/controllers/auth_controller.rb:19:in `auto_login'
+Completed 200 OK in 6ms (Views: 1.8ms | ActiveRecord: 0.5ms | Allocations: 2817)
+
+
+Started GET "/auto_login" for ::1 at 2020-01-29 16:57:44 -0500
+Processing by AuthController#auto_login as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 11], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:28:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 11], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:28:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 11], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:28:in `session_user'
+  [1m[36mItinerary Load (0.2ms)[0m  [1m[34mSELECT "itineraries".* FROM "itineraries" INNER JOIN "user_itineraries" ON "itineraries"."id" = "user_itineraries"."itinerary_id" WHERE "user_itineraries"."user_id" = $1[0m  [["user_id", 11]]
+  ↳ app/controllers/auth_controller.rb:19:in `auto_login'
+Completed 200 OK in 5ms (Views: 1.5ms | ActiveRecord: 0.5ms | Allocations: 2817)
+
+
+Started GET "/auto_login" for ::1 at 2020-01-29 16:57:58 -0500
+Processing by AuthController#auto_login as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 11], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:28:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 11], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:28:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 11], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:28:in `session_user'
+  [1m[36mItinerary Load (0.2ms)[0m  [1m[34mSELECT "itineraries".* FROM "itineraries" INNER JOIN "user_itineraries" ON "itineraries"."id" = "user_itineraries"."itinerary_id" WHERE "user_itineraries"."user_id" = $1[0m  [["user_id", 11]]
+  ↳ app/controllers/auth_controller.rb:19:in `auto_login'
+Completed 200 OK in 7ms (Views: 1.8ms | ActiveRecord: 0.6ms | Allocations: 2817)
+
+
+Started GET "/auto_login" for ::1 at 2020-01-29 16:58:00 -0500
+Processing by AuthController#auto_login as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 11], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:28:in `session_user'
+  [1m[36mCACHE User Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 11], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:28:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 11], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:28:in `session_user'
+  [1m[36mItinerary Load (0.3ms)[0m  [1m[34mSELECT "itineraries".* FROM "itineraries" INNER JOIN "user_itineraries" ON "itineraries"."id" = "user_itineraries"."itinerary_id" WHERE "user_itineraries"."user_id" = $1[0m  [["user_id", 11]]
+  ↳ app/controllers/auth_controller.rb:19:in `auto_login'
+Completed 200 OK in 7ms (Views: 1.8ms | ActiveRecord: 0.7ms | Allocations: 2817)
+
+
+Started GET "/auto_login" for ::1 at 2020-01-29 16:58:04 -0500
+Processing by AuthController#auto_login as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 11], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:28:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 11], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:28:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 11], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:28:in `session_user'
+  [1m[36mItinerary Load (0.3ms)[0m  [1m[34mSELECT "itineraries".* FROM "itineraries" INNER JOIN "user_itineraries" ON "itineraries"."id" = "user_itineraries"."itinerary_id" WHERE "user_itineraries"."user_id" = $1[0m  [["user_id", 11]]
+  ↳ app/controllers/auth_controller.rb:19:in `auto_login'
+Completed 200 OK in 6ms (Views: 1.9ms | ActiveRecord: 0.6ms | Allocations: 2817)
+
+
+Started POST "/login" for ::1 at 2020-01-29 16:58:12 -0500
+Processing by AuthController#login as HTML
+  Parameters: {"username"=>"test", "password"=>"[FILTERED]"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "test"], ["LIMIT", 1]]
+  ↳ app/controllers/auth_controller.rb:6:in `login'
+Completed 200 OK in 224ms (Views: 0.2ms | ActiveRecord: 0.3ms | Allocations: 634)
+
+
+Started GET "/auto_login" for ::1 at 2020-01-29 16:58:19 -0500
+Processing by AuthController#auto_login as HTML
+Completed 200 OK in 1ms (Views: 0.2ms | ActiveRecord: 0.0ms | Allocations: 122)
+
+
+Started POST "/login" for ::1 at 2020-01-29 16:58:29 -0500
+Processing by AuthController#login as HTML
+  Parameters: {"username"=>"test", "password"=>"[FILTERED]"}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "test"], ["LIMIT", 1]]
+  ↳ app/controllers/auth_controller.rb:6:in `login'
+Completed 200 OK in 229ms (Views: 0.1ms | ActiveRecord: 0.4ms | Allocations: 634)
+
+
+Started POST "/users" for ::1 at 2020-01-29 16:58:40 -0500
+Processing by UsersController#create as HTML
+  Parameters: {"username"=>"test", "password"=>"[FILTERED]"}
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/users_controller.rb:9:in `create'
+  [1m[36mUser Create (0.8ms)[0m  [1m[32mINSERT INTO "users" ("username", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["username", "test"], ["password_digest", "$2a$12$KajERz2jr08umPNHZ4cwxusJ8nx93qvns4uhoY.1oAeosqbHwpCqC"], ["created_at", "2020-01-29 21:58:40.823410"], ["updated_at", "2020-01-29 21:58:40.823410"]]
+  ↳ app/controllers/users_controller.rb:9:in `create'
+  [1m[35m (0.3ms)[0m  [1m[31mROLLBACK[0m
+  ↳ app/controllers/users_controller.rb:9:in `create'
+Completed 500 Internal Server Error in 227ms (ActiveRecord: 1.3ms | Allocations: 2333)
+
+
+  
+ActiveRecord::RecordNotUnique (PG::UniqueViolation: ERROR:  duplicate key value violates unique constraint "index_users_on_username"
+DETAIL:  Key (username)=(test) already exists.
+):
+  
+app/controllers/users_controller.rb:9:in `create'
+Started POST "/login" for ::1 at 2020-01-29 17:00:16 -0500
+Processing by AuthController#login as HTML
+  Parameters: {"username"=>"test", "password"=>"[FILTERED]"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "test"], ["LIMIT", 1]]
+  ↳ app/controllers/auth_controller.rb:6:in `login'
+Completed 200 OK in 228ms (Views: 0.1ms | ActiveRecord: 3.1ms | Allocations: 4544)
+
+
+Started POST "/login" for ::1 at 2020-01-29 17:02:14 -0500
+Processing by AuthController#login as HTML
+  Parameters: {"username"=>"test", "password"=>"[FILTERED]"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "test"], ["LIMIT", 1]]
+  ↳ app/controllers/auth_controller.rb:6:in `login'
+Completed 200 OK in 226ms (Views: 0.1ms | ActiveRecord: 3.0ms | Allocations: 4510)
+
+
+Started POST "/login" for ::1 at 2020-01-29 17:03:22 -0500
+Processing by AuthController#login as HTML
+  Parameters: {"username"=>"te", "password"=>"[FILTERED]"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "te"], ["LIMIT", 1]]
+  ↳ app/controllers/auth_controller.rb:6:in `login'
+Completed 200 OK in 5ms (Views: 0.1ms | ActiveRecord: 1.1ms | Allocations: 2344)
+
+
+Started POST "/login" for ::1 at 2020-01-29 17:04:12 -0500
+Processing by AuthController#login as HTML
+  Parameters: {"username"=>"f53455534errrterdfg", "password"=>"[FILTERED]"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "f53455534errrterdfg"], ["LIMIT", 1]]
+  ↳ app/controllers/auth_controller.rb:6:in `login'
+Completed 200 OK in 7ms (Views: 0.1ms | ActiveRecord: 1.7ms | Allocations: 2346)
+
+
+Started POST "/login" for ::1 at 2020-01-29 17:04:39 -0500
+Processing by AuthController#login as HTML
+  Parameters: {"username"=>"2132321", "password"=>"[FILTERED]"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "2132321"], ["LIMIT", 1]]
+  ↳ app/controllers/auth_controller.rb:6:in `login'
+Completed 200 OK in 2ms (Views: 0.1ms | ActiveRecord: 0.2ms | Allocations: 595)
+
+
+Started GET "/auto_login" for ::1 at 2020-01-29 17:04:47 -0500
+Processing by AuthController#auto_login as HTML
+Completed 200 OK in 1ms (Views: 0.2ms | ActiveRecord: 0.0ms | Allocations: 122)
+
+
+Started GET "/auto_login" for ::1 at 2020-01-29 17:04:54 -0500
+Processing by AuthController#auto_login as HTML
+Completed 200 OK in 1ms (Views: 0.2ms | ActiveRecord: 0.0ms | Allocations: 122)
+
+
+Started GET "/auto_login" for ::1 at 2020-01-29 17:05:12 -0500
+Processing by AuthController#auto_login as HTML
+Completed 200 OK in 1ms (Views: 0.3ms | ActiveRecord: 0.0ms | Allocations: 122)
+
+
+Started POST "/login" for ::1 at 2020-01-29 17:05:17 -0500
+Processing by AuthController#login as HTML
+  Parameters: {"username"=>"adsdsads", "password"=>"[FILTERED]"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "adsdsads"], ["LIMIT", 1]]
+  ↳ app/controllers/auth_controller.rb:6:in `login'
+Completed 200 OK in 2ms (Views: 0.2ms | ActiveRecord: 0.2ms | Allocations: 595)
+
+
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" LIMIT $1[0m  [["LIMIT", 11]]
+Started POST "/login" for ::1 at 2020-01-29 17:05:59 -0500
+Processing by AuthController#login as HTML
+  Parameters: {"username"=>"???", "password"=>"[FILTERED]"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "???"], ["LIMIT", 1]]
+  ↳ app/controllers/auth_controller.rb:6:in `login'
+Completed 200 OK in 2ms (Views: 0.1ms | ActiveRecord: 0.3ms | Allocations: 595)
+
+
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" LIMIT $1[0m  [["LIMIT", 11]]
+Started POST "/login" for ::1 at 2020-01-29 17:06:31 -0500
+Processing by AuthController#login as HTML
+  Parameters: {"username"=>"sddsds", "password"=>"[FILTERED]"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "sddsds"], ["LIMIT", 1]]
+  ↳ app/controllers/auth_controller.rb:6:in `login'
+Completed 200 OK in 5ms (Views: 0.1ms | ActiveRecord: 1.0ms | Allocations: 2343)
+
+
+Started POST "/login" for ::1 at 2020-01-29 17:06:53 -0500
+Processing by AuthController#login as HTML
+  Parameters: {"username"=>"dsaasadsdas", "password"=>"[FILTERED]"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "dsaasadsdas"], ["LIMIT", 1]]
+  ↳ app/controllers/auth_controller.rb:6:in `login'
+Completed 200 OK in 6ms (Views: 0.3ms | ActiveRecord: 1.3ms | Allocations: 2346)
+
+
+Started POST "/login" for ::1 at 2020-01-29 17:07:09 -0500
+Processing by AuthController#login as HTML
+  Parameters: {"username"=>"dsdsdsdsds", "password"=>"[FILTERED]"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "dsdsdsdsds"], ["LIMIT", 1]]
+  ↳ app/controllers/auth_controller.rb:6:in `login'
+Completed 200 OK in 1ms (Views: 0.1ms | ActiveRecord: 0.2ms | Allocations: 595)
+
+
+Started GET "/auto_login" for ::1 at 2020-01-29 17:09:13 -0500
+Processing by AuthController#auto_login as HTML
+Completed 200 OK in 0ms (Views: 0.2ms | ActiveRecord: 0.0ms | Allocations: 123)
+
+
+Started POST "/login" for ::1 at 2020-01-29 17:09:29 -0500
+Processing by AuthController#login as HTML
+  Parameters: {"username"=>"sdfssf", "password"=>"[FILTERED]"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "sdfssf"], ["LIMIT", 1]]
+  ↳ app/controllers/auth_controller.rb:6:in `login'
+Completed 200 OK in 6ms (Views: 0.1ms | ActiveRecord: 1.3ms | Allocations: 2345)
+
+
+Started POST "/login" for ::1 at 2020-01-29 17:10:02 -0500
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by AuthController#login as HTML
+  Parameters: {"username"=>"test", "password"=>"[FILTERED]"}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "test"], ["LIMIT", 1]]
+  ↳ app/controllers/auth_controller.rb:7:in `login'
+  [1m[36mItinerary Load (0.7ms)[0m  [1m[34mSELECT "itineraries".* FROM "itineraries" INNER JOIN "user_itineraries" ON "itineraries"."id" = "user_itineraries"."itinerary_id" WHERE "user_itineraries"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/controllers/auth_controller.rb:13:in `login'
+Completed 200 OK in 262ms (Views: 21.6ms | ActiveRecord: 8.5ms | Allocations: 15051)
+
+
+Started POST "/login" for ::1 at 2020-01-29 17:10:14 -0500
+Processing by AuthController#login as HTML
+  Parameters: {"username"=>"dgdf", "password"=>"[FILTERED]"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "dgdf"], ["LIMIT", 1]]
+  ↳ app/controllers/auth_controller.rb:7:in `login'
+Completed 200 OK in 3ms (Views: 0.1ms | ActiveRecord: 0.3ms | Allocations: 620)
+
+
+Started GET "/auto_login" for ::1 at 2020-01-29 17:12:54 -0500
+Processing by AuthController#auto_login as HTML
+Completed 200 OK in 0ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 165)
+
+
+Started POST "/login" for ::1 at 2020-01-29 17:13:36 -0500
+Processing by AuthController#login as HTML
+  Parameters: {"username"=>"ed", "password"=>"[FILTERED]"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "ed"], ["LIMIT", 1]]
+  ↳ app/controllers/auth_controller.rb:6:in `login'
+Completed 200 OK in 13ms (Views: 0.2ms | ActiveRecord: 1.9ms | Allocations: 3579)
+
+
+Started POST "/users" for ::1 at 2020-01-29 17:13:46 -0500
+Processing by UsersController#create as HTML
+  Parameters: {"username"=>"test", "password"=>"[FILTERED]"}
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/users_controller.rb:9:in `create'
+  [1m[36mUser Create (0.9ms)[0m  [1m[32mINSERT INTO "users" ("username", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["username", "test"], ["password_digest", "$2a$12$ijHkJTHjQ/1NwNK0.LZ2nuqSncArY.9qE6tbK.OEhoiNB27/4BFVK"], ["created_at", "2020-01-29 22:13:47.161902"], ["updated_at", "2020-01-29 22:13:47.161902"]]
+  ↳ app/controllers/users_controller.rb:9:in `create'
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  ↳ app/controllers/users_controller.rb:9:in `create'
+Completed 500 Internal Server Error in 250ms (ActiveRecord: 3.5ms | Allocations: 4814)
+
+
+  
+ActiveRecord::RecordNotUnique (PG::UniqueViolation: ERROR:  duplicate key value violates unique constraint "index_users_on_username"
+DETAIL:  Key (username)=(test) already exists.
+):
+  
+app/controllers/users_controller.rb:9:in `create'
+Started POST "/login" for ::1 at 2020-01-29 17:14:03 -0500
+Processing by AuthController#login as HTML
+  Parameters: {"username"=>"te", "password"=>"[FILTERED]"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "te"], ["LIMIT", 1]]
+  ↳ app/controllers/auth_controller.rb:6:in `login'
+Completed 200 OK in 2ms (Views: 0.2ms | ActiveRecord: 0.3ms | Allocations: 636)
+
+
+Started POST "/users" for ::1 at 2020-01-29 17:14:10 -0500
+Processing by UsersController#create as HTML
+  Parameters: {"username"=>"test", "password"=>"[FILTERED]"}
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/users_controller.rb:9:in `create'
+  [1m[36mUser Create (0.6ms)[0m  [1m[32mINSERT INTO "users" ("username", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["username", "test"], ["password_digest", "$2a$12$GvZtzj0Q1/fejhVFlBt2K.ks9VoOpDmMYFXTPbXeDZL4WS3/dtPDq"], ["created_at", "2020-01-29 22:14:10.250323"], ["updated_at", "2020-01-29 22:14:10.250323"]]
+  ↳ app/controllers/users_controller.rb:9:in `create'
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  ↳ app/controllers/users_controller.rb:9:in `create'
+Completed 500 Internal Server Error in 230ms (ActiveRecord: 1.0ms | Allocations: 2378)
+
+
+  
+ActiveRecord::RecordNotUnique (PG::UniqueViolation: ERROR:  duplicate key value violates unique constraint "index_users_on_username"
+DETAIL:  Key (username)=(test) already exists.
+):
+  
+app/controllers/users_controller.rb:9:in `create'
+Started POST "/login" for ::1 at 2020-01-29 17:15:09 -0500
+Processing by AuthController#login as HTML
+  Parameters: {"username"=>"tt", "password"=>"[FILTERED]"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "tt"], ["LIMIT", 1]]
+  ↳ app/controllers/auth_controller.rb:6:in `login'
+Completed 200 OK in 2ms (Views: 0.2ms | ActiveRecord: 0.3ms | Allocations: 624)
+
+
+Started POST "/login" for ::1 at 2020-01-29 17:15:13 -0500
+Processing by AuthController#login as HTML
+  Parameters: {"username"=>"test", "password"=>"[FILTERED]"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "test"], ["LIMIT", 1]]
+  ↳ app/controllers/auth_controller.rb:6:in `login'
+  [1m[36mItinerary Load (0.2ms)[0m  [1m[34mSELECT "itineraries".* FROM "itineraries" INNER JOIN "user_itineraries" ON "itineraries"."id" = "user_itineraries"."itinerary_id" WHERE "user_itineraries"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/controllers/auth_controller.rb:11:in `login'
+Completed 200 OK in 261ms (Views: 6.7ms | ActiveRecord: 3.7ms | Allocations: 8455)
+
+
+Started GET "/auto_login" for ::1 at 2020-01-29 17:15:17 -0500
+Processing by AuthController#auto_login as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:28:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:28:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:28:in `session_user'
+  [1m[36mItinerary Load (0.5ms)[0m  [1m[34mSELECT "itineraries".* FROM "itineraries" INNER JOIN "user_itineraries" ON "itineraries"."id" = "user_itineraries"."itinerary_id" WHERE "user_itineraries"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/controllers/auth_controller.rb:19:in `auto_login'
+Completed 200 OK in 11ms (Views: 3.0ms | ActiveRecord: 1.0ms | Allocations: 3047)
+
+
+Started POST "/users" for ::1 at 2020-01-29 17:25:28 -0500
+Processing by UsersController#create as HTML
+  Parameters: {"username"=>"test", "password"=>"[FILTERED]"}
+Completed 500 Internal Server Error in 1ms (ActiveRecord: 0.0ms | Allocations: 671)
+
+
+  
+NoMethodError (undefined method `find_by' for nil:NilClass):
+  
+app/controllers/users_controller.rb:8:in `create'
+Started POST "/users" for ::1 at 2020-01-29 17:26:15 -0500
+Processing by UsersController#create as HTML
+  Parameters: {"username"=>"test", "password"=>"[FILTERED]"}
+Completed 500 Internal Server Error in 82ms (ActiveRecord: 0.0ms | Allocations: 60058)
+
+
+  
+NameError (undefined local variable or method `user' for #<UsersController:0x00007faf10500200>
+Did you mean?  super):
+  
+app/controllers/users_controller.rb:8:in `create'
+Started POST "/users" for ::1 at 2020-01-29 17:26:50 -0500
+Processing by UsersController#create as HTML
+  Parameters: {"username"=>"test", "password"=>"[FILTERED]"}
+Completed 500 Internal Server Error in 77ms (ActiveRecord: 0.0ms | Allocations: 60048)
+
+
+  
+NameError (undefined local variable or method `user' for #<UsersController:0x00007faf0e4f4a88>
+Did you mean?  super):
+  
+app/controllers/users_controller.rb:8:in `create'
+Started POST "/users" for ::1 at 2020-01-29 17:27:25 -0500
+Processing by UsersController#create as HTML
+  Parameters: {"username"=>"test", "password"=>"[FILTERED]"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "test"], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:8:in `create'
+Completed 500 Internal Server Error in 13ms (ActiveRecord: 5.5ms | Allocations: 5276)
+
+
+  
+NoMethodError (undefined method `save' for nil:NilClass):
+  
+app/controllers/users_controller.rb:14:in `create'
+Started POST "/users" for ::1 at 2020-01-29 17:27:55 -0500
+Processing by UsersController#create as HTML
+  Parameters: {"username"=>"test", "password"=>"[FILTERED]"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "test"], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:8:in `create'
+Completed 200 OK in 9ms (Views: 0.2ms | ActiveRecord: 2.8ms | Allocations: 4571)
+
+
+Started POST "/users" for ::1 at 2020-01-29 17:31:55 -0500
+Processing by UsersController#create as HTML
+  Parameters: {"username"=>"test", "password"=>"[FILTERED]"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "test"], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:8:in `create'
+Completed 200 OK in 10ms (Views: 0.1ms | ActiveRecord: 2.9ms | Allocations: 4549)
+
+
