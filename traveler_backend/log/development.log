@@ -1112,3 +1112,34 @@ Processing by UsersController#create as HTML
 Completed 200 OK in 10ms (Views: 0.1ms | ActiveRecord: 2.9ms | Allocations: 4549)
 
 
+Started POST "/login" for ::1 at 2020-01-29 17:58:20 -0500
+Processing by AuthController#login as HTML
+  Parameters: {"username"=>"test", "password"=>"[FILTERED]"}
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "test"], ["LIMIT", 1]]
+  ↳ app/controllers/auth_controller.rb:5:in `login'
+Completed 200 OK in 239ms (Views: 0.1ms | ActiveRecord: 0.6ms | Allocations: 4501)
+
+
+Started POST "/login" for ::1 at 2020-01-29 17:58:23 -0500
+Processing by AuthController#login as HTML
+  Parameters: {"username"=>"test", "password"=>"[FILTERED]"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "test"], ["LIMIT", 1]]
+  ↳ app/controllers/auth_controller.rb:5:in `login'
+  [1m[36mItinerary Load (0.4ms)[0m  [1m[34mSELECT "itineraries".* FROM "itineraries" INNER JOIN "user_itineraries" ON "itineraries"."id" = "user_itineraries"."itinerary_id" WHERE "user_itineraries"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/controllers/auth_controller.rb:10:in `login'
+Completed 200 OK in 242ms (Views: 6.9ms | ActiveRecord: 5.6ms | Allocations: 7179)
+
+
+Started GET "/auto_login" for ::1 at 2020-01-29 17:58:26 -0500
+Processing by AuthController#auto_login as HTML
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:27:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:27:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:27:in `session_user'
+  [1m[36mItinerary Load (0.5ms)[0m  [1m[34mSELECT "itineraries".* FROM "itineraries" INNER JOIN "user_itineraries" ON "itineraries"."id" = "user_itineraries"."itinerary_id" WHERE "user_itineraries"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/controllers/auth_controller.rb:18:in `auto_login'
+Completed 200 OK in 11ms (Views: 3.1ms | ActiveRecord: 1.2ms | Allocations: 3032)
+
+

@@ -1,5 +1,4 @@
 class AuthController < ApplicationController
-  skip_before_action :require_login, only: [:login, :auto_login]
   wrap_parameters false
 
   def login
@@ -18,11 +17,8 @@ class AuthController < ApplicationController
     if session_user
       render json: {id: session_user.id, itineraries: session_user.itineraries}
     else
-      render json: {errors: "No User Logged In"}
+      render json: {error: "Invalid Token", status: 401}
     end
   end
 
-  def user_is_authed
-    render json: {message: "You are authorized"}
-  end
 end

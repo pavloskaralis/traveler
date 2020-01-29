@@ -13,9 +13,13 @@ export default function userSetup() {
                     Authorization: `Bearer ${token}`
                 }
             }).then(({data}) => {
-                dispatch(toggleLogin(true));
-                dispatch(setUserID(data.id));
-                dispatch(setItineraries(data.itineraries))
+                if(!data.error){
+                    dispatch(toggleLogin(true));
+                    dispatch(setUserID(data.id));
+                    dispatch(setItineraries(data.itineraries))
+                } else {
+                    dispatch(toggleLogin(false));
+                }
             }); 
         } else {
             dispatch(toggleLogin(false));
