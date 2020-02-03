@@ -1,27 +1,30 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import toggleForm from '../../actions/toggleForm.js'
+import toggleDropdown from '../../actions/toggleDropdown.js'
 import Form from '../Form/Form.js'
 import './Home.css'
 
 const mapStateToProps = state => {
     return {
       form: state.form,
+      dropdown: state.dropdown
     }
 }
 
 const mapDispatchToProps = {
-    toggleForm
+    toggleForm,
+    toggleDropdown
 }
   
-function Home({toggleForm, form}) {
+function Home({toggleForm, form, dropdown, toggleDropdown}) {
     return (
         <React.Fragment>
             {form && <Form/>}
             <div className="color-overlay"></div>
             <div className="image-overlay"></div>
             <div className="gradient-overlay"></div>
-            <div className="home-container">
+            <div className="home-container" onClick={()=>{if(dropdown)toggleDropdown(false)}}>
                     <div className="home-wrap">
                         <div className="slogan-container">
                             <h1 className="plan-early">Plan {'\u00A0'} <br/> Early</h1>

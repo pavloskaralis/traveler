@@ -15,11 +15,12 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = {
-  userSetup
+  userSetup,
 }
 
 function App({isLoggedIn,userSetup}) {
   useEffect(userSetup,[])
+
   return (
     <React.Fragment>
       <Nav/>

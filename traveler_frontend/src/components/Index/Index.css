@@ -2,5 +2,33 @@
     width: 100%;
     height: calc(100vh - 60px);
     display: flex;
+    flex-direction: column;
     background-color: var(--cream); 
+}
+
+.itineraries-container {
+    margin:0 auto; 
+    max-width: 992px;
+    min-width: 500px; 
+    height: 100%; 
+    width: 100%; 
+    background-color: white; 
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    overflow-y: scroll;
+    box-sizing: border-box;
+    box-shadow: 0 0 4px 0 rgba(0,0,0,.5);
+}
+
+::-webkit-scrollbar {
+    /* -webkit-appearance: none; */
+    width: 7px;
+    
+}
+::-webkit-scrollbar-thumb {
+    /* border-radius: 4px; */
+    background-color: var(--gray);
+   
+    /* -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5); */
 }

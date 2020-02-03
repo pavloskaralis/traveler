@@ -1,0 +1,74 @@
+.itinerary {
+    width: 100%;
+    padding-left: 8%;
+    min-height: 120px; 
+    display: flex;
+    /* justify-content: space-evenly; */
+    
+    border-bottom: 1px solid var(--blue);
+    box-sizing: border-box;
+    cursor: pointer;
+    color: var(--gray);
+}
+
+.itinerary:hover {
+    background-color: var(--blue);
+    color: var(--orange);
+    box-shadow: 0 0 4px 0 rgba(0,0,0,.5);
+}
+
+.itinerary div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-family: Verdana;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.location {
+    color: var(--black);
+    padding-right: 0 4px;
+    width: 21%;
+    overflow-x: hidden;
+    font-weight: 900;
+    text-transform: capitalize;
+}
+
+.date {
+    min-width: 21%;
+}
+
+.shared {
+    background-image: url('shared.png');
+    background-size: 45px;
+    background-repeat: no-repeat;
+    background-position: left;
+    background-position-x: 22px;
+    min-width: 20%;
+}
+
+.unshared {
+    min-width: 20%;
+}
+
+.edit-container {
+    min-width: 16%;
+}
+
+.edit {
+    background-image: url('edit.png');
+    background-size: 35px;
+    background-repeat: no-repeat;
+    background-position: center; 
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+    cursor: pointer;
+    margin-left: 2px;
+}
+
+.edit:hover {
+    background-color: var(--orange);
+}
+

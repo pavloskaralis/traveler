@@ -5,6 +5,7 @@ nav {
     background-color: var(--black);
     display: flex;
     justify-content: space-between;
+    z-index: 2;
 }
 
 nav h2 {
@@ -15,7 +16,7 @@ nav h2 {
     margin: 0; 
     color: var(--orange);
     font-family: Georgia;
-    cursor: default;
+    cursor: pointer;
 }
 
 .dropdown-icon-container {
