@@ -22,13 +22,8 @@
 }
 
 ::-webkit-scrollbar {
-    /* -webkit-appearance: none; */
-    width: 7px;
-    
+    width: 7px;    
 }
 ::-webkit-scrollbar-thumb {
-    /* border-radius: 4px; */
-    background-color: var(--gray);
-   
-    /* -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5); */
+    background-color: var(--gray);   
 }

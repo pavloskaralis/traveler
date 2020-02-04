@@ -20,7 +20,7 @@ const mapDispatchToProps = {
 function Home({toggleForm, form, dropdown, toggleDropdown}) {
     return (
         <React.Fragment>
-            {form && <Form/>}
+            {form && <Form page='home'/>}
             <div className="color-overlay"></div>
             <div className="image-overlay"></div>
             <div className="gradient-overlay"></div>

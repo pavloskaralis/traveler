@@ -5,6 +5,7 @@ import itineraries from './itineraries.js'
 import form from './form.js'
 import dropdown from './dropdown.js'
 import error from './error.js'
+import filter from './filter.js'
 
 const traveler = combineReducers({
     isLoggedIn,
@@ -12,7 +13,8 @@ const traveler = combineReducers({
     itineraries,
     form,
     dropdown,
-    error
+    error,
+    filter
 })
 
 export default traveler

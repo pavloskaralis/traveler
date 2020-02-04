@@ -5,6 +5,7 @@ import './Itinerary.css'
 
 function Itinerary({itinerary}) {
     const length = itinerary.dates.length
+    if(itinerary.location.length > 10) itinerary.location = itinerary.location.slice(0,8) + '...';
     return (
         <a className='itinerary'>
             <div className='location'>{itinerary.location}</div>
