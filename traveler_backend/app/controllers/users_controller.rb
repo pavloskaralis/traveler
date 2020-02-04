@@ -14,7 +14,7 @@ class UsersController < ApplicationController
         payload = {user_id: user.id}
         token = encode_token(payload)
 
-        render json: {id: user.id, jwt: token} , status:201
+        render json: {id: user.id, jwt: token, status:201}
     else
         render json: {error: "Username Already Taken", status: 422} 
     end

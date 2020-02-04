@@ -25,7 +25,7 @@ function Index({dropdown, toggleDropdown, itineraries, filter, form}) {
 
     return (
         <div className='index-container' onClick={()=> {if(dropdown)toggleDropdown(false)}}>
-            {form && <Form page='itinerary'/>}
+            {form && <Form page='index'/>}
             <Tools page='index'/>
             <div className='itineraries-container'>
                 {itineraries.map(itinerary => <Itinerary itinerary={itinerary} key={itinerary.id}/>)}

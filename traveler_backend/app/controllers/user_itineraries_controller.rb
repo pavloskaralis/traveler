@@ -1,6 +1,6 @@
 class UserItinerariesController < ApplicationController
   before_action :set_user_itinerary, only: [:show, :update, :destroy]
-  skip_before_action :require_login
+
 
 
   # GET /user_itineraries
@@ -17,12 +17,12 @@ class UserItinerariesController < ApplicationController
 
   # POST /user_itineraries
   def create
-    @user_itinerary = UserItinerary.new(user_itinerary_params)
+    user_itinerary = UserItinerary.new(user_itinerary_params)
 
-    if @user_itinerary.save
-      render json: @user_itinerary, status: :created, location: @user_itinerary
+    if user_itinerary.save
+      render json: {status: 200}
     else
-      render json: @user_itinerary.errors, status: :unprocessable_entity
+      render json: {error:"Failed To Save", status: 204}
     end
   end
 

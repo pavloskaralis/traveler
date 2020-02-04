@@ -3,7 +3,7 @@ class CreateItineraries < ActiveRecord::Migration[6.0]
     create_table :itineraries do |t|
       t.string :location
       t.boolean :shared
-      t.string :dates, array: true
+      t.string :dates, array: true, default: []
 
       t.timestamps
     end

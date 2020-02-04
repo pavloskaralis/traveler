@@ -10,7 +10,8 @@ import './Form.css'
 const mapStateToProps = state => {
     return {
         form: state.form,
-        error: state.error
+        error: state.error,
+        userID: state.userID
     }
 }
 
@@ -21,42 +22,38 @@ const mapDispatchToProps = {
     createItinerary
 }
 
-function Form({form, error, toggleForm, signUp, logIn, page, createItinerary}) {
+function Form({form, error, toggleForm, signUp, logIn, page, createItinerary, userID}) {
     let username;
     let password;
     let location;
     let departureDate;
     let returnDate;
+    const allInputs = [username,password,location,departureDate,returnDate];
 
     const submit = e => {
         e.preventDefault();
-
+        //prevent empty inputs
         let exit = false;
-        [username,password,location,departureDate,returnDate].forEach(input => {if(input && !input.value) exit = true})
+        allInputs.forEach(input => {if(input && !input.value) exit = true})
         if(exit)return;
-
+        //switch submit actions based on form type
         switch(form) {
             case 'signup': signUp(username.value,password.value);
                 break;
             case 'login': logIn(username.value,password.value);
                 break;
-            case '+': createItinerary(location.value,departureDate.value,returnDate.value)
+            case '+': createItinerary(location.value,departureDate.value,returnDate.value,userID)
         }
-        if(username)username.value = '';
-        if(password)password.value = '';
-        if(location)location.value = '';
-        if(departureDate)departureDate.value = '';
-        if(returnDate)returnDate.value = '';
+        //reset values
+        allInputs.forEach(input => {if(input) input.value = ''});
     }
-
+    //transform button text to form legend text
     let legend = form;
     switch(form) {
         case '+': legend = 'New Itinerary';
             break;
     }
-    
-
-
+    //inputs vary based on page and form type
     return (
         <div className="form-container" onClick={()=>{if(form)toggleForm('')}}>
             <form onSubmit={ submit } onClick={e => e.stopPropagation()} >
@@ -73,7 +70,7 @@ function Form({form, error, toggleForm, signUp, logIn, page, createItinerary}) {
                         </div>
                     </>
                 }
-                {page === 'itinerary' &&
+                {page === 'index' &&
                     <>
                         <div className="input-container">
                             <label>Location</label>
@@ -81,11 +78,11 @@ function Form({form, error, toggleForm, signUp, logIn, page, createItinerary}) {
                         </div>
                         <div className="input-container">
                             <label>Departure</label>
-                            <input type={"text"} pattern="\d{1,2}/\d{1,2}/\d{2}" placeholder='MM/DD/YY' ref={node => departureDate = node}/>
+                            <input type="date" ref={node => departureDate = node}/>
                         </div>
                         <div className="input-container">
                             <label>Return</label>
-                            <input type={"text"} pattern="\d{1,2}/\d{1,2}/\d{2}" placeholder='MM/DD/YY' ref={node => returnDate = node}/>
+                            <input type="date" ref={node => returnDate = node}/>
                         </div>
                     </>
                 }

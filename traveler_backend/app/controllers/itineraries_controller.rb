@@ -1,6 +1,5 @@
 class ItinerariesController < ApplicationController
   before_action :set_itinerary, only: [:show, :update, :destroy]
-  skip_before_action :require_login
 
   # GET /itineraries
   def index
@@ -16,12 +15,14 @@ class ItinerariesController < ApplicationController
 
   # POST /itineraries
   def create
-    @itinerary = Itinerary.new(itinerary_params)
+    p "these are the params!!!"
+    p itinerary_params
+    itinerary = Itinerary.new(itinerary_params)
 
-    if @itinerary.save
-      render json: @itinerary, status: :created, location: @itinerary
+    if itinerary.save
+      render json: {itinerary: itinerary, id: itinerary.id, status: 200}
     else
-      render json: @itinerary.errors, status: :unprocessable_entity
+      render json: {error:"Failed To Save", status: 204}
     end
   end
 
@@ -47,6 +48,6 @@ class ItinerariesController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def itinerary_params
-      params.require(:itinerary).permit(:location, :shared, :dates)
+      params.require(:itinerary).permit(:dates, :location, :shared)
     end
 end

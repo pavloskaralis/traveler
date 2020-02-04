@@ -12,7 +12,7 @@
 }
 
 .form-container form {
-    width: 350px;
+    width: 380px;
     margin: 0 auto; 
     background-color: var(--black);
     border-radius: 15px; 
@@ -46,7 +46,12 @@ label {
 .input-container input {
     padding: 4px; 
     font-family: 'Georgia';
+    width: 165px;
+    height: 30px;
+    box-sizing: border-box;
+    font-size: 16px;
 }
+
 
 .form-container .button-container {
     margin: 8px 0 24px 0;
