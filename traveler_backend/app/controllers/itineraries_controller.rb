@@ -16,12 +16,10 @@ class ItinerariesController < ApplicationController
   # POST /itineraries
   def create
 
-    itinerary_params["dates"] = JSON.parse itinerary_params["dates"] 
-  
+    dates = JSON.parse itinerary_params["dates"] 
 
     p "here!!!!!!!!"
-    p JSON.parse itinerary_params["dates"] 
-    p itinerary_params["dates"]
+    p dates
     itinerary = Itinerary.new(itinerary_params)
 
     if itinerary.save
