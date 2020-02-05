@@ -15,8 +15,13 @@ class ItinerariesController < ApplicationController
 
   # POST /itineraries
   def create
-    p "these are the params!!!"
-    p itinerary_params
+
+    itinerary_params["dates"] = JSON.parse itinerary_params["dates"] 
+  
+
+    p "here!!!!!!!!"
+    p JSON.parse itinerary_params["dates"] 
+    p itinerary_params["dates"]
     itinerary = Itinerary.new(itinerary_params)
 
     if itinerary.save

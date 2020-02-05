@@ -66,10 +66,10 @@ export default function createItinerary(location,departureDate,returnDate,userID
             if(dates.length > 60) return dispatch(toggleError('60 Day Limit.'));
             newItinerary = {
                 location: location,
-                dates: "dates",
+                dates:  JSON.stringify(dates),
                 shared: false
             }
-            console.log(newItinerary.dates)
+            // console.log(newItinerary.dates)
         }).then(() => {
             axios.post('http://localhost:3001/itineraries', newItinerary)
                 .then(({data}) => {
