@@ -17,10 +17,12 @@ class ItinerariesController < ApplicationController
   def create
 
     dates = JSON.parse itinerary_params["dates"] 
+    location = itinerary_params["location"]
 
+    new_params = { "location" => location , "dates" => dates, "shared" => false }
     p "here!!!!!!!!"
-    p dates
-    itinerary = Itinerary.new(itinerary_params)
+    p new_params
+    itinerary = Itinerary.new(new_params)
 
     if itinerary.save
       render json: {itinerary: itinerary, id: itinerary.id, status: 200}
