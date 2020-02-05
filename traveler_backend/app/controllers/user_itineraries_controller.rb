@@ -20,7 +20,7 @@ class UserItinerariesController < ApplicationController
     user_itinerary = UserItinerary.new(user_itinerary_params)
 
     if user_itinerary.save
-      render json: {status: 200}
+      render json: {id: user_itinerary.itinerary_id, status: 200}
     else
       render json: {error:"Failed To Save", status: 204}
     end

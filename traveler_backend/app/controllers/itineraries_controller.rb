@@ -15,17 +15,25 @@ class ItinerariesController < ApplicationController
 
   # POST /itineraries
   def create
-
     dates = JSON.parse itinerary_params["dates"] 
     location = itinerary_params["location"]
+    shared = itinerary_params["shared"]
 
-    new_params = { "location" => location , "dates" => dates, "shared" => false }
-    p "here!!!!!!!!"
-    p new_params
-    itinerary = Itinerary.new(new_params)
+    new_itinerary_params = { "location" => location , "dates" => dates, "shared" => shared }
+    itinerary = Itinerary.new(new_itinerary_params)
 
-    if itinerary.save
-      render json: {itinerary: itinerary, id: itinerary.id, status: 200}
+    if itinerary.save 
+
+      lookup_params = {"user_id" => params[:id] , "itinerary_id" => itinerary.id }
+
+      lookup = Lookup.new(lookup_params)
+
+      if lookup.save
+        render json: {id: lookup.itinerary_id, status: 200}
+      else
+        render json: {error:"Failed To Save", status: 204}
+      end
+
     else
       render json: {error:"Failed To Save", status: 204}
     end

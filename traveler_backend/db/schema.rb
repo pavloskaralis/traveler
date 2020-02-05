@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_29_043613) do
+ActiveRecord::Schema.define(version: 2020_02_05_050055) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,6 +21,15 @@ ActiveRecord::Schema.define(version: 2020_01_29_043613) do
     t.string "dates", default: [], array: true
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "lookups", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "itinerary_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["itinerary_id"], name: "index_lookups_on_itinerary_id"
+    t.index ["user_id"], name: "index_lookups_on_user_id"
   end
 
   create_table "planning_rows", force: :cascade do |t|
@@ -45,13 +54,6 @@ ActiveRecord::Schema.define(version: 2020_01_29_043613) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "user_itineraries", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "itinerary_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
   create_table "users", force: :cascade do |t|
     t.string "username"
     t.string "password_digest"
@@ -60,4 +62,6 @@ ActiveRecord::Schema.define(version: 2020_01_29_043613) do
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
+  add_foreign_key "lookups", "itineraries"
+  add_foreign_key "lookups", "users"
 end

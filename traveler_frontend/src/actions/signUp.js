@@ -13,19 +13,21 @@ export default function signUp(username, password) {
             username: username,
             password: password
         }
-        axios.post('http://localhost:3001/users', newUser)
-            .then(({data}) => {
-                if (!data.error) {
-                    localStorage.setItem("token", data.jwt)
-                    dispatch(toggleLogin(true));
-                    dispatch(setUserID(data.id));
-                    dispatch(toggleError(''));
-                    dispatch(toggleDropdown(false));
-                    dispatch(toggleForm(''));
-                } else {
-                    dispatch(toggleError('Username Already Taken.'));
-                }
-        })
+        const postRequest = async() => {
+            const result = await axios.post('http://localhost:3001/users', newUser);
+            const {data} = result;
+            if (!data.error) {
+                localStorage.setItem("token", data.jwt)
+                dispatch(toggleLogin(true));
+                dispatch(setUserID(data.id));
+                dispatch(toggleError(''));
+                dispatch(toggleDropdown(false));
+                dispatch(toggleForm(''));
+            } else {
+                dispatch(toggleError('Username Already Taken'));
+            }
+        }
+        postRequest();
     }
 }
 

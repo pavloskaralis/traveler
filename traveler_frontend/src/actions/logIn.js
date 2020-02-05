@@ -9,10 +9,13 @@ import toggleForm from './toggleForm.js';
 
 export default function logIn(username, password) {
     return dispatch => {
-        axios.post('http://localhost:3001/login', {
+        const user = {
             username: username,
             password: password
-        }).then(({data}) => {
+        }
+        const postRequest = async () => { 
+            const result = await axios.post('http://localhost:3001/login', user);
+            const {data} = result;
             if(!data.error) {
                 localStorage.setItem("token", data.jwt)
                 dispatch(toggleLogin(true));
@@ -24,7 +27,8 @@ export default function logIn(username, password) {
             } else {
                 dispatch(toggleError('Invalid Username/Password'));
             }
-        })
+        }
+        postRequest();
     }
 }
 

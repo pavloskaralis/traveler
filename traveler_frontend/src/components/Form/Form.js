@@ -11,7 +11,7 @@ const mapStateToProps = state => {
     return {
         form: state.form,
         error: state.error,
-        userID: state.userID
+        userID: state.userID,
     }
 }
 
@@ -43,6 +43,7 @@ function Form({form, error, toggleForm, signUp, logIn, page, createItinerary, us
             case 'login': logIn(username.value,password.value);
                 break;
             case '+': createItinerary(location.value,departureDate.value,returnDate.value,userID)
+                break;
         }
         //reset values
         allInputs.forEach(input => {if(input) input.value = ''});
@@ -51,6 +52,10 @@ function Form({form, error, toggleForm, signUp, logIn, page, createItinerary, us
     let legend = form;
     switch(form) {
         case '+': legend = 'New Itinerary';
+            break;
+        case 'signup': legend = 'Sign Up';
+            break;
+        case 'login': legend = 'Login'; 
             break;
     }
     //inputs vary based on page and form type

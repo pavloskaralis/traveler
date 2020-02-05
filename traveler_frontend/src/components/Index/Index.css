@@ -23,8 +23,8 @@
 
 ::-webkit-scrollbar {
     width: 7px;    
-    background-color: var(--blackHover);
+    background-color: var(--grayHover);
 }
 ::-webkit-scrollbar-thumb {
-    background-color: var(--grayHover);   
+    background-color: var(--blackHover);   
 }

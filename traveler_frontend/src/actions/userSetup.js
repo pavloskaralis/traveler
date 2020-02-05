@@ -6,21 +6,25 @@ import toggleLogin from './toggleLogin.js'
 
 export default function userSetup() {
     return dispatch => {
-        const token = localStorage.getItem("token");
-        if(token) {
-            axios.get('http://localhost:3001/auto_login', {
+        const getRequest = async() => {
+            const result = await axios.get('http://localhost:3001/auto_login', {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
-            }).then(({data}) => {
-                if(!data.error){
-                    dispatch(toggleLogin(true));
-                    dispatch(setUserID(data.id));
-                    dispatch(setItineraries(data.itineraries))
-                } else {
-                    dispatch(toggleLogin(false));
-                }
-            }); 
+            }) 
+            const {data} = result;  
+            if(!data.error){
+                dispatch(toggleLogin(true));
+                dispatch(setUserID(data.id));
+                dispatch(setItineraries(data.itineraries))
+            } else {
+                dispatch(toggleLogin(false));
+            }  
+        }
+        
+        const token = localStorage.getItem("token");
+        if(token) {
+            getRequest();
         } else {
             dispatch(toggleLogin(false));
         }
