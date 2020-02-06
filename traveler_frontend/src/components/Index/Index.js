@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 import toggleDropdown from '../../actions/toggleDropdown.js'
 import './Index.css'

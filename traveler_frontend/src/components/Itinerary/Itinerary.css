@@ -1,10 +1,12 @@
+a {
+    text-decoration-line: none;
+}
+
 .itinerary {
     width: 100%;
     padding-left: 8%;
     min-height: 120px; 
     display: flex;
-    /* justify-content: space-evenly; */
-    
     border-bottom: 1px solid var(--blue);
     box-sizing: border-box;
     cursor: pointer;

@@ -25,8 +25,9 @@ function App({isLoggedIn,userSetup}) {
     <React.Fragment>
       <Nav/>
       <Switch>
+        {isLoggedIn && <Route path={'/:location'} render={()=> <Show/>}/>}  
         <Route path={'/'} render={()=> isLoggedIn? <Index/> : <Home/>}/>
-        {isLoggedIn && <Route path={'/:id'} render={()=> <Show/>}/>}
+        
       </Switch>
     </React.Fragment>  
   )

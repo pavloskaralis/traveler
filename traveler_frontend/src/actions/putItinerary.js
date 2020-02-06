@@ -1,9 +1,10 @@
 import axios from 'axios'
 import toggleError from './toggleError.js'
 import toggleForm from './toggleForm.js'
-import updateItineraries from './updateItineraries.js';
+import swapItinerary from './swapItinerary.js'
+import selectItinerary from './selectItinerary.js';
 
-export default function updateItinerary(location,departureDate,returnDate,userID) {
+export default function putItinerary(location,departureDate,returnDate, itineraryID, index) {
     return dispatch => {
         //check date format is valid
         const regex = /(20)[2-9]\d-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])/i;
@@ -55,21 +56,22 @@ export default function updateItinerary(location,departureDate,returnDate,userID
         //easier 60 day limit check
         if(dates.length > 60) return dispatch(toggleError('60 Day Limit'));
         //post request
-        const newItinerary = {
+        const updatedItinerary = {
             location: location,
             dates:  JSON.stringify(dates),
             shared: false
         }
         const postRequest = async () => {
-            const result = await axios.post(`http://localhost:3001/users/${userID}/itineraries`, newItinerary);
+            const result = await axios.put(`http://localhost:3001/itineraries/${itineraryID}`, updatedItinerary);
             const {data} = result;
             if (!data.error) {
                 dispatch(toggleError(''));
                 dispatch(toggleForm(''));
-                const newDate = JSON.parse(newItinerary.dates)
-                dispatch(updateItineraries({...newItinerary, dates: newDate, id: data.id}))
+                dispatch(selectItinerary(''));
+                const newDates = JSON.parse(updatedItinerary.dates)
+                dispatch(swapItinerary({...updatedItinerary, dates: newDates, id: itineraryID}, index))
             } else {
-                dispatch(toggleError('Failed To Save'));
+                dispatch(toggleError('Failed To Update'));
             }
         }
         postRequest();

@@ -3,9 +3,9 @@ import { connect } from 'react-redux'
 import toggleForm from '../../actions/toggleForm.js'
 import signUp from '../../actions/signUp.js'
 import logIn from '../../actions/logIn.js'
-import createItinerary from '../../actions/createItinerary.js'
+import postItinerary from '../../actions/postItinerary.js'
 import selectItinerary from '../../actions/selectItinerary.js'
-import updateItinerary from '../../actions/updateItinerary.js'
+import putItinerary from '../../actions/putItinerary.js'
 import './Form.css'
 
 
@@ -22,12 +22,12 @@ const mapDispatchToProps = {
     toggleForm,
     signUp,
     logIn,
-    createItinerary,
+    postItinerary,
     selectItinerary,
-    updateItinerary
+    putItinerary
 }
 
-function Form({form, error, toggleForm, signUp, logIn, page, createItinerary, userID, itinerary, selectItinerary, updateItinerary}) {
+function Form({form, error, toggleForm, signUp, logIn, page, postItinerary, userID, itinerary, selectItinerary, putItinerary}) {
     let username;
     let password;
     let location;
@@ -47,9 +47,9 @@ function Form({form, error, toggleForm, signUp, logIn, page, createItinerary, us
                 break;
             case 'log in': logIn(username.value,password.value);
                 break;
-            case '+': createItinerary(location.value,departureDate.value,returnDate.value,userID)
+            case '+': postItinerary(location.value,departureDate.value,returnDate.value,userID)
                 break;
-            case 'update': updateItinerary(location.value,departureDate.value,returnDate.value,itinerary.id)
+            case 'update': putItinerary(location.value,departureDate.value,returnDate.value,itinerary.id,itinerary.index)
         }
         //reset values
         allInputs.forEach(input => {if(input) input.value = ''});

@@ -1,9 +1,9 @@
 import axios from 'axios'
 import toggleError from './toggleError.js'
 import toggleForm from './toggleForm.js'
-import updateItineraries from './updateItineraries.js';
+import addItinerary from './addItinerary.js';
 
-export default function createItinerary(location,departureDate,returnDate,userID) {
+export default function postItinerary(location,departureDate,returnDate,userID) {
     return dispatch => {
         //check date format is valid
         const regex = /(20)[2-9]\d-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])/i;
@@ -66,8 +66,8 @@ export default function createItinerary(location,departureDate,returnDate,userID
             if (!data.error) {
                 dispatch(toggleError(''));
                 dispatch(toggleForm(''));
-                const newDate = JSON.parse(newItinerary.dates)
-                dispatch(updateItineraries({...newItinerary, dates: newDate, id: data.id}))
+                const newDates = JSON.parse(newItinerary.dates)
+                dispatch(addItinerary({...newItinerary, dates: newDates, id: data.id}))
             } else {
                 dispatch(toggleError('Failed To Save'));
             }

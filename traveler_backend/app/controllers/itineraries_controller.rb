@@ -1,18 +1,6 @@
 class ItinerariesController < ApplicationController
   before_action :set_itinerary, only: [:show, :update, :destroy]
 
-  # GET /itineraries
-  def index
-    @itineraries = Itinerary.all
-
-    render json: @itineraries
-  end
-
-  # GET /itineraries/1
-  def show
-    render json: @itinerary
-  end
-
   # POST /itineraries
   def create
     dates = JSON.parse itinerary_params["dates"] 
@@ -41,10 +29,16 @@ class ItinerariesController < ApplicationController
 
   # PATCH/PUT /itineraries/1
   def update
-    if @itinerary.update(itinerary_params)
-      render json: @itinerary
+    dates = JSON.parse itinerary_params["dates"] 
+    location = itinerary_params["location"]
+    shared = itinerary_params["shared"]
+
+    new_itinerary_params = { "location" => location , "dates" => dates, "shared" => shared }
+
+    if @itinerary.update(new_itinerary_params)
+      render json: {status: 200}
     else
-      render json: @itinerary.errors, status: :unprocessable_entity
+      render json: {error:"Failed To Save", status: 204}
     end
   end
 
