@@ -21,6 +21,7 @@ function Nav({dropdown, toggleDropdown}) {
         <nav>
             <h2 onClick={()=> history.push('/')}>Traveler</h2>
             <div className="dropdown-icon-container" onClick={() => toggleDropdown(!dropdown)}>
+                {/* hamburder dropdown; thanks Madeline! */}
                 <span> </span>
                 <span> </span>
                 <span> </span>

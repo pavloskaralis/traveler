@@ -27,7 +27,9 @@ const mapDispatchToProps = {
     putItinerary
 }
 
+//form reused for home, index, and show pages
 function Form({form, error, toggleForm, signUp, logIn, page, postItinerary, userID, itinerary, selectItinerary, putItinerary}) {
+    //define variables for ref attributes
     let username;
     let password;
     let location;
@@ -37,7 +39,7 @@ function Form({form, error, toggleForm, signUp, logIn, page, postItinerary, user
 
     const submit = e => {
         e.preventDefault();
-        //prevent empty inputs
+        //prevent empty input submission 
         let exit = false;
         allInputs.forEach(input => {if(input && !input.value) exit = true})
         if(exit)return;
@@ -78,6 +80,7 @@ function Form({form, error, toggleForm, signUp, logIn, page, postItinerary, user
         <div className="form-container" onClick={()=>{if(form){toggleForm('')};selectItinerary('')}}>
             <form onSubmit={ submit } onClick={e => e.stopPropagation()} >
                 <legend>{error? error : legend }</legend>
+                {/* home page has login and signup form */}
                 {page === 'home' &&
                     <>
                         <div className="input-container">
@@ -90,6 +93,7 @@ function Form({form, error, toggleForm, signUp, logIn, page, postItinerary, user
                         </div>
                     </>
                 }
+                {/* index page has itinerary create and update form */}
                 {page === 'index' &&
                     <>
                         <div className="input-container">

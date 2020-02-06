@@ -24,6 +24,7 @@ function Home({toggleForm, form, dropdown, toggleDropdown}) {
             <div className="color-overlay"></div>
             <div className="image-overlay"></div>
             <div className="gradient-overlay"></div>
+            {/* close dropdown when off focus */}
             <div className="home-container" onClick={()=>{if(dropdown)toggleDropdown(false)}}>
                     <div className="home-wrap">
                         <div className="slogan-container">

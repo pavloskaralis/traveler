@@ -5,6 +5,7 @@ import Search from '../Search/Search.js'
 import Button from '../Button/Button.js'
 import './Tools.css'
 
+//tools conditionally render based on index or show page
 function Tools({page}) {
     return (
         <div className='tools-container'>
@@ -12,7 +13,7 @@ function Tools({page}) {
                 {page === 'index' ? 
                     <> 
                         <Search/>
-                        <Button text='+'/>
+                        <Button type='+'/>
                     </> : 
                     <> 
                     </>

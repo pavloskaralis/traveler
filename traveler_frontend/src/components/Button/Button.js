@@ -7,10 +7,11 @@ const mapDispatchToProps = {
     toggleForm
 }
 
-function Button({text, toggleForm}) {
-    const onClick = text === 'back' ? null : ()=> toggleForm(text);
+function Button({type, toggleForm}) {
+    // all buttons except back toggle form
+    const onClick = type === 'back' ? null : ()=> toggleForm(type);
     return (
-        <div className='button' onClick={onClick}>{text}</div>
+        <div className='button' onClick={onClick}>{type}</div>
     )
 }
 

@@ -26,8 +26,8 @@ function App({isLoggedIn,userSetup}) {
       <Nav/>
       <Switch>
         {isLoggedIn && <Route path={'/:location'} render={()=> <Show/>}/>}  
-        <Route path={'/'} render={()=> isLoggedIn? <Index/> : <Home/>}/>
-        
+        {/* null prevents index home page flash */}
+        <Route path={'/'} render={()=> isLoggedIn === true? <Index/> : isLoggedIn === false? <Home/> : null}/>
       </Switch>
     </React.Fragment>  
   )
