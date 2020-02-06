@@ -6,6 +6,7 @@ class CreateSchedulingRows < ActiveRecord::Migration[6.0]
       t.string :time
       t.string :activity
       t.string :type
+      t.string :website
       t.string :address
 
       t.timestamps

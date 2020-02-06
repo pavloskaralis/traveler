@@ -109,7 +109,7 @@
     justify-content: space-evenly;
 }
 
-.sign-up, .login {
+.signup, .login {
     border-radius: .6vw;
     width: 14vw;
     height: 6vw;
@@ -123,12 +123,12 @@
     cursor: pointer;
 }
 
-.sign-up {
+.signup {
     background-color: var(--orange);
     color: var(--black);
 }
 
-.sign-up:hover {
+.signup:hover {
     background-color: var(--orangeHover);
     transition: .3s; 
 }
@@ -183,7 +183,7 @@
     .dropdown-menu {
         width: 29%;
     }
-    .sign-up, .login {
+    .signup, .login {
         border-radius: 1.2vw;
         width: 28vw;
         height: 12vw;

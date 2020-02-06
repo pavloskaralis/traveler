@@ -10499,3 +10499,902 @@ Processing by AuthController#auto_login as HTML
 Completed 200 OK in 9ms (Views: 5.6ms | ActiveRecord: 0.6ms | Allocations: 8269)
 
 
+Started POST "/login" for ::1 at 2020-02-05 12:12:16 -0500
+Processing by AuthController#login as HTML
+  Parameters: {"username"=>"test", "password"=>"[FILTERED]"}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "test"], ["LIMIT", 1]]
+  ↳ app/controllers/auth_controller.rb:5:in `login'
+  [1m[36mItinerary Load (0.7ms)[0m  [1m[34mSELECT "itineraries".* FROM "itineraries" INNER JOIN "lookups" ON "itineraries"."id" = "lookups"."itinerary_id" WHERE "lookups"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/controllers/auth_controller.rb:10:in `login'
+Completed 200 OK in 245ms (Views: 17.3ms | ActiveRecord: 1.2ms | Allocations: 7361)
+
+
+Started GET "/auto_login" for ::1 at 2020-02-05 12:12:49 -0500
+Processing by AuthController#auto_login as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mItinerary Load (0.4ms)[0m  [1m[34mSELECT "itineraries".* FROM "itineraries" INNER JOIN "lookups" ON "itineraries"."id" = "lookups"."itinerary_id" WHERE "lookups"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/controllers/auth_controller.rb:18:in `auto_login'
+Completed 200 OK in 14ms (Views: 9.4ms | ActiveRecord: 0.8ms | Allocations: 8273)
+
+
+Started POST "/users/1/itineraries" for ::1 at 2020-02-05 12:12:56 -0500
+Processing by ItinerariesController#create as HTML
+  Parameters: {"location"=>"test", "dates"=>"[\"02.18.20\",\"02.19.20\",\"02.20.20\",\"02.21.20\",\"02.22.20\",\"02.23.20\",\"02.24.20\",\"02.25.20\",\"02.26.20\",\"02.27.20\",\"02.28.20\"]", "shared"=>false, "id"=>"1", "itinerary"=>{"location"=>"test", "shared"=>false, "dates"=>"[\"02.18.20\",\"02.19.20\",\"02.20.20\",\"02.21.20\",\"02.22.20\",\"02.23.20\",\"02.24.20\",\"02.25.20\",\"02.26.20\",\"02.27.20\",\"02.28.20\"]"}}
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/itineraries_controller.rb:25:in `create'
+  [1m[36mItinerary Create (0.7ms)[0m  [1m[32mINSERT INTO "itineraries" ("location", "shared", "dates", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["location", "test"], ["shared", false], ["dates", "{02.18.20,02.19.20,02.20.20,02.21.20,02.22.20,02.23.20,02.24.20,02.25.20,02.26.20,02.27.20,02.28.20}"], ["created_at", "2020-02-05 17:12:56.408116"], ["updated_at", "2020-02-05 17:12:56.408116"]]
+  ↳ app/controllers/itineraries_controller.rb:25:in `create'
+  [1m[35m (1.7ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/itineraries_controller.rb:25:in `create'
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/itineraries_controller.rb:31:in `create'
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/itineraries_controller.rb:31:in `create'
+  [1m[36mItinerary Load (0.2ms)[0m  [1m[34mSELECT "itineraries".* FROM "itineraries" WHERE "itineraries"."id" = $1 LIMIT $2[0m  [["id", 35], ["LIMIT", 1]]
+  ↳ app/controllers/itineraries_controller.rb:31:in `create'
+  [1m[36mLookup Create (0.7ms)[0m  [1m[32mINSERT INTO "lookups" ("user_id", "itinerary_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["user_id", 1], ["itinerary_id", 35], ["created_at", "2020-02-05 17:12:56.425661"], ["updated_at", "2020-02-05 17:12:56.425661"]]
+  ↳ app/controllers/itineraries_controller.rb:31:in `create'
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/itineraries_controller.rb:31:in `create'
+Completed 200 OK in 21ms (Views: 0.2ms | ActiveRecord: 7.5ms | Allocations: 9116)
+
+
+Started POST "/login" for ::1 at 2020-02-05 12:13:05 -0500
+Processing by AuthController#login as HTML
+  Parameters: {"username"=>"test", "password"=>"[FILTERED]"}
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "test"], ["LIMIT", 1]]
+  ↳ app/controllers/auth_controller.rb:5:in `login'
+  [1m[36mItinerary Load (0.5ms)[0m  [1m[34mSELECT "itineraries".* FROM "itineraries" INNER JOIN "lookups" ON "itineraries"."id" = "lookups"."itinerary_id" WHERE "lookups"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/controllers/auth_controller.rb:10:in `login'
+Completed 200 OK in 240ms (Views: 5.6ms | ActiveRecord: 1.0ms | Allocations: 7386)
+
+
+Started GET "/auto_login" for ::1 at 2020-02-05 12:13:26 -0500
+Processing by AuthController#auto_login as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mItinerary Load (0.5ms)[0m  [1m[34mSELECT "itineraries".* FROM "itineraries" INNER JOIN "lookups" ON "itineraries"."id" = "lookups"."itinerary_id" WHERE "lookups"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/controllers/auth_controller.rb:18:in `auto_login'
+Completed 200 OK in 13ms (Views: 8.9ms | ActiveRecord: 0.9ms | Allocations: 8449)
+
+
+Started GET "/auto_login" for ::1 at 2020-02-05 12:13:55 -0500
+Processing by AuthController#auto_login as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mItinerary Load (0.6ms)[0m  [1m[34mSELECT "itineraries".* FROM "itineraries" INNER JOIN "lookups" ON "itineraries"."id" = "lookups"."itinerary_id" WHERE "lookups"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/controllers/auth_controller.rb:18:in `auto_login'
+Completed 200 OK in 17ms (Views: 12.0ms | ActiveRecord: 0.9ms | Allocations: 8450)
+
+
+Started GET "/auto_login" for ::1 at 2020-02-05 12:14:06 -0500
+Processing by AuthController#auto_login as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mItinerary Load (0.6ms)[0m  [1m[34mSELECT "itineraries".* FROM "itineraries" INNER JOIN "lookups" ON "itineraries"."id" = "lookups"."itinerary_id" WHERE "lookups"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/controllers/auth_controller.rb:18:in `auto_login'
+Completed 200 OK in 15ms (Views: 9.7ms | ActiveRecord: 0.9ms | Allocations: 8450)
+
+
+Started GET "/auto_login" for ::1 at 2020-02-05 12:14:39 -0500
+Processing by AuthController#auto_login as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mItinerary Load (0.3ms)[0m  [1m[34mSELECT "itineraries".* FROM "itineraries" INNER JOIN "lookups" ON "itineraries"."id" = "lookups"."itinerary_id" WHERE "lookups"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/controllers/auth_controller.rb:18:in `auto_login'
+Completed 200 OK in 11ms (Views: 6.9ms | ActiveRecord: 0.6ms | Allocations: 8449)
+
+
+Started GET "/auto_login" for ::1 at 2020-02-05 12:16:20 -0500
+Processing by AuthController#auto_login as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mItinerary Load (0.5ms)[0m  [1m[34mSELECT "itineraries".* FROM "itineraries" INNER JOIN "lookups" ON "itineraries"."id" = "lookups"."itinerary_id" WHERE "lookups"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/controllers/auth_controller.rb:18:in `auto_login'
+Completed 200 OK in 12ms (Views: 8.4ms | ActiveRecord: 0.7ms | Allocations: 8449)
+
+
+Started GET "/auto_login" for ::1 at 2020-02-05 12:16:52 -0500
+Processing by AuthController#auto_login as HTML
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mItinerary Load (0.4ms)[0m  [1m[34mSELECT "itineraries".* FROM "itineraries" INNER JOIN "lookups" ON "itineraries"."id" = "lookups"."itinerary_id" WHERE "lookups"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/controllers/auth_controller.rb:18:in `auto_login'
+Completed 200 OK in 12ms (Views: 6.7ms | ActiveRecord: 1.1ms | Allocations: 8449)
+
+
+Started GET "/auto_login" for ::1 at 2020-02-05 12:19:10 -0500
+Processing by AuthController#auto_login as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mItinerary Load (0.5ms)[0m  [1m[34mSELECT "itineraries".* FROM "itineraries" INNER JOIN "lookups" ON "itineraries"."id" = "lookups"."itinerary_id" WHERE "lookups"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/controllers/auth_controller.rb:18:in `auto_login'
+Completed 200 OK in 16ms (Views: 9.1ms | ActiveRecord: 0.8ms | Allocations: 8449)
+
+
+Started GET "/auto_login" for ::1 at 2020-02-05 12:20:07 -0500
+Processing by AuthController#auto_login as HTML
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mItinerary Load (0.5ms)[0m  [1m[34mSELECT "itineraries".* FROM "itineraries" INNER JOIN "lookups" ON "itineraries"."id" = "lookups"."itinerary_id" WHERE "lookups"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/controllers/auth_controller.rb:18:in `auto_login'
+Completed 200 OK in 13ms (Views: 7.9ms | ActiveRecord: 1.0ms | Allocations: 8449)
+
+
+Started GET "/auto_login" for ::1 at 2020-02-05 12:22:37 -0500
+Processing by AuthController#auto_login as HTML
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mItinerary Load (0.7ms)[0m  [1m[34mSELECT "itineraries".* FROM "itineraries" INNER JOIN "lookups" ON "itineraries"."id" = "lookups"."itinerary_id" WHERE "lookups"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/controllers/auth_controller.rb:18:in `auto_login'
+Completed 200 OK in 15ms (Views: 8.9ms | ActiveRecord: 1.3ms | Allocations: 8449)
+
+
+Started GET "/auto_login" for ::1 at 2020-02-05 12:23:33 -0500
+Processing by AuthController#auto_login as HTML
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mItinerary Load (0.4ms)[0m  [1m[34mSELECT "itineraries".* FROM "itineraries" INNER JOIN "lookups" ON "itineraries"."id" = "lookups"."itinerary_id" WHERE "lookups"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/controllers/auth_controller.rb:18:in `auto_login'
+Completed 200 OK in 14ms (Views: 8.4ms | ActiveRecord: 0.9ms | Allocations: 8450)
+
+
+Started GET "/auto_login" for ::1 at 2020-02-05 12:23:43 -0500
+Processing by AuthController#auto_login as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mItinerary Load (0.4ms)[0m  [1m[34mSELECT "itineraries".* FROM "itineraries" INNER JOIN "lookups" ON "itineraries"."id" = "lookups"."itinerary_id" WHERE "lookups"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/controllers/auth_controller.rb:18:in `auto_login'
+Completed 200 OK in 16ms (Views: 10.1ms | ActiveRecord: 0.7ms | Allocations: 8450)
+
+
+Started GET "/auto_login" for ::1 at 2020-02-05 16:58:11 -0500
+Processing by AuthController#auto_login as HTML
+  [1m[36mUser Load (1.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mItinerary Load (1.5ms)[0m  [1m[34mSELECT "itineraries".* FROM "itineraries" INNER JOIN "lookups" ON "itineraries"."id" = "lookups"."itinerary_id" WHERE "lookups"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/controllers/auth_controller.rb:18:in `auto_login'
+Completed 200 OK in 41ms (Views: 14.5ms | ActiveRecord: 3.4ms | Allocations: 8603)
+
+
+Started GET "/auto_login" for ::1 at 2020-02-05 16:58:26 -0500
+Processing by AuthController#auto_login as HTML
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mItinerary Load (0.6ms)[0m  [1m[34mSELECT "itineraries".* FROM "itineraries" INNER JOIN "lookups" ON "itineraries"."id" = "lookups"."itinerary_id" WHERE "lookups"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/controllers/auth_controller.rb:18:in `auto_login'
+Completed 200 OK in 20ms (Views: 12.0ms | ActiveRecord: 1.3ms | Allocations: 8449)
+
+
+Started GET "/auto_login" for ::1 at 2020-02-05 16:58:42 -0500
+Processing by AuthController#auto_login as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mItinerary Load (0.7ms)[0m  [1m[34mSELECT "itineraries".* FROM "itineraries" INNER JOIN "lookups" ON "itineraries"."id" = "lookups"."itinerary_id" WHERE "lookups"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/controllers/auth_controller.rb:18:in `auto_login'
+Completed 200 OK in 44ms (Views: 36.4ms | ActiveRecord: 1.2ms | Allocations: 8450)
+
+
+Started GET "/auto_login" for ::1 at 2020-02-05 16:59:02 -0500
+Processing by AuthController#auto_login as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mItinerary Load (0.7ms)[0m  [1m[34mSELECT "itineraries".* FROM "itineraries" INNER JOIN "lookups" ON "itineraries"."id" = "lookups"."itinerary_id" WHERE "lookups"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/controllers/auth_controller.rb:18:in `auto_login'
+Completed 200 OK in 19ms (Views: 12.3ms | ActiveRecord: 1.2ms | Allocations: 8450)
+
+
+Started GET "/auto_login" for ::1 at 2020-02-05 16:59:23 -0500
+Processing by AuthController#auto_login as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mItinerary Load (0.5ms)[0m  [1m[34mSELECT "itineraries".* FROM "itineraries" INNER JOIN "lookups" ON "itineraries"."id" = "lookups"."itinerary_id" WHERE "lookups"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/controllers/auth_controller.rb:18:in `auto_login'
+Completed 200 OK in 15ms (Views: 8.8ms | ActiveRecord: 0.8ms | Allocations: 8449)
+
+
+Started GET "/auto_login" for ::1 at 2020-02-05 17:00:02 -0500
+Processing by AuthController#auto_login as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mItinerary Load (0.7ms)[0m  [1m[34mSELECT "itineraries".* FROM "itineraries" INNER JOIN "lookups" ON "itineraries"."id" = "lookups"."itinerary_id" WHERE "lookups"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/controllers/auth_controller.rb:18:in `auto_login'
+Completed 200 OK in 16ms (Views: 10.5ms | ActiveRecord: 1.1ms | Allocations: 8449)
+
+
+Started GET "/auto_login" for ::1 at 2020-02-05 17:03:21 -0500
+Processing by AuthController#auto_login as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mItinerary Load (0.5ms)[0m  [1m[34mSELECT "itineraries".* FROM "itineraries" INNER JOIN "lookups" ON "itineraries"."id" = "lookups"."itinerary_id" WHERE "lookups"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/controllers/auth_controller.rb:18:in `auto_login'
+Completed 200 OK in 17ms (Views: 11.0ms | ActiveRecord: 0.8ms | Allocations: 8449)
+
+
+Started GET "/auto_login" for ::1 at 2020-02-05 17:03:34 -0500
+Processing by AuthController#auto_login as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mItinerary Load (0.4ms)[0m  [1m[34mSELECT "itineraries".* FROM "itineraries" INNER JOIN "lookups" ON "itineraries"."id" = "lookups"."itinerary_id" WHERE "lookups"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/controllers/auth_controller.rb:18:in `auto_login'
+Completed 200 OK in 15ms (Views: 10.0ms | ActiveRecord: 0.7ms | Allocations: 8449)
+
+
+Started GET "/auto_login" for ::1 at 2020-02-05 17:04:54 -0500
+Processing by AuthController#auto_login as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mItinerary Load (0.4ms)[0m  [1m[34mSELECT "itineraries".* FROM "itineraries" INNER JOIN "lookups" ON "itineraries"."id" = "lookups"."itinerary_id" WHERE "lookups"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/controllers/auth_controller.rb:18:in `auto_login'
+Completed 200 OK in 14ms (Views: 8.4ms | ActiveRecord: 0.8ms | Allocations: 8449)
+
+
+Started GET "/auto_login" for ::1 at 2020-02-05 17:05:05 -0500
+Processing by AuthController#auto_login as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mItinerary Load (0.4ms)[0m  [1m[34mSELECT "itineraries".* FROM "itineraries" INNER JOIN "lookups" ON "itineraries"."id" = "lookups"."itinerary_id" WHERE "lookups"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/controllers/auth_controller.rb:18:in `auto_login'
+Completed 200 OK in 14ms (Views: 8.4ms | ActiveRecord: 0.7ms | Allocations: 8449)
+
+
+Started GET "/auto_login" for ::1 at 2020-02-05 17:06:27 -0500
+Processing by AuthController#auto_login as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mItinerary Load (0.5ms)[0m  [1m[34mSELECT "itineraries".* FROM "itineraries" INNER JOIN "lookups" ON "itineraries"."id" = "lookups"."itinerary_id" WHERE "lookups"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/controllers/auth_controller.rb:18:in `auto_login'
+Completed 200 OK in 15ms (Views: 10.1ms | ActiveRecord: 0.8ms | Allocations: 8450)
+
+
+Started GET "/auto_login" for ::1 at 2020-02-05 17:06:30 -0500
+Processing by AuthController#auto_login as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mItinerary Load (0.4ms)[0m  [1m[34mSELECT "itineraries".* FROM "itineraries" INNER JOIN "lookups" ON "itineraries"."id" = "lookups"."itinerary_id" WHERE "lookups"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/controllers/auth_controller.rb:18:in `auto_login'
+Completed 200 OK in 13ms (Views: 7.9ms | ActiveRecord: 0.6ms | Allocations: 8450)
+
+
+Started GET "/auto_login" for ::1 at 2020-02-05 17:08:33 -0500
+Processing by AuthController#auto_login as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mItinerary Load (0.5ms)[0m  [1m[34mSELECT "itineraries".* FROM "itineraries" INNER JOIN "lookups" ON "itineraries"."id" = "lookups"."itinerary_id" WHERE "lookups"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/controllers/auth_controller.rb:18:in `auto_login'
+Completed 200 OK in 15ms (Views: 9.5ms | ActiveRecord: 0.8ms | Allocations: 8449)
+
+
+Started GET "/auto_login" for ::1 at 2020-02-05 17:09:31 -0500
+Processing by AuthController#auto_login as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mItinerary Load (0.5ms)[0m  [1m[34mSELECT "itineraries".* FROM "itineraries" INNER JOIN "lookups" ON "itineraries"."id" = "lookups"."itinerary_id" WHERE "lookups"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/controllers/auth_controller.rb:18:in `auto_login'
+Completed 200 OK in 14ms (Views: 9.9ms | ActiveRecord: 0.7ms | Allocations: 8449)
+
+
+Started GET "/auto_login" for ::1 at 2020-02-05 17:10:08 -0500
+Processing by AuthController#auto_login as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mItinerary Load (0.4ms)[0m  [1m[34mSELECT "itineraries".* FROM "itineraries" INNER JOIN "lookups" ON "itineraries"."id" = "lookups"."itinerary_id" WHERE "lookups"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/controllers/auth_controller.rb:18:in `auto_login'
+Completed 200 OK in 19ms (Views: 13.3ms | ActiveRecord: 0.7ms | Allocations: 8450)
+
+
+Started GET "/auto_login" for ::1 at 2020-02-05 17:10:33 -0500
+Processing by AuthController#auto_login as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mItinerary Load (0.5ms)[0m  [1m[34mSELECT "itineraries".* FROM "itineraries" INNER JOIN "lookups" ON "itineraries"."id" = "lookups"."itinerary_id" WHERE "lookups"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/controllers/auth_controller.rb:18:in `auto_login'
+Completed 200 OK in 12ms (Views: 6.9ms | ActiveRecord: 0.8ms | Allocations: 8450)
+
+
+Started GET "/auto_login" for ::1 at 2020-02-05 17:11:23 -0500
+Processing by AuthController#auto_login as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mItinerary Load (0.4ms)[0m  [1m[34mSELECT "itineraries".* FROM "itineraries" INNER JOIN "lookups" ON "itineraries"."id" = "lookups"."itinerary_id" WHERE "lookups"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/controllers/auth_controller.rb:18:in `auto_login'
+Completed 200 OK in 13ms (Views: 8.5ms | ActiveRecord: 0.7ms | Allocations: 8449)
+
+
+Started GET "/auto_login" for ::1 at 2020-02-05 17:13:15 -0500
+Processing by AuthController#auto_login as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mItinerary Load (0.3ms)[0m  [1m[34mSELECT "itineraries".* FROM "itineraries" INNER JOIN "lookups" ON "itineraries"."id" = "lookups"."itinerary_id" WHERE "lookups"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/controllers/auth_controller.rb:18:in `auto_login'
+Completed 200 OK in 11ms (Views: 6.6ms | ActiveRecord: 0.7ms | Allocations: 8449)
+
+
+Started GET "/auto_login" for ::1 at 2020-02-05 17:19:03 -0500
+Processing by AuthController#auto_login as HTML
+  [1m[36mUser Load (1.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mItinerary Load (1.1ms)[0m  [1m[34mSELECT "itineraries".* FROM "itineraries" INNER JOIN "lookups" ON "itineraries"."id" = "lookups"."itinerary_id" WHERE "lookups"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/controllers/auth_controller.rb:18:in `auto_login'
+Completed 200 OK in 15ms (Views: 6.7ms | ActiveRecord: 2.6ms | Allocations: 8602)
+
+
+Started GET "/auto_login" for ::1 at 2020-02-05 17:20:32 -0500
+Processing by AuthController#auto_login as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mItinerary Load (0.5ms)[0m  [1m[34mSELECT "itineraries".* FROM "itineraries" INNER JOIN "lookups" ON "itineraries"."id" = "lookups"."itinerary_id" WHERE "lookups"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/controllers/auth_controller.rb:18:in `auto_login'
+Completed 200 OK in 15ms (Views: 10.2ms | ActiveRecord: 0.9ms | Allocations: 8449)
+
+
+Started GET "/auto_login" for ::1 at 2020-02-05 17:20:38 -0500
+Processing by AuthController#auto_login as HTML
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mItinerary Load (1.3ms)[0m  [1m[34mSELECT "itineraries".* FROM "itineraries" INNER JOIN "lookups" ON "itineraries"."id" = "lookups"."itinerary_id" WHERE "lookups"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/controllers/auth_controller.rb:18:in `auto_login'
+Completed 200 OK in 18ms (Views: 11.5ms | ActiveRecord: 1.9ms | Allocations: 8449)
+
+
+Started GET "/auto_login" for ::1 at 2020-02-05 17:21:37 -0500
+Processing by AuthController#auto_login as HTML
+  [1m[36mUser Load (0.9ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mItinerary Load (0.5ms)[0m  [1m[34mSELECT "itineraries".* FROM "itineraries" INNER JOIN "lookups" ON "itineraries"."id" = "lookups"."itinerary_id" WHERE "lookups"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/controllers/auth_controller.rb:18:in `auto_login'
+Completed 200 OK in 12ms (Views: 7.0ms | ActiveRecord: 1.4ms | Allocations: 8449)
+
+
+Started GET "/auto_login" for ::1 at 2020-02-05 17:22:08 -0500
+Processing by AuthController#auto_login as HTML
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mItinerary Load (0.6ms)[0m  [1m[34mSELECT "itineraries".* FROM "itineraries" INNER JOIN "lookups" ON "itineraries"."id" = "lookups"."itinerary_id" WHERE "lookups"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/controllers/auth_controller.rb:18:in `auto_login'
+Completed 200 OK in 13ms (Views: 8.2ms | ActiveRecord: 1.3ms | Allocations: 8450)
+
+
+Started GET "/auto_login" for ::1 at 2020-02-05 17:27:23 -0500
+Processing by AuthController#auto_login as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mItinerary Load (0.6ms)[0m  [1m[34mSELECT "itineraries".* FROM "itineraries" INNER JOIN "lookups" ON "itineraries"."id" = "lookups"."itinerary_id" WHERE "lookups"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/controllers/auth_controller.rb:18:in `auto_login'
+Completed 200 OK in 13ms (Views: 8.1ms | ActiveRecord: 1.0ms | Allocations: 8450)
+
+
+Started GET "/auto_login" for ::1 at 2020-02-05 17:27:26 -0500
+Processing by AuthController#auto_login as HTML
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mItinerary Load (1.7ms)[0m  [1m[34mSELECT "itineraries".* FROM "itineraries" INNER JOIN "lookups" ON "itineraries"."id" = "lookups"."itinerary_id" WHERE "lookups"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/controllers/auth_controller.rb:18:in `auto_login'
+Completed 200 OK in 17ms (Views: 9.8ms | ActiveRecord: 2.6ms | Allocations: 8449)
+
+
+Started GET "/auto_login" for ::1 at 2020-02-05 17:28:13 -0500
+Processing by AuthController#auto_login as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mItinerary Load (1.8ms)[0m  [1m[34mSELECT "itineraries".* FROM "itineraries" INNER JOIN "lookups" ON "itineraries"."id" = "lookups"."itinerary_id" WHERE "lookups"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/controllers/auth_controller.rb:18:in `auto_login'
+Completed 200 OK in 17ms (Views: 10.3ms | ActiveRecord: 2.3ms | Allocations: 8449)
+
+
+Started GET "/auto_login" for ::1 at 2020-02-05 17:29:13 -0500
+Processing by AuthController#auto_login as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mCACHE User Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mItinerary Load (0.3ms)[0m  [1m[34mSELECT "itineraries".* FROM "itineraries" INNER JOIN "lookups" ON "itineraries"."id" = "lookups"."itinerary_id" WHERE "lookups"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/controllers/auth_controller.rb:18:in `auto_login'
+Completed 200 OK in 13ms (Views: 8.2ms | ActiveRecord: 0.7ms | Allocations: 8451)
+
+
+Started GET "/auto_login" for ::1 at 2020-02-05 17:59:25 -0500
+Processing by AuthController#auto_login as HTML
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mItinerary Load (1.2ms)[0m  [1m[34mSELECT "itineraries".* FROM "itineraries" INNER JOIN "lookups" ON "itineraries"."id" = "lookups"."itinerary_id" WHERE "lookups"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/controllers/auth_controller.rb:18:in `auto_login'
+Completed 200 OK in 17ms (Views: 9.9ms | ActiveRecord: 2.1ms | Allocations: 8603)
+
+
+Started GET "/auto_login" for ::1 at 2020-02-05 17:59:57 -0500
+Processing by AuthController#auto_login as HTML
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mItinerary Load (0.6ms)[0m  [1m[34mSELECT "itineraries".* FROM "itineraries" INNER JOIN "lookups" ON "itineraries"."id" = "lookups"."itinerary_id" WHERE "lookups"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/controllers/auth_controller.rb:18:in `auto_login'
+Completed 200 OK in 15ms (Views: 9.4ms | ActiveRecord: 1.1ms | Allocations: 8449)
+
+
+Started GET "/auto_login" for ::1 at 2020-02-05 18:01:11 -0500
+Processing by AuthController#auto_login as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mItinerary Load (0.7ms)[0m  [1m[34mSELECT "itineraries".* FROM "itineraries" INNER JOIN "lookups" ON "itineraries"."id" = "lookups"."itinerary_id" WHERE "lookups"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/controllers/auth_controller.rb:18:in `auto_login'
+Completed 200 OK in 15ms (Views: 9.5ms | ActiveRecord: 1.1ms | Allocations: 8449)
+
+
+Started GET "/auto_login" for ::1 at 2020-02-05 18:01:21 -0500
+Processing by AuthController#auto_login as HTML
+  [1m[36mUser Load (1.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mItinerary Load (0.7ms)[0m  [1m[34mSELECT "itineraries".* FROM "itineraries" INNER JOIN "lookups" ON "itineraries"."id" = "lookups"."itinerary_id" WHERE "lookups"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/controllers/auth_controller.rb:18:in `auto_login'
+Completed 200 OK in 14ms (Views: 7.8ms | ActiveRecord: 1.7ms | Allocations: 8449)
+
+
+Started GET "/auto_login" for ::1 at 2020-02-05 18:01:56 -0500
+Processing by AuthController#auto_login as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mItinerary Load (0.5ms)[0m  [1m[34mSELECT "itineraries".* FROM "itineraries" INNER JOIN "lookups" ON "itineraries"."id" = "lookups"."itinerary_id" WHERE "lookups"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/controllers/auth_controller.rb:18:in `auto_login'
+Completed 200 OK in 12ms (Views: 7.0ms | ActiveRecord: 1.0ms | Allocations: 8449)
+
+
+Started GET "/auto_login" for ::1 at 2020-02-05 18:02:57 -0500
+Processing by AuthController#auto_login as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mItinerary Load (0.5ms)[0m  [1m[34mSELECT "itineraries".* FROM "itineraries" INNER JOIN "lookups" ON "itineraries"."id" = "lookups"."itinerary_id" WHERE "lookups"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/controllers/auth_controller.rb:18:in `auto_login'
+Completed 200 OK in 13ms (Views: 8.4ms | ActiveRecord: 0.9ms | Allocations: 8449)
+
+
+Started GET "/auto_login" for ::1 at 2020-02-05 18:03:19 -0500
+Processing by AuthController#auto_login as HTML
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mItinerary Load (1.3ms)[0m  [1m[34mSELECT "itineraries".* FROM "itineraries" INNER JOIN "lookups" ON "itineraries"."id" = "lookups"."itinerary_id" WHERE "lookups"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/controllers/auth_controller.rb:18:in `auto_login'
+Completed 200 OK in 18ms (Views: 10.8ms | ActiveRecord: 1.9ms | Allocations: 8449)
+
+
+Started GET "/auto_login" for ::1 at 2020-02-05 18:03:38 -0500
+Processing by AuthController#auto_login as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mItinerary Load (0.4ms)[0m  [1m[34mSELECT "itineraries".* FROM "itineraries" INNER JOIN "lookups" ON "itineraries"."id" = "lookups"."itinerary_id" WHERE "lookups"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/controllers/auth_controller.rb:18:in `auto_login'
+Completed 200 OK in 12ms (Views: 7.9ms | ActiveRecord: 0.7ms | Allocations: 8450)
+
+
+Started GET "/auto_login" for ::1 at 2020-02-05 18:04:22 -0500
+Processing by AuthController#auto_login as HTML
+  [1m[36mUser Load (1.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mItinerary Load (0.4ms)[0m  [1m[34mSELECT "itineraries".* FROM "itineraries" INNER JOIN "lookups" ON "itineraries"."id" = "lookups"."itinerary_id" WHERE "lookups"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/controllers/auth_controller.rb:18:in `auto_login'
+Completed 200 OK in 19ms (Views: 12.6ms | ActiveRecord: 1.6ms | Allocations: 8450)
+
+
+Started GET "/auto_login" for ::1 at 2020-02-05 18:04:28 -0500
+Processing by AuthController#auto_login as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mItinerary Load (0.3ms)[0m  [1m[34mSELECT "itineraries".* FROM "itineraries" INNER JOIN "lookups" ON "itineraries"."id" = "lookups"."itinerary_id" WHERE "lookups"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/controllers/auth_controller.rb:18:in `auto_login'
+Completed 200 OK in 15ms (Views: 10.8ms | ActiveRecord: 0.7ms | Allocations: 8449)
+
+
+Started GET "/auto_login" for ::1 at 2020-02-05 18:07:29 -0500
+Processing by AuthController#auto_login as HTML
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mItinerary Load (1.5ms)[0m  [1m[34mSELECT "itineraries".* FROM "itineraries" INNER JOIN "lookups" ON "itineraries"."id" = "lookups"."itinerary_id" WHERE "lookups"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/controllers/auth_controller.rb:18:in `auto_login'
+Completed 200 OK in 22ms (Views: 15.5ms | ActiveRecord: 2.3ms | Allocations: 8450)
+
+
+Started GET "/auto_login" for ::1 at 2020-02-05 18:07:44 -0500
+Processing by AuthController#auto_login as HTML
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mItinerary Load (0.4ms)[0m  [1m[34mSELECT "itineraries".* FROM "itineraries" INNER JOIN "lookups" ON "itineraries"."id" = "lookups"."itinerary_id" WHERE "lookups"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/controllers/auth_controller.rb:18:in `auto_login'
+Completed 200 OK in 16ms (Views: 10.3ms | ActiveRecord: 0.9ms | Allocations: 8450)
+
+
+Started GET "/auto_login" for ::1 at 2020-02-05 18:08:09 -0500
+Processing by AuthController#auto_login as HTML
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mItinerary Load (0.4ms)[0m  [1m[34mSELECT "itineraries".* FROM "itineraries" INNER JOIN "lookups" ON "itineraries"."id" = "lookups"."itinerary_id" WHERE "lookups"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/controllers/auth_controller.rb:18:in `auto_login'
+Completed 200 OK in 14ms (Views: 8.8ms | ActiveRecord: 1.0ms | Allocations: 8450)
+
+
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_try_advisory_lock(7635286923579269115)[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateLookups (20200205050055)
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (7.9ms)[0m  [1m[35mDROP TABLE "lookups"[0m
+  [1m[36mprimary::SchemaMigration Destroy (0.7ms)[0m  [1m[31mDELETE FROM "schema_migrations" WHERE "schema_migrations"."version" = $1[0m  [["version", "20200205050055"]]
+  [1m[35m (4.5ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateSchedulingRows (20200129043613)
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (1.0ms)[0m  [1m[35mDROP TABLE "scheduling_rows"[0m
+  [1m[36mprimary::SchemaMigration Destroy (0.3ms)[0m  [1m[31mDELETE FROM "schema_migrations" WHERE "schema_migrations"."version" = $1[0m  [["version", "20200129043613"]]
+  [1m[35m (1.0ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreatePlanningRows (20200129043554)
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.7ms)[0m  [1m[35mDROP TABLE "planning_rows"[0m
+  [1m[36mprimary::SchemaMigration Destroy (0.3ms)[0m  [1m[31mDELETE FROM "schema_migrations" WHERE "schema_migrations"."version" = $1[0m  [["version", "20200129043554"]]
+  [1m[35m (1.1ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateItineraries (20200129043534)
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.9ms)[0m  [1m[35mDROP TABLE "itineraries"[0m
+  [1m[36mprimary::SchemaMigration Destroy (0.3ms)[0m  [1m[31mDELETE FROM "schema_migrations" WHERE "schema_migrations"."version" = $1[0m  [["version", "20200129043534"]]
+  [1m[35m (1.3ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateUsers (20200129043528)
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.9ms)[0m  [1m[35mDROP TABLE "users"[0m
+  [1m[36mprimary::SchemaMigration Destroy (0.4ms)[0m  [1m[31mDELETE FROM "schema_migrations" WHERE "schema_migrations"."version" = $1[0m  [["version", "20200129043528"]]
+  [1m[35m (1.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_advisory_unlock(7635286923579269115)[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT pg_try_advisory_lock(7635286923579269115)[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateUsers (20200129043528)
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (16.4ms)[0m  [1m[35mCREATE TABLE "users" ("id" bigserial primary key, "username" character varying, "password_digest" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (1.1ms)[0m  [1m[35mCREATE UNIQUE INDEX  "index_users_on_username" ON "users"  ("username")[0m
+  [1m[36mprimary::SchemaMigration Create (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20200129043528"]]
+  [1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateItineraries (20200129043534)
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (3.6ms)[0m  [1m[35mCREATE TABLE "itineraries" ("id" bigserial primary key, "location" character varying, "shared" boolean, "dates" character varying[] DEFAULT '{}', "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[36mprimary::SchemaMigration Create (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20200129043534"]]
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreatePlanningRows (20200129043554)
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (2.5ms)[0m  [1m[35mCREATE TABLE "planning_rows" ("id" bigserial primary key, "itinerary_id" integer, "activity" character varying, "type" character varying, "website" character varying, "address" character varying, "interest" integer, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[36mprimary::SchemaMigration Create (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20200129043554"]]
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateSchedulingRows (20200129043613)
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (3.2ms)[0m  [1m[35mCREATE TABLE "scheduling_rows" ("id" bigserial primary key, "date" character varying, "itinerary_id" integer, "time" character varying, "activity" character varying, "type" character varying, "website" character varying, "address" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[36mprimary::SchemaMigration Create (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20200129043613"]]
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateLookups (20200205050055)
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (3.5ms)[0m  [1m[35mCREATE TABLE "lookups" ("id" bigserial primary key, "user_id" bigint NOT NULL, "itinerary_id" bigint NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL, CONSTRAINT "fk_rails_8940ebe5c1"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+, CONSTRAINT "fk_rails_ad8b8ab0a2"
+FOREIGN KEY ("itinerary_id")
+  REFERENCES "itineraries" ("id")
+)[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE  INDEX  "index_lookups_on_user_id" ON "lookups"  ("user_id")[0m
+  [1m[35m (1.0ms)[0m  [1m[35mCREATE  INDEX  "index_lookups_on_itinerary_id" ON "lookups"  ("itinerary_id")[0m
+  [1m[36mprimary::SchemaMigration Create (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20200205050055"]]
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_advisory_unlock(7635286923579269115)[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Started POST "/users" for ::1 at 2020-02-05 19:53:01 -0500
+  [1m[35m (2.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by UsersController#create as HTML
+  Parameters: {"username"=>"test", "password"=>"[FILTERED]"}
+  [1m[36mUser Load (1.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "test"], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:7:in `create'
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/users_controller.rb:13:in `create'
+  [1m[36mUser Create (7.9ms)[0m  [1m[32mINSERT INTO "users" ("username", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["username", "test"], ["password_digest", "$2a$12$KEGh4zEdMv/nLDKxs6mjruDx9Ko4lVCoFb8CS7qBpMYazPCKDL6rm"], ["created_at", "2020-02-06 00:53:01.769172"], ["updated_at", "2020-02-06 00:53:01.769172"]]
+  ↳ app/controllers/users_controller.rb:13:in `create'
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/users_controller.rb:13:in `create'
+Completed 200 OK in 280ms (Views: 0.7ms | ActiveRecord: 14.4ms | Allocations: 8201)
+
+
+Started POST "/users/1/itineraries" for ::1 at 2020-02-05 19:53:09 -0500
+Processing by ItinerariesController#create as HTML
+  Parameters: {"location"=>"test", "dates"=>"[\"02.10.20\",\"02.11.20\",\"02.12.20\",\"02.13.20\"]", "shared"=>false, "id"=>"1", "itinerary"=>{"location"=>"test", "shared"=>false, "dates"=>"[\"02.10.20\",\"02.11.20\",\"02.12.20\",\"02.13.20\"]"}}
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/itineraries_controller.rb:25:in `create'
+  [1m[36mItinerary Create (1.8ms)[0m  [1m[32mINSERT INTO "itineraries" ("location", "shared", "dates", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["location", "test"], ["shared", false], ["dates", "{02.10.20,02.11.20,02.12.20,02.13.20}"], ["created_at", "2020-02-06 00:53:09.452984"], ["updated_at", "2020-02-06 00:53:09.452984"]]
+  ↳ app/controllers/itineraries_controller.rb:25:in `create'
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/itineraries_controller.rb:25:in `create'
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/itineraries_controller.rb:31:in `create'
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/itineraries_controller.rb:31:in `create'
+  [1m[36mItinerary Load (0.3ms)[0m  [1m[34mSELECT "itineraries".* FROM "itineraries" WHERE "itineraries"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/itineraries_controller.rb:31:in `create'
+  [1m[36mLookup Create (5.1ms)[0m  [1m[32mINSERT INTO "lookups" ("user_id", "itinerary_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["user_id", 1], ["itinerary_id", 1], ["created_at", "2020-02-06 00:53:09.511238"], ["updated_at", "2020-02-06 00:53:09.511238"]]
+  ↳ app/controllers/itineraries_controller.rb:31:in `create'
+  [1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/itineraries_controller.rb:31:in `create'
+Completed 200 OK in 94ms (Views: 0.5ms | ActiveRecord: 18.5ms | Allocations: 14062)
+
+
+Started GET "/auto_login" for ::1 at 2020-02-05 19:55:00 -0500
+Processing by AuthController#auto_login as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mItinerary Load (0.9ms)[0m  [1m[34mSELECT "itineraries".* FROM "itineraries" INNER JOIN "lookups" ON "itineraries"."id" = "lookups"."itinerary_id" WHERE "lookups"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/controllers/auth_controller.rb:18:in `auto_login'
+Completed 200 OK in 31ms (Views: 10.9ms | ActiveRecord: 1.2ms | Allocations: 5138)
+
+
+Started GET "/auto_login" for ::1 at 2020-02-05 20:07:14 -0500
+Processing by AuthController#auto_login as HTML
+  [1m[36mUser Load (1.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mItinerary Load (1.4ms)[0m  [1m[34mSELECT "itineraries".* FROM "itineraries" INNER JOIN "lookups" ON "itineraries"."id" = "lookups"."itinerary_id" WHERE "lookups"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/controllers/auth_controller.rb:18:in `auto_login'
+Completed 200 OK in 14ms (Views: 4.6ms | ActiveRecord: 2.8ms | Allocations: 3107)
+
+
+Started GET "/auto_login" for ::1 at 2020-02-05 20:09:23 -0500
+Processing by AuthController#auto_login as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mItinerary Load (0.6ms)[0m  [1m[34mSELECT "itineraries".* FROM "itineraries" INNER JOIN "lookups" ON "itineraries"."id" = "lookups"."itinerary_id" WHERE "lookups"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/controllers/auth_controller.rb:18:in `auto_login'
+Completed 200 OK in 8ms (Views: 2.5ms | ActiveRecord: 1.1ms | Allocations: 2939)
+
+
+Started POST "/users/1/itineraries" for ::1 at 2020-02-05 20:09:31 -0500
+Processing by ItinerariesController#create as HTML
+  Parameters: {"location"=>"test2", "dates"=>"[\"02.11.20\",\"02.12.20\",\"02.13.20\",\"02.14.20\",\"02.15.20\",\"02.16.20\",\"02.17.20\",\"02.18.20\",\"02.19.20\",\"02.20.20\"]", "shared"=>false, "id"=>"1", "itinerary"=>{"location"=>"test2", "shared"=>false, "dates"=>"[\"02.11.20\",\"02.12.20\",\"02.13.20\",\"02.14.20\",\"02.15.20\",\"02.16.20\",\"02.17.20\",\"02.18.20\",\"02.19.20\",\"02.20.20\"]"}}
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/itineraries_controller.rb:25:in `create'
+  [1m[36mItinerary Create (1.0ms)[0m  [1m[32mINSERT INTO "itineraries" ("location", "shared", "dates", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["location", "test2"], ["shared", false], ["dates", "{02.11.20,02.12.20,02.13.20,02.14.20,02.15.20,02.16.20,02.17.20,02.18.20,02.19.20,02.20.20}"], ["created_at", "2020-02-06 01:09:31.827222"], ["updated_at", "2020-02-06 01:09:31.827222"]]
+  ↳ app/controllers/itineraries_controller.rb:25:in `create'
+  [1m[35m (5.9ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/itineraries_controller.rb:25:in `create'
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/itineraries_controller.rb:31:in `create'
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/itineraries_controller.rb:31:in `create'
+  [1m[36mItinerary Load (0.3ms)[0m  [1m[34mSELECT "itineraries".* FROM "itineraries" WHERE "itineraries"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/itineraries_controller.rb:31:in `create'
+  [1m[36mLookup Create (0.9ms)[0m  [1m[32mINSERT INTO "lookups" ("user_id", "itinerary_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["user_id", 1], ["itinerary_id", 2], ["created_at", "2020-02-06 01:09:31.845336"], ["updated_at", "2020-02-06 01:09:31.845336"]]
+  ↳ app/controllers/itineraries_controller.rb:31:in `create'
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/itineraries_controller.rb:31:in `create'
+Completed 200 OK in 23ms (Views: 0.1ms | ActiveRecord: 9.3ms | Allocations: 6447)
+
+
+Started GET "/auto_login" for ::1 at 2020-02-05 20:09:33 -0500
+Processing by AuthController#auto_login as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mCACHE User Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:26:in `session_user'
+  [1m[36mItinerary Load (1.2ms)[0m  [1m[34mSELECT "itineraries".* FROM "itineraries" INNER JOIN "lookups" ON "itineraries"."id" = "lookups"."itinerary_id" WHERE "lookups"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/controllers/auth_controller.rb:18:in `auto_login'
+Completed 200 OK in 11ms (Views: 3.3ms | ActiveRecord: 1.7ms | Allocations: 3113)
+
+

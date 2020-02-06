@@ -37,8 +37,8 @@ function Home({toggleForm, form, dropdown, toggleDropdown}) {
                     </div>
                     <div className="home-wrap mobile-home-wrap">
                         <div className="button-container">
-                            <div onClick={()=> toggleForm('signup')} className="sign-up">Sign Up</div>
-                            <div onClick={()=> toggleForm('login')} className="login">Login</div>
+                            <div onClick={()=> toggleForm('sign up')} className="signup">Sign Up</div>
+                            <div onClick={()=> toggleForm('log in')} className="login">Log In</div>
                         </div>
                     </div>
             </div>

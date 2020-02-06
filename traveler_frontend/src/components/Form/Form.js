@@ -4,6 +4,8 @@ import toggleForm from '../../actions/toggleForm.js'
 import signUp from '../../actions/signUp.js'
 import logIn from '../../actions/logIn.js'
 import createItinerary from '../../actions/createItinerary.js'
+import selectItinerary from '../../actions/selectItinerary.js'
+import updateItinerary from '../../actions/updateItinerary.js'
 import './Form.css'
 
 
@@ -12,6 +14,7 @@ const mapStateToProps = state => {
         form: state.form,
         error: state.error,
         userID: state.userID,
+        itinerary: state.itinerary
     }
 }
 
@@ -19,10 +22,12 @@ const mapDispatchToProps = {
     toggleForm,
     signUp,
     logIn,
-    createItinerary
+    createItinerary,
+    selectItinerary,
+    updateItinerary
 }
 
-function Form({form, error, toggleForm, signUp, logIn, page, createItinerary, userID}) {
+function Form({form, error, toggleForm, signUp, logIn, page, createItinerary, userID, itinerary, selectItinerary, updateItinerary}) {
     let username;
     let password;
     let location;
@@ -38,12 +43,13 @@ function Form({form, error, toggleForm, signUp, logIn, page, createItinerary, us
         if(exit)return;
         //switch submit actions based on form type
         switch(form) {
-            case 'signup': signUp(username.value,password.value);
+            case 'sign up': signUp(username.value,password.value);
                 break;
-            case 'login': logIn(username.value,password.value);
+            case 'log in': logIn(username.value,password.value);
                 break;
             case '+': createItinerary(location.value,departureDate.value,returnDate.value,userID)
                 break;
+            case 'update': updateItinerary(location.value,departureDate.value,returnDate.value,itinerary.id)
         }
         //reset values
         allInputs.forEach(input => {if(input) input.value = ''});
@@ -51,16 +57,25 @@ function Form({form, error, toggleForm, signUp, logIn, page, createItinerary, us
     //transform button text to form legend text
     let legend = form;
     switch(form) {
-        case '+': legend = 'New Itinerary';
+        case '+': legend = 'new itinerary';
             break;
-        case 'signup': legend = 'Sign Up';
+        case 'update': legend = 'update itinerary';
             break;
-        case 'login': legend = 'Login'; 
-            break;
+    }
+    //refactor departure and return date for update form default values
+    let firstDay;
+    let lastDay;
+    if(form === 'update'){
+        firstDay = itinerary.dates[0].split('.');
+        lastDay = itinerary.dates[itinerary.dates.length - 1].split('.');
+        firstDay[2] = '20' + firstDay[2];
+        lastDay[2] = '20' + lastDay[2];
+        firstDay = firstDay[2] + '-' + firstDay[0] + '-' + firstDay[1];
+        lastDay = lastDay[2] + '-' + lastDay[0] + '-' + lastDay[1];
     }
     //inputs vary based on page and form type
     return (
-        <div className="form-container" onClick={()=>{if(form)toggleForm('')}}>
+        <div className="form-container" onClick={()=>{if(form){toggleForm('')};selectItinerary('')}}>
             <form onSubmit={ submit } onClick={e => e.stopPropagation()} >
                 <legend>{error? error : legend }</legend>
                 {page === 'home' &&
@@ -71,7 +86,7 @@ function Form({form, error, toggleForm, signUp, logIn, page, createItinerary, us
                         </div>
                         <div className="input-container">
                             <label>Password</label>
-                            <input type={form==="login" ? "password" : "text"} ref={node => password = node}/>
+                            <input type={form==="log in" ? "password" : "text"} ref={node => password = node}/>
                         </div>
                     </>
                 }
@@ -79,20 +94,20 @@ function Form({form, error, toggleForm, signUp, logIn, page, createItinerary, us
                     <>
                         <div className="input-container">
                             <label>Location</label>
-                            <input type="text" ref={node => location = node}/>
+                            <input type="text" ref={node => location = node} defaultValue={form === 'update' ? itinerary.location : ''}/>
                         </div>
                         <div className="input-container">
                             <label>Departure</label>
-                            <input type="date" ref={node => departureDate = node}/>
+                            <input type="date" ref={node => departureDate = node} defaultValue={firstDay}/>
                         </div>
                         <div className="input-container">
                             <label>Return</label>
-                            <input type="date" ref={node => returnDate = node}/>
+                            <input type="date" ref={node => returnDate = node} defaultValue={lastDay}/>
                         </div>
                     </>
                 }
                 <div className="button-container">
-                    <div onClick={()=> toggleForm('')} className="cancel">Cancel</div>
+                    <div onClick={()=> {toggleForm(''); selectItinerary('')}} className="cancel">Cancel</div>
                     <div type="submit" className="submit" onClick={ submit }>Submit</div>
                     <input className="invisible" type="submit"/>
                 </div>

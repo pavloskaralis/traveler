@@ -28,7 +28,7 @@ function Index({dropdown, toggleDropdown, itineraries, filter, form}) {
             {form && <Form page='index'/>}
             <Tools page='index'/>
             <div className='itineraries-container'>
-                {itineraries.map(itinerary => <Itinerary itinerary={itinerary} key={itinerary.id}/>)}
+                {itineraries.map((itinerary,index) => <Itinerary itinerary={itinerary} index={index} key={itinerary.id}/>)}
             </div>
         </div>
     )

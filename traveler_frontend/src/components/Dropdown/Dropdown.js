@@ -23,8 +23,8 @@ function Dropdown({isLoggedIn, logOut, toggleForm}) {
                     <a href='/' onClick={logOut}>log out</a>
                 </React.Fragment> : 
                 <React.Fragment>
-                    <a onClick={()=> toggleForm('signup')}>sign up</a>
-                    <a onClick={()=> toggleForm('login')}>login</a>
+                    <a onClick={()=> toggleForm('sign up')}>sign up</a>
+                    <a onClick={()=> toggleForm('log in')}>log in</a>
                 </React.Fragment>
             }
         </div>

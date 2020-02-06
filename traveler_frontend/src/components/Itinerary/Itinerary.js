@@ -1,13 +1,16 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import toggleForm from '../../actions/toggleForm.js'
+import selectItinerary from '../../actions/selectItinerary.js'
 import './Itinerary.css'
 
+
 const mapDispatchToProps = {
-    toggleForm
+    toggleForm,
+    selectItinerary
 }
 
-function Itinerary({itinerary, toggleForm}) {
+function Itinerary({itinerary, toggleForm, selectItinerary, index}) {
     const length = itinerary.dates.length
     if(itinerary.location.length > 10) itinerary.location = itinerary.location.slice(0,) + '...';
     return (
@@ -20,7 +23,7 @@ function Itinerary({itinerary, toggleForm}) {
             <div className='date'>{itinerary.dates[0]}</div>
             <div className='date'>{itinerary.dates[length - 1]}</div>
             <div className='edit-container'>
-                <div className='edit' onClick={()=> toggleForm('edit')}></div>
+                <div className='edit' onClick={()=> {selectItinerary({...itinerary, index: index});toggleForm('update')}}></div>
             </div>
         </a>
     )
