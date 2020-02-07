@@ -12,7 +12,7 @@ class SchedulingRowsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create scheduling_row" do
     assert_difference('SchedulingRow.count') do
-      post scheduling_rows_url, params: { scheduling_row: {  } }, as: :json
+      post scheduling_rows_url, params: { scheduling_row: { activity: @scheduling_row.activity, address: @scheduling_row.address, date: @scheduling_row.date, itinerary_id: @scheduling_row.itinerary_id, time: @scheduling_row.time, type: @scheduling_row.type, website: @scheduling_row.website } }, as: :json
     end
 
     assert_response 201
@@ -24,7 +24,7 @@ class SchedulingRowsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update scheduling_row" do
-    patch scheduling_row_url(@scheduling_row), params: { scheduling_row: {  } }, as: :json
+    patch scheduling_row_url(@scheduling_row), params: { scheduling_row: { activity: @scheduling_row.activity, address: @scheduling_row.address, date: @scheduling_row.date, itinerary_id: @scheduling_row.itinerary_id, time: @scheduling_row.time, type: @scheduling_row.type, website: @scheduling_row.website } }, as: :json
     assert_response 200
   end
 

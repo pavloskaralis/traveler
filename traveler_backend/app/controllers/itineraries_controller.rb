@@ -1,19 +1,40 @@
 class ItinerariesController < ApplicationController
   before_action :set_itinerary, only: [:show, :update, :destroy]
 
+  # GET /itineraries/1
+  def show
+    # @itinerary.users = @itinerary.users.username
+    usernames = []
+    @itinerary.users.each do |user|
+      usernames << user.username
+    end
+
+    render json: { usernames: usernames, dates: @itinerary.dates, shared: @itinerary.shared, location: @itinerary.location, planning_rows: @itinerary.planning_rows, scheduling_rows: @itinerary.scheduling_rows }
+  end
   # POST /itineraries
   def create
     dates = JSON.parse itinerary_params["dates"] 
     location = itinerary_params["location"]
     shared = itinerary_params["shared"]
-
+  
     new_itinerary_params = { "location" => location , "dates" => dates, "shared" => shared }
     itinerary = Itinerary.new(new_itinerary_params)
 
     if itinerary.save 
 
-      lookup_params = {"user_id" => params[:id] , "itinerary_id" => itinerary.id }
+      100.times do 
+        planning_row_params = { "itinerary_id" => itinerary.id, "interest" => 0}
+        PlanningRow.create(planning_row_params)
+      end
 
+      itinerary.dates.each do |date|
+        20.times do
+          scheduling_row_params = { "itinerary_id" => itinerary.id, "date" => date}
+          SchedulingRow.create(scheduling_row_params)
+        end
+      end
+
+      lookup_params = {"user_id" => params[:user_id] , "itinerary_id" => itinerary.id }
       lookup = Lookup.new(lookup_params)
 
       if lookup.save

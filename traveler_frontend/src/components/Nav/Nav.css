@@ -16,7 +16,7 @@ nav h2 {
     margin: 0; 
     color: var(--orange);
     font-family: Georgia;
-    cursor: pointer;
+    cursor: default;
 }
 
 .dropdown-icon-container {

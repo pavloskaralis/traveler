@@ -12,7 +12,7 @@ class ItinerariesControllerTest < ActionDispatch::IntegrationTest
 
   test "should create itinerary" do
     assert_difference('Itinerary.count') do
-      post itineraries_url, params: { itinerary: {  } }, as: :json
+      post itineraries_url, params: { itinerary: { dates: @itinerary.dates, location: @itinerary.location, shared: @itinerary.shared } }, as: :json
     end
 
     assert_response 201
@@ -24,7 +24,7 @@ class ItinerariesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update itinerary" do
-    patch itinerary_url(@itinerary), params: { itinerary: {  } }, as: :json
+    patch itinerary_url(@itinerary), params: { itinerary: { dates: @itinerary.dates, location: @itinerary.location, shared: @itinerary.shared } }, as: :json
     assert_response 200
   end
 

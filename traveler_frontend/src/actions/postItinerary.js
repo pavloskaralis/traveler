@@ -61,6 +61,7 @@ export default function postItinerary(location,departureDate,returnDate,userID) 
             shared: false
         }
         const postRequest = async () => {
+            dispatch(toggleError('Saving Itinerary...'));
             const result = await axios.post(`http://localhost:3001/users/${userID}/itineraries`, newItinerary);
             const {data} = result;
             if (!data.error) {

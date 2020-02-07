@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import history from '../../history.js'
 import './Button.css'
 import toggleForm from '../../actions/toggleForm.js';
 
@@ -7,11 +8,12 @@ const mapDispatchToProps = {
     toggleForm
 }
 
+
 function Button({type, toggleForm}) {
-    // all buttons except back toggle form
-    const onClick = type === 'back' ? null : ()=> toggleForm(type);
+     // all buttons except back toggle form
+    const onClick = type === 'return' ? ()=> history.push('/') : ()=> toggleForm(type);
     return (
-        <div className='button' onClick={onClick}>{type}</div>
+        <div className='button' id={type} onClick={onClick}></div>
     )
 }
 

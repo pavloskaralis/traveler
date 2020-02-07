@@ -1,6 +1,6 @@
 .tools-container {
     width: 100%;
-    height: 120px;
+    min-height: 120px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -9,7 +9,20 @@
     z-index: 1;
 }
 
-.buttons-container {
+.tools-container h2 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    margin: 0;
+    color: white;
+    font-family: Verdana;
+    text-shadow: .5px .5px 0 var(--black);
+    cursor: default;
+    font-size: 22px;
+}
+
+.buttons-container-index, .buttons-container-show {
     margin: 0 auto;
     width:100%;
     min-width: 500px;
@@ -18,3 +31,16 @@
     justify-content: space-evenly;
 }
 
+.buttons-container-show {
+    max-width: 1200px;
+    padding: 0 16px;
+    box-sizing: border-box;
+}
+
+
+.button-group {
+    display: flex;
+    width: 180px;
+    justify-content: space-between;
+    box-sizing: border-box;
+}

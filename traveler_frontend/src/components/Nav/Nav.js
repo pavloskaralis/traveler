@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import toggleDropdown from '../../actions/toggleDropdown.js'
 import Dropdown from '../Dropdown/Dropdown.js'
-import history from '../../history';
 import './Nav.css'
 
 
@@ -19,7 +18,7 @@ const mapDispatchToProps = {
 function Nav({dropdown, toggleDropdown}) {
     return (
         <nav>
-            <h2 onClick={()=> history.push('/')}>Traveler</h2>
+            <h2>Traveler</h2>
             <div className="dropdown-icon-container" onClick={() => toggleDropdown(!dropdown)}>
                 {/* hamburder dropdown; thanks Madeline! */}
                 <span> </span>
