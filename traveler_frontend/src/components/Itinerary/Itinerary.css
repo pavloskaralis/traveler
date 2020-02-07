@@ -7,7 +7,8 @@ a {
     padding-left: 8%;
     min-height: 120px; 
     display: flex;
-    border-bottom: 1px solid var(--blue);
+    border-top: .5px dashed var(--blue);
+    border-bottom: .5px dashed var(--blue);
     box-sizing: border-box;
     cursor: pointer;
     color: var(--gray);
@@ -17,14 +18,14 @@ a {
     background-color: var(--blue);
     color: var(--orange);
     box-shadow: 0 0 4px 0 rgba(0,0,0,.5);
+    /* text-shadow: .25px .25px 0 var(--black); */
 }
 
-.itinerary div, .location {
+.itinerary div {
     display: flex;
     flex-direction: column;
     justify-content: center;
     font-family: Verdana;
-    font-size: 16px;
     font-weight: 600;
 }
 
@@ -33,12 +34,14 @@ a {
     padding-right: 0 4px;
     width: 21%;
     overflow-x: hidden;
-    font-weight: 900;
     text-transform: capitalize;
+    font-weight: 600;
+    /* font-size: 17px; */
 }
 
 .date {
     min-width: 21%;
+    /* font-size: 15.5px; */
 }
 
 .shared {

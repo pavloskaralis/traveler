@@ -6,7 +6,7 @@ import './Search.css'
 const mapDispatchToProps = {
   setFilter
 }
-
+// conditional css based on index or show page
 function Search({setFilter, page}) {
 // setFilter
   let query;

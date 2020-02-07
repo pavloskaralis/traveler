@@ -49,7 +49,7 @@ function Form({form, error, toggleForm, signUp, logIn, page, postItinerary, user
                 break;
             case 'log in': logIn(username.value,password.value);
                 break;
-            case '+': postItinerary(location.value,departureDate.value,returnDate.value,userID)
+            case 'new': postItinerary(location.value,departureDate.value,returnDate.value,userID)
                 break;
             case 'update': putItinerary(location.value,departureDate.value,returnDate.value,itinerary.id,itinerary.index)
         }
@@ -59,7 +59,7 @@ function Form({form, error, toggleForm, signUp, logIn, page, postItinerary, user
     //transform button text to form legend text
     let legend = form;
     switch(form) {
-        case '+': legend = 'new itinerary';
+        case 'new': legend = 'new itinerary';
             break;
         case 'update': legend = 'update itinerary';
             break;
