@@ -14,8 +14,9 @@ export default function userSetup() {
             }) 
             const {data} = result;  
             if(!data.error){
-                dispatch(toggleLogin(true));
+                //setUserID must dispatch first for Show Page useEffect to work properly
                 dispatch(setUserID(data.id));
+                dispatch(toggleLogin(true));
                 dispatch(setItineraries(data.itineraries))
             } else {
                 dispatch(toggleLogin(false));

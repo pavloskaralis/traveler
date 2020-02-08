@@ -13,7 +13,7 @@ function Search({setFilter, page}) {
     return (
         <form className={page === 'index' ? 'search-container-index' : 'search-container-show'} onSubmit={e => {e.preventDefault(); setFilter(query.value)}}>
           {page === 'show' && <div className='search-submit' id='left' onClick={e => {e.preventDefault(); setFilter(query.value)}}></div>}
-          <input type={page === 'text'} ref={node => query = node} autoFocus/>
+          <input type='text' ref={node => query = node} autoFocus/>
           <div className='search-submit' id={page === 'show' ? 'right' : ''} onClick={e => {e.preventDefault(); setFilter(query.value)}}></div>
         </form> 
     )

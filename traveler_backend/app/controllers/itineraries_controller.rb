@@ -3,13 +3,25 @@ class ItinerariesController < ApplicationController
 
   # GET /itineraries/1
   def show
-    # @itinerary.users = @itinerary.users.username
-    usernames = []
-    @itinerary.users.each do |user|
-      usernames << user.username
-    end
+    if @itinerary 
 
-    render json: { usernames: usernames, dates: @itinerary.dates, shared: @itinerary.shared, location: @itinerary.location, planning_rows: @itinerary.planning_rows, scheduling_rows: @itinerary.scheduling_rows }
+      usernames = []
+      @itinerary.users.each do |user|
+        usernames << user.username
+      end
+
+      render json: { 
+        usernames: usernames, 
+        dates: @itinerary.dates, 
+        shared: @itinerary.shared, 
+        location: @itinerary.location, 
+        planning_rows: @itinerary.planning_rows, 
+        scheduling_rows: @itinerary.scheduling_rows 
+      }
+
+    else
+        render json: {error: 'Itinerary Not Found'}
+    end
   end
   # POST /itineraries
   def create
