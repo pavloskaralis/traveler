@@ -6,7 +6,7 @@ class CreatePlanningRows < ActiveRecord::Migration[6.0]
       t.string :type
       t.string :website
       t.string :address
-      t.integer :interest
+      t.string :interest, array: true, default: []
 
       t.timestamps
     end

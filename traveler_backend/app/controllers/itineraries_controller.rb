@@ -23,7 +23,7 @@ class ItinerariesController < ApplicationController
     if itinerary.save 
 
       100.times do 
-        planning_row_params = { "itinerary_id" => itinerary.id, "interest" => 0}
+        planning_row_params = { "itinerary_id" => itinerary.id }
         PlanningRow.create(planning_row_params)
       end
 

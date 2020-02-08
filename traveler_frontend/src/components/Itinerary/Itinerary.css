@@ -5,43 +5,50 @@ a {
 .itinerary {
     width: 100%;
     padding-left: 8%;
-    min-height: 120px; 
+    min-height: 90px; 
     display: flex;
-    border-top: .5px dashed var(--blue);
-    border-bottom: .5px dashed var(--blue);
+    border-bottom: 1px solid var(--gray);
     box-sizing: border-box;
     cursor: pointer;
     color: var(--gray);
+    background-color: white;
 }
 
 .itinerary:hover {
-    background-color: var(--blue);
-    color: var(--orange);
-    box-shadow: 0 0 4px 0 rgba(0,0,0,.5);
-    /* text-shadow: .25px .25px 0 var(--black); */
+    background-color: var(--black);
+    color: white;
+    text-shadow: 0 0 1px var(--black);
+    border-bottom: 1px solid var(--black);
+    z-index: 1;
 }
 
-.itinerary div {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    font-family: Verdana;
-    font-weight: 600;
+.itinerary:hover .location {
+    color: var(--orange);
 }
 
 .location {
     color: var(--black);
     padding-right: 0 4px;
-    width: 21%;
+    width: 21.5%;
     overflow-x: hidden;
     text-transform: capitalize;
     font-weight: 600;
-    /* font-size: 17px; */
+    text-shadow: none;
+    font-size: 18px;
+}
+
+
+.itinerary div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-weight: 600;
+    font-family: Verdana;
+    cursor: pointer;
 }
 
 .date {
-    min-width: 21%;
-    /* font-size: 15.5px; */
+    min-width: 20.5%;
 }
 
 .shared {
@@ -73,7 +80,15 @@ a {
     margin-left: 4px;
 }
 
-.edit:hover {
-    background-color: var(--orange);
+.itinerary:hover .edit {
+    background-color:  var(--orange);
+}
+
+.itinerary:hover .edit:hover {
+    background-color: var(--orangeHover);
+}
+
+.itinerary:hover .shared {
+    background-image: url('sharedhover.png'); 
 }
 

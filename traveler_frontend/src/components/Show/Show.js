@@ -25,7 +25,7 @@ function Show({dropdown, toggleDropdown, form}) {
             {form && <Form page='show'/>}
             <Tools page='show'/>
             <table>
-                <tr>
+                <tr id='top'>
                     <th id='orange'>Activity</th>
                     <th>Type</th>
                     <th>Address</th>
@@ -34,12 +34,17 @@ function Show({dropdown, toggleDropdown, form}) {
                     <th>Schedule</th>
                 </tr>
                 <tr>
-                    <TextareaAutosize rowsMax={100}></TextareaAutosize>
-                    <TextareaAutosize rowsMax={100}></TextareaAutosize>
-                    <TextareaAutosize rowsMax={100}></TextareaAutosize>
-                    <TextareaAutosize rowsMax={100}></TextareaAutosize>
-                    <TextareaAutosize rowsMax={100}></TextareaAutosize>
-                    <TextareaAutosize rowsMax={100}></TextareaAutosize>
+                    <TextareaAutosize id='first'></TextareaAutosize>
+                    <TextareaAutosize></TextareaAutosize>
+                    <TextareaAutosize></TextareaAutosize>
+                    <TextareaAutosize></TextareaAutosize>
+                    <div className='interest-container'>
+                        <div className='interest'>0</div>
+                        <div className='interest-button'></div>
+                    </div>
+                    <div className='schedule-container'>
+                        <div className='schedule'></div>
+                    </div>
                 </tr>
             </table>
         </div>

@@ -13,7 +13,7 @@ const mapDispatchToProps = {
 function Itinerary({itinerary, toggleForm, selectItinerary, index}) {
     const length = itinerary.dates.length
     //prevent x-overscroll of long location names
-    if(itinerary.location.length > 9) itinerary.location = itinerary.location.slice(0,7) + '...';
+    if(itinerary.location.length > 8) itinerary.location = itinerary.location.slice(0,6) + '...';
     return (
         <a className='itinerary' href={`/${itinerary.id}`}>
             <div className='location'>{itinerary.location}</div>

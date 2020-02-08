@@ -38,7 +38,7 @@ ActiveRecord::Schema.define(version: 2020_02_06_183755) do
     t.string "type"
     t.string "website"
     t.string "address"
-    t.integer "interest"
+    t.string "interest", default: [], array: true
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
