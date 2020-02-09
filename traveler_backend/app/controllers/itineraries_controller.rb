@@ -36,17 +36,17 @@ class ItinerariesController < ApplicationController
 
     if itinerary.save 
 
-      50.times do 
+      12.times do 
         planning_row_params = { "itinerary_id" => itinerary.id }
         PlanningRow.create(planning_row_params)
       end
 
-      itinerary.dates.each do |date|
-        20.times do
-          scheduling_row_params = { "itinerary_id" => itinerary.id, "date" => date}
-          SchedulingRow.create(scheduling_row_params)
-        end
-      end
+      # itinerary.dates.each do |date|
+      #   20.times do
+      #     scheduling_row_params = { "itinerary_id" => itinerary.id, "date" => date}
+      #     SchedulingRow.create(scheduling_row_params)
+      #   end
+      # end
 
       lookup_params = {"user_id" => params[:user_id] , "itinerary_id" => itinerary.id }
       lookup = Lookup.new(lookup_params)
