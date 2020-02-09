@@ -6,26 +6,23 @@
     background-color: var(--cream); 
 }
 
-table {
+.table {
         margin:0 auto; 
         max-width: 1200px;
         min-width: 500px; 
         height: calc(100% - 120px); 
         width: 100%; 
         background-color: white; 
-        display: flex;
+        display: table-row-group;
         flex-direction: column;
         justify-content: flex-start;
         overflow-y: auto;
         box-sizing: border-box;
         box-shadow: 0 0 4px 0 rgba(0,0,0,.5);
+        
 }
 
-tbody {
-    
-}
-
-tr {
+.tr {
     min-height: 60px;
     width: 100%;
     min-width: 768px;
@@ -35,7 +32,7 @@ tr {
     box-sizing: border-box;
 }
 
-th {
+.th {
     cursor: default;
     color: white; 
     font-weight: 600;
@@ -43,9 +40,10 @@ th {
 
 #top {
     background-color: var(--black);
+    text-transform: capitalize;
 }
 
-th, table textarea {
+.th {
     box-sizing: border-box;
     min-height: 60px;
     width: 16.67%;
@@ -54,20 +52,8 @@ th, table textarea {
     justify-content: center;
     text-align: center;
     font-family: Verdana;
-    text-transform: capitalize;
 }
 
-
-table textarea {
-    background-color: white;
-    color: var(--black);
-    outline: none;
-    cursor: text;
-    font-size: 16px;
-    padding: 19px 8px;
-    border: none;
-    resize: none;
-}
 
 #orange {
     color: var(--orange);

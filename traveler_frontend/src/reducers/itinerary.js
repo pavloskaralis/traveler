@@ -1,4 +1,4 @@
-export default function username(state = 'test', action) {
+export default function itinerary(state = '', action) {
     switch (action.type) {
         case 'SELECT_ITINERARY':
             return action.itinerary

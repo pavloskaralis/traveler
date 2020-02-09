@@ -10,9 +10,11 @@ class ItinerariesController < ApplicationController
         usernames << user.username
       end
 
+      dates = @itinerary.dates.unshift 'Planning'
+
       render json: { 
         usernames: usernames, 
-        dates: @itinerary.dates, 
+        dates: dates,
         shared: @itinerary.shared, 
         location: @itinerary.location, 
         planning_rows: @itinerary.planning_rows, 
@@ -34,7 +36,7 @@ class ItinerariesController < ApplicationController
 
     if itinerary.save 
 
-      100.times do 
+      50.times do 
         planning_row_params = { "itinerary_id" => itinerary.id }
         PlanningRow.create(planning_row_params)
       end

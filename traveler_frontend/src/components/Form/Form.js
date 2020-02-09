@@ -113,6 +113,7 @@ function Form({form, error, toggleForm, signUp, logIn, page, postItinerary, user
                 <div className="button-container">
                     <div onClick={()=> {toggleForm(''); selectItinerary('')}} className="cancel">Cancel</div>
                     <div type="submit" className="submit" onClick={ submit }>Submit</div>
+                    {/* required for enter key to work for unknown reason */}
                     <input className="invisible" type="submit"/>
                 </div>
             </form>

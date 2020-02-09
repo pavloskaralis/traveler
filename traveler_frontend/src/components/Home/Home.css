@@ -130,7 +130,6 @@
 
 .signup:hover {
     background-color: var(--orangeHover);
-    transition: .3s; 
 }
 
 .login {
@@ -140,7 +139,6 @@
 
 .login:hover {
     background-color: var(--blackHover);
-    transition: .3s; 
 }
 
 @media (max-width: 992px) {

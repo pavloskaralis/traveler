@@ -10,7 +10,7 @@ const mapDispatchToProps = {
 
 function Row({type, row}) {
     return (
-        <tr>
+        <div className='row-container'>
             <TextareaAutosize id='first'></TextareaAutosize>
             <TextareaAutosize></TextareaAutosize>
             <TextareaAutosize></TextareaAutosize>
@@ -22,7 +22,7 @@ function Row({type, row}) {
             <div className='schedule-container'>
                 <div className='schedule'></div>
             </div>
-        </tr>
+        </div>
     )
 }
 

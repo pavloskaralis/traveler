@@ -1,9 +1,6 @@
 import axios from 'axios'
 import history from '../history.js'
-import setUserID from './setUserID.js'
-import setItineraries from './setItineraries.js'
-import selectItinary from './selectItinerary.js'
-import toggleLogin from './toggleLogin.js'
+import selectItinerary from './selectItinerary.js'
 
 export default function getItinerary(userID) {
     return dispatch => {
@@ -15,11 +12,10 @@ export default function getItinerary(userID) {
             const result = await axios.get(`http://localhost:3001/users/${userIDParam}/itineraries/${itineraryID}`) 
             const {data} = result;  
             if(!data.error){
-                console.log("success1",data)
-               selectItinary(data);
+                // history.push(`/${data.location}`, null);
+               //makes url prettier 
+               dispatch(selectItinerary(data));
             } else {               
-                 console.log("fail",data)
-                //if user is not associated with itinerary, do not load
                 history.push('/');
             }  
         }

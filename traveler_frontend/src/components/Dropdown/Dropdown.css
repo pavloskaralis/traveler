@@ -23,5 +23,4 @@ nav a {
 
 nav a:hover {
     color: var(--gray);
-    transition: .3s; 
 }

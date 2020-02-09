@@ -28,9 +28,15 @@ function Index({dropdown, toggleDropdown, itineraries, filter, form}) {
             {form && <Form page='index'/>}
             <Tools page='index'/>
             <div className='itineraries-container'>
-                {itineraries.length === 0 && 
+                {/* empty page state conditionals */}
+                {itineraries.length === 0 && !filter && 
                     <div className='empty-container'>
                         <div className='empty'>You Have No Itineraries</div>
+                    </div>
+                }
+                {itineraries.length === 0 && filter && 
+                    <div className='empty-container'>
+                        <div className='empty'>No Matching Itineraries</div>
                     </div>
                 }
                 {/* index is passed multiple times to swap updated index with outdate version is state */}
