@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
-  resources :lookups
-  resources :scheduling_rows
-  resources :planning_rows
-  resources :itineraries, only: [:update, :destroy]
+  resources :itineraries, only: [:update, :destroy] do
+    resources :scheduling_rows, only: [:create]
+    resources :planning_rows, only: [:create]
+  end
   resources :users, only: [:create] do
     resources :itineraries, only: [:create,  :show]
   end

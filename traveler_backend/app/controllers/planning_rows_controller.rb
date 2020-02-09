@@ -1,5 +1,6 @@
 class PlanningRowsController < ApplicationController
   before_action :set_planning_row, only: [:show, :update, :destroy]
+  wrap_parameters false
 
   # GET /planning_rows
   def index
@@ -16,11 +17,16 @@ class PlanningRowsController < ApplicationController
   # POST /planning_rows
   def create
     @planning_row = PlanningRow.new(planning_row_params)
-
+    p 'without itinerary'
+    p @planning_row
     if @planning_row.save
-      render json: @planning_row, status: :created, location: @planning_row
+      @planning_row.itinerary_id = params[:itinerary_id]
+      p 'with itinerary'
+      p @planning_row
+      render json: {planning_row: @planning_row, status: 200}
     else
-      render json: @planning_row.errors, status: :unprocessable_entity
+      p 'failed to save'
+      render json: {error:"Failed To Save", status: 204}
     end
   end
 
@@ -46,6 +52,6 @@ class PlanningRowsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def planning_row_params
-      params.fetch(:planning_row, {})
+      params.permit(:activity, :type, :address, :website, :interest, :itinerary_id)
     end
 end

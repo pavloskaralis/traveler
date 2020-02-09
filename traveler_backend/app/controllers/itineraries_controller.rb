@@ -13,6 +13,7 @@ class ItinerariesController < ApplicationController
       dates = @itinerary.dates.unshift 'Planning'
 
       render json: { 
+        id: @itinerary.id,
         usernames: usernames, 
         dates: dates,
         shared: @itinerary.shared, 
@@ -32,27 +33,21 @@ class ItinerariesController < ApplicationController
     shared = itinerary_params["shared"]
   
     new_itinerary_params = { "location" => location , "dates" => dates, "shared" => shared }
-    itinerary = Itinerary.new(new_itinerary_params)
+    @itinerary = Itinerary.new(new_itinerary_params)
 
-    if itinerary.save 
+    if @itinerary.save 
 
+      # 10 default rows for planning table
       10.times do 
-        planning_row_params = { "itinerary_id" => itinerary.id }
+        planning_row_params = { "itinerary_id" => @itinerary.id }
         PlanningRow.create(planning_row_params)
       end
 
-      # itinerary.dates.each do |date|
-      #   20.times do
-      #     scheduling_row_params = { "itinerary_id" => itinerary.id, "date" => date}
-      #     SchedulingRow.create(scheduling_row_params)
-      #   end
-      # end
+      lookup_params = {"user_id" => params[:user_id] , "itinerary_id" => @itinerary.id }
+      @lookup = Lookup.new(lookup_params)
 
-      lookup_params = {"user_id" => params[:user_id] , "itinerary_id" => itinerary.id }
-      lookup = Lookup.new(lookup_params)
-
-      if lookup.save
-        render json: {id: lookup.itinerary_id, status: 200}
+      if @lookup.save
+        render json: {id: @lookup.itinerary_id, status: 200}
       else
         render json: {error:"Failed To Save", status: 204}
       end
@@ -90,6 +85,6 @@ class ItinerariesController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def itinerary_params
-      params.require(:itinerary).permit(:dates, :location, :shared)
+      params.permit(:dates, :location, :shared)
     end
 end

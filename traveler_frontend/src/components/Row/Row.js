@@ -8,9 +8,9 @@ const mapDispatchToProps = {
 }
 
 
-function Row({type, row}) {
+function Row({type, row, id}) {
     return (
-        <div className='row-container'>
+        <div className='row-container' id={id}>
             <TextareaAutosize id='first'></TextareaAutosize>
             <TextareaAutosize></TextareaAutosize>
             <TextareaAutosize></TextareaAutosize>
