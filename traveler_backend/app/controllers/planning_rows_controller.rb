@@ -17,12 +17,10 @@ class PlanningRowsController < ApplicationController
   # POST /planning_rows
   def create
     @planning_row = PlanningRow.new(planning_row_params)
-    p 'without itinerary'
-    p @planning_row
+
     if @planning_row.save
       @planning_row.itinerary_id = params[:itinerary_id]
-      p 'with itinerary'
-      p @planning_row
+   
       render json: {planning_row: @planning_row, status: 200}
     else
       p 'failed to save'
@@ -32,9 +30,18 @@ class PlanningRowsController < ApplicationController
 
   # PATCH/PUT /planning_rows/1
   def update
-    p 'here are the params'
-    p planning_row_params
-    if @planning_row.update(planning_row_params)
+    activity = planning_row_params["activity"]
+    category = planning_row_params["category"]
+    address = planning_row_params["address"]
+    website = planning_row_params["website"]
+    interest = JSON.parse planning_row_params["interest"] 
+
+    p "this is the interest param"
+    p interest
+    
+    new_planning_row_params = { "activity" => activity , "category" => category, "address" => address, "website" => website, "interest" => interest }
+
+    if @planning_row.update(new_planning_row_params)
       render json: @planning_row
     else
       render json: @planning_row.errors, status: :unprocessable_entity
