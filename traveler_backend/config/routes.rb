@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :planning_rows, only: [:update]
+  resources :scheduling_rows, only: [:update, :destroy]
   resources :itineraries, only: [:update, :destroy] do
     resources :scheduling_rows, only: [:create]
     resources :planning_rows, only: [:create]

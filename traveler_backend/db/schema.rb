@@ -34,10 +34,10 @@ ActiveRecord::Schema.define(version: 2020_02_06_183755) do
 
   create_table "planning_rows", force: :cascade do |t|
     t.integer "itinerary_id"
-    t.string "activity"
-    t.string "type"
-    t.string "website"
-    t.string "address"
+    t.string "activity", default: ""
+    t.string "category", default: ""
+    t.string "website", default: ""
+    t.string "address", default: ""
     t.string "interest", default: [], array: true
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -46,11 +46,11 @@ ActiveRecord::Schema.define(version: 2020_02_06_183755) do
   create_table "scheduling_rows", force: :cascade do |t|
     t.string "date"
     t.integer "itinerary_id"
-    t.string "time"
-    t.string "activity"
-    t.string "type"
-    t.string "website"
-    t.string "address"
+    t.string "time", default: ""
+    t.string "activity", default: ""
+    t.string "type", default: ""
+    t.string "website", default: ""
+    t.string "address", default: ""
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

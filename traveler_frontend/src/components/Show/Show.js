@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import history from '../../history.js'
 import './Show.css'
 import getItinerary from '../../actions/getItinerary.js'
-import postPlanning from '../../actions/postPlanning.js'
+import postPlanningRow from '../../actions/postPlanningRow.js'
 import postScheduling from '../../actions/postScheduling.js'
 import Tools from '../Tools/Tools.js'
 import Row from '../Row/Row.js'
@@ -22,11 +22,11 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = {
     getItinerary,
-    postPlanning,
+    postPlanningRow,
     postScheduling
 }
 
-function Show({dropdown, toggleDropdown, form, getItinerary, postPlanning, postScheduling, userID, itinerary, tableIndex}) {
+function Show({dropdown, toggleDropdown, form, getItinerary, postPlanningRow, postScheduling, userID, itinerary, tableIndex}) {
     //pass userID to ensure user is associated with itineraryID in url param
     useEffect(()=> {
         getItinerary(userID);
@@ -48,9 +48,9 @@ function Show({dropdown, toggleDropdown, form, getItinerary, postPlanning, postS
                 </div>
                 <div className='body'>
                     {/* render planning rows */}
-                    {itinerary && tableIndex === 0 && itinerary.planning_rows.map(planningRow => {
+                    {itinerary && tableIndex === 0 && itinerary.planning_rows.sort((a,b) => a.id - b.id).map(planningRow => {
                         return (
-                            <Row type='planning' id={planningRow.id} key={planningRow.id}/>
+                            <Row rowType='planning' planningRow={planningRow} date={itinerary.dates} key={planningRow.id}/>
                         )
                     })}
                     {/* render scheduling rows */}
@@ -62,7 +62,7 @@ function Show({dropdown, toggleDropdown, form, getItinerary, postPlanning, postS
                     })}
                 </div>
                 {/* create scheduling or planning row based on table */}
-                <div className='add-row' onClick={tableIndex !== 0 && itinerary ? ()=> postScheduling() : ()=> {postPlanning(itinerary.id); autoScroll();}}></div>
+                <div className='add-row' onClick={tableIndex !== 0 && itinerary ? ()=> postScheduling() : ()=> {postPlanningRow(itinerary.id); autoScroll();}}></div>
             </div>
         </div>
     )

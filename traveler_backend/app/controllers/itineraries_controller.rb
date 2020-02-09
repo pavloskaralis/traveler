@@ -1,5 +1,6 @@
 class ItinerariesController < ApplicationController
   before_action :set_itinerary, only: [:show, :update, :destroy]
+  wrap_parameters false
 
   # GET /itineraries/1
   def show
@@ -85,6 +86,6 @@ class ItinerariesController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def itinerary_params
-      params.permit(:dates, :location, :shared)
+      params.permit(:dates, :location, :shared, :user_id)
     end
 end

@@ -32,6 +32,8 @@ class PlanningRowsController < ApplicationController
 
   # PATCH/PUT /planning_rows/1
   def update
+    p 'here are the params'
+    p planning_row_params
     if @planning_row.update(planning_row_params)
       render json: @planning_row
     else
@@ -52,6 +54,6 @@ class PlanningRowsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def planning_row_params
-      params.permit(:activity, :type, :address, :website, :interest, :itinerary_id)
+      params.permit(:activity, :category, :address, :website, :interest, :itinerary_id, :id)
     end
 end

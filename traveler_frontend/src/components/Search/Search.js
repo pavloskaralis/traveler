@@ -23,9 +23,11 @@ function Search({setFilter, page, index, tables, toggleTableIndex}) {
     e.preventDefault();
     
     //allow query to use -, /, or .
-    const indexOf = tables.indexOf(query.value.replace(/\//g,'.').replace(/-/g,'.')); 
+    let indexOf;
+    if (tables) indexOf = tables.indexOf(query.value.replace(/\//g,'.').replace(/-/g,'.')); 
     //if query value has no match, reset to planning
-    const queryValue = indexOf > -1 ? indexOf : 0; 
+    let queryValue; 
+    if (tables) queryValue = indexOf > -1 ? indexOf : 0;
 
     switch(page) {
       case 'index': setFilter(query.value);
