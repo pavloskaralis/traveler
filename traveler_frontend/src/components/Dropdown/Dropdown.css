@@ -9,6 +9,8 @@
     flex-direction: column;
     justify-content: space-evenly;
     box-shadow: -2px 0 2px 0 rgba(0,0,0,.5);
+    border-bottom: 1px solid var(--gray);
+    box-sizing: border-box;
 }
 
 nav a {

@@ -26,10 +26,12 @@
 }
 
 .body {
-    height: calc(100% - 60px); 
-    background-color: white; 
+    min-height: calc(100% - 120px);
+    height: calc(100% - 120px);
     overflow-y: auto;
     overflow-x: hidden;
+    display: flexbox;
+    flex-direction: column;
 }
 
 .head {
@@ -59,21 +61,26 @@
     color: var(--orange);
 }
 
-.add-row-container{
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    height: 60px;
-    align-self: bottom;
-    background: red;
-}
+
 
 .add-row {
+    position: fixed;
+    align-self: auto;
+    min-width: 500px;
+    max-width: 1200px;
     width: 100%;
+    min-height: 60px; 
+    justify-self: flex-end;
     min-height: 60px;
-    background-color: var(--gray);
     background-image: url('row.png');
     background-position: center;
     background-repeat: no-repeat;
     background-size: 35px;
+    background-color: var(--black);
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.add-row:hover {
+    background-color: var(--blackHover);
 }

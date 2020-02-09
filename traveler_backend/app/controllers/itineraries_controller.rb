@@ -36,7 +36,7 @@ class ItinerariesController < ApplicationController
 
     if itinerary.save 
 
-      12.times do 
+      10.times do 
         planning_row_params = { "itinerary_id" => itinerary.id }
         PlanningRow.create(planning_row_params)
       end

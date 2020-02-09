@@ -58,6 +58,7 @@ function Show({dropdown, toggleDropdown, form, getItinerary, userID, itinerary, 
                         )
                     })}
                 </div>
+                <div className='add-row'></div>
             </div>
         </div>
     )
