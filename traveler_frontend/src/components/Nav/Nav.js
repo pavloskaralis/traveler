@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 import toggleDropdown from '../../actions/toggleDropdown.js'
 import Dropdown from '../Dropdown/Dropdown.js'
