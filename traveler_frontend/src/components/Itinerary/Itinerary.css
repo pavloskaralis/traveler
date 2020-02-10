@@ -70,7 +70,7 @@ a {
 
 .edit {
     background-image: url('edit.png');
-    background-size: 35px;
+    background-size: 36px;
     background-repeat: no-repeat;
     background-position: center; 
     width: 50px;
@@ -81,11 +81,11 @@ a {
 }
 
 .itinerary:hover .edit {
-    background-color:  var(--orange);
+    background-image: url('edithover.png');
 }
 
 .itinerary:hover .edit:hover {
-    background-color: var(--orangeHover);
+    background-color: var(--gray);
 }
 
 .itinerary:hover .shared {

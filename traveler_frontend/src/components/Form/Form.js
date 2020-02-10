@@ -56,7 +56,7 @@ function Form({form, error, toggleForm, signUp, logIn, page, postItinerary, user
                 break;
             case 'update': putItinerary(location.value,departureDate.value,returnDate.value,itinerary.id,itinerary.index)
                 break;
-            case 'remove': deleteItinerary(itinerary.id);
+            case 'remove': deleteItinerary(itinerary, userID);
                 break;
         }
         //reset values

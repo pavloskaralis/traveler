@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   resources :users, only: [:create] do
     resources :itineraries, only: [:create,  :show]
   end
+  delete "/lookups/:user_id/:itinerary_id", to: "lookups#destroy"
   post "/login", to: "auth#login"
   get "/auto_login", to: "auth#auto_login"
   get "/user_is_authed", to: "auth#user_is_authed"

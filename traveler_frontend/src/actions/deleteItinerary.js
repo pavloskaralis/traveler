@@ -4,22 +4,38 @@ import toggleForm from './toggleForm.js'
 import selectItinerary from './selectItinerary.js'
 import removeItinerary from './removeItinerary.js'
 
-export default function deleteItinerary(itineraryID) {
+export default function deleteItinerary(itinerary, userID) {
     return dispatch => {
-        const deleteRequest = async() => {
-            const result = await axios.delete(`http://localhost:3001/itineraries/${itineraryID}`);  
+        
+        
+        const removeRequests = async () => {
+            const result = await axios.delete(`http://localhost:3001/lookups/${userID}/${itinerary.id}`); 
+            const {data} = result;     
+            if(data.status){
+                history.push('/');
+                dispatch(toggleForm(''));
+                dispatch(selectItinerary(''));
+                dispatch(removeItinerary(itinerary.id));
+            } else {               
+                console.log('Failed To Remove')
+            }  
+        }
+
+
+        const deleteRequest = async () => {
+            const result = await axios.delete(`http://localhost:3001/itineraries/${itinerary.id}`);  
             const {data} = result;  
             if(data.status){
                 history.push('/');
                 dispatch(toggleForm(''));
                 dispatch(selectItinerary(''));
-                dispatch(removeItinerary(itineraryID));
+                dispatch(removeItinerary(itinerary.id));
             } else {               
                 console.log('Failed To Delete')
             }  
         }
-        deleteRequest();
+
+        //only delete if no other user has acces; otherwise remove individual user and their interests
+        itinerary.usernames.length === 1 ? deleteRequest() : removeRequests();
     }
 }
-
-
