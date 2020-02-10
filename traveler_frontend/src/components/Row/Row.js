@@ -30,7 +30,7 @@ function Row({rowType, dates, planningRow, userID}) {
             address: document.querySelector(`#address${planningRow.id}`).value,
             website: document.querySelector(`#website${planningRow.id}`).value,
             interest: JSON.stringify(interestParam)
-        });
+        }).catch(error => console.log(error));
     }
 
     //onClick for interest button

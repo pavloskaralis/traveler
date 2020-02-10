@@ -15,7 +15,7 @@ function Button({type, toggleForm, selectItinerary}) {
      // all buttons except back toggle form
     const onClick = type === 'return' ? ()=> {history.push('/');selectItinerary('')} : ()=> toggleForm(type);
     return (
-        <div className='button' id={type} onClick={onClick}></div>
+        <div className='button' id={type} onClick={ onClick }></div>
     )
 }
 

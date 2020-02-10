@@ -5,6 +5,7 @@ import './Show.css'
 import getItinerary from '../../actions/getItinerary.js'
 import postPlanningRow from '../../actions/postPlanningRow.js'
 import postScheduling from '../../actions/postScheduling.js'
+import toggleDropdown from '../../actions/toggleDropdown.js'
 import Tools from '../Tools/Tools.js'
 import Row from '../Row/Row.js'
 import Form from '../Form/Form.js'
@@ -23,7 +24,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = {
     getItinerary,
     postPlanningRow,
-    postScheduling
+    postScheduling,
+    toggleDropdown
 }
 
 function Show({dropdown, toggleDropdown, form, getItinerary, postPlanningRow, postScheduling, userID, itinerary, tableIndex}) {

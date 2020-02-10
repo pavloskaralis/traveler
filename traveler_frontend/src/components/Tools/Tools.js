@@ -21,7 +21,7 @@ function Tools({page}) {
                         <Search page={'show'}/>
                         <div className='button-group'>
                             <Button type='share'/>
-                            <Button type='delete'/>
+                            <Button type='remove'/>
                         </div>
                     </>
                 }

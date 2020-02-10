@@ -6,6 +6,7 @@ import logIn from '../../actions/logIn.js'
 import postItinerary from '../../actions/postItinerary.js'
 import selectItinerary from '../../actions/selectItinerary.js'
 import putItinerary from '../../actions/putItinerary.js'
+import deleteItinerary from '../../actions/deleteItinerary.js'
 import './Form.css'
 
 
@@ -24,11 +25,12 @@ const mapDispatchToProps = {
     logIn,
     postItinerary,
     selectItinerary,
-    putItinerary
+    putItinerary,
+    deleteItinerary
 }
 
 //form reused for home, index, and show pages
-function Form({form, error, toggleForm, signUp, logIn, page, postItinerary, userID, itinerary, selectItinerary, putItinerary}) {
+function Form({form, error, toggleForm, signUp, logIn, page, postItinerary, userID, itinerary, selectItinerary, putItinerary, deleteItinerary}) {
     //define variables for ref attributes
     let username;
     let password;
@@ -44,6 +46,7 @@ function Form({form, error, toggleForm, signUp, logIn, page, postItinerary, user
         allInputs.forEach(input => {if(input && !input.value) exit = true})
         if(exit)return;
         //switch submit actions based on form type
+
         switch(form) {
             case 'sign up': signUp(username.value,password.value);
                 break;
@@ -52,6 +55,9 @@ function Form({form, error, toggleForm, signUp, logIn, page, postItinerary, user
             case 'new': postItinerary(location.value,departureDate.value,returnDate.value,userID)
                 break;
             case 'update': putItinerary(location.value,departureDate.value,returnDate.value,itinerary.id,itinerary.index)
+                break;
+            case 'remove': deleteItinerary(itinerary.id);
+                break;
         }
         //reset values
         allInputs.forEach(input => {if(input) input.value = ''});
@@ -63,6 +69,7 @@ function Form({form, error, toggleForm, signUp, logIn, page, postItinerary, user
             break;
         case 'update': legend = 'update itinerary';
             break;
+        case 'remove': legend = 'remove itinerary'
     }
     //refactor departure and return date for update form default values
     let firstDay;
@@ -76,8 +83,15 @@ function Form({form, error, toggleForm, signUp, logIn, page, postItinerary, user
         lastDay = lastDay[2] + '-' + lastDay[0] + '-' + lastDay[1];
     }
     //inputs vary based on page and form type
+
+    
+
     return (
-        <div className="form-container" onClick={()=>{if(form){toggleForm('')};selectItinerary('')}}>
+        // close dropdown on off focus
+        <div className="form-container" onClick={()=>{
+            if(form && page === 'index'){toggleForm('');selectItinerary('')}
+            else if(form && page === 'show')toggleForm('');
+        }}>
             <form onSubmit={ submit } onClick={e => e.stopPropagation()} >
                 <legend>{error? error : legend }</legend>
                 {/* home page has login and signup form */}
@@ -110,10 +124,15 @@ function Form({form, error, toggleForm, signUp, logIn, page, postItinerary, user
                         </div>
                     </>
                 }
+                {page === 'show' &&
+                    <>
+                        
+                    </>
+                }
                 <div className="button-container">
-                    <div onClick={()=> {toggleForm(''); selectItinerary('')}} className="cancel">Cancel</div>
+                    <div onClick={page === 'index' ? ()=> {toggleForm(''); selectItinerary('')} : ()=> {toggleForm('')}} className="cancel">Cancel</div>
                     <div type="submit" className="submit" onClick={ submit }>Submit</div>
-                    {/* required for enter key to work for unknown reason */}
+                    {/* required for enter key to work on home page for unknown reason */}
                     <input className="invisible" type="submit"/>
                 </div>
             </form>

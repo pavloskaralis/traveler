@@ -27,8 +27,8 @@
     margin-right: 8px;
 }
 
-#delete {
-    background-image: url('delete.png');
+#remove {
+    background-image: url('remove.png');
     background-size: 22px;
 }
 

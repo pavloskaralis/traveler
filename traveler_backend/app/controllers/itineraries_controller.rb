@@ -76,6 +76,9 @@ class ItinerariesController < ApplicationController
   # DELETE /itineraries/1
   def destroy
     @itinerary.destroy
+
+    render json: {status: 204}
+    
   end
 
   private
