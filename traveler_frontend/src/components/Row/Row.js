@@ -40,6 +40,9 @@ function Row({rowType, dates, planningRow, userID}) {
         updateInterest(updatedInterest)
         //must use document.query instead of state, as there is a delay in update
         putRequest(updatedInterest);
+
+        console.log(interest.indexOf(userID))
+
     }
 
     //handles input value change
@@ -68,7 +71,7 @@ function Row({rowType, dates, planningRow, userID}) {
             <TextareaAutosize onChange={handlePlanningChange} value={website} id={`website${planningRow.id}`}></TextareaAutosize>
             <div className='interest-container'>
                 <div className='interest'>{interest.length}</div>
-                <div className='interest-button' onClick={toggleInterest} id='interest'></div>
+                <div className={interest.indexOf(userID) === -1 ? 'interest-button' : 'interest-button-subtract'} onClick={toggleInterest} id='interest'></div>
             </div>
             <div className='schedule-container'>
                 <div className='schedule'></div>

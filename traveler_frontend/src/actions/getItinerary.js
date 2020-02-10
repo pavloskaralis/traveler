@@ -12,14 +12,14 @@ export default function getItinerary(userID) {
             const result = await axios.get(`http://localhost:3001/users/${userIDParam}/itineraries/${itineraryID}`) 
             const {data} = result;  
             if(!data.error){
+                //makes url prettier 
                 // history.push(`/${data.location}`, null);
-               //makes url prettier 
                dispatch(selectItinerary(data));
             } else {               
                 history.push('/');
             }  
         }
         //prevent a user from accessing another user's itinerary
-        userID == userIDParam? getRequest() : history.push('/'); 
+        userID === parseFloat(userIDParam) ? getRequest() : history.push('/'); 
     }
 }
