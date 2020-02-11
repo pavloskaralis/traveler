@@ -29,7 +29,7 @@ function Itinerary({itinerary, toggleForm, selectItinerary, index, userID}) {
             <div className='date'>{itinerary.dates[length - 1]}</div>
             <div className='edit-container'>
                 {/* selectItinerary allows form to access specific itinerary through state */}
-                <div className='edit' onClick={e => {e.preventDefault(); selectItinerary({...itinerary, index: index});toggleForm('update')}}></div>
+                <div className='edit' onClick={e => {e.stopPropagations(); selectItinerary({...itinerary, index: index});toggleForm('update')}}></div>
             </div>
         </a>
     )

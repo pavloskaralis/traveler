@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :lookups, only: [:create]
   resources :planning_rows, only: [:update]
   resources :scheduling_rows, only: [:update, :destroy]
   resources :itineraries, only: [:update, :destroy] do

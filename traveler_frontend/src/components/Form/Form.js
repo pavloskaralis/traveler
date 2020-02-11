@@ -3,10 +3,12 @@ import { connect } from 'react-redux'
 import toggleForm from '../../actions/toggleForm.js'
 import signUp from '../../actions/signUp.js'
 import logIn from '../../actions/logIn.js'
+import toggleError from '../../actions/toggleError.js'
 import postItinerary from '../../actions/postItinerary.js'
 import selectItinerary from '../../actions/selectItinerary.js'
 import putItinerary from '../../actions/putItinerary.js'
 import deleteItinerary from '../../actions/deleteItinerary.js'
+import postLookup from '../../actions/postLookup.js';
 import './Form.css'
 
 
@@ -15,7 +17,8 @@ const mapStateToProps = state => {
         form: state.form,
         error: state.error,
         userID: state.userID,
-        itinerary: state.itinerary
+        itinerary: state.itinerary,
+        index: state.itineraries.findIndex(itinerary => itinerary.location === state.itinerary.location)
     }
 }
 
@@ -26,27 +29,42 @@ const mapDispatchToProps = {
     postItinerary,
     selectItinerary,
     putItinerary,
-    deleteItinerary
+    deleteItinerary,
+    postLookup,
+    toggleError
 }
 
 //form reused for home, index, and show pages
-function Form({form, error, toggleForm, signUp, logIn, page, postItinerary, userID, itinerary, selectItinerary, putItinerary, deleteItinerary}) {
+function Form({form, error, toggleForm, signUp, logIn, page, userID, itinerary, toggleError, postItinerary, selectItinerary, putItinerary, deleteItinerary, postLookup, index}) {
     //define variables for ref attributes
     let username;
     let password;
     let location;
     let departureDate;
     let returnDate;
-    const allInputs = [username,password,location,departureDate,returnDate];
+    let addUser; 
+    const allInputs = [username,password,location,departureDate,returnDate,addUser];
 
     const submit = e => {
         e.preventDefault();
         //prevent empty input submission 
-        let exit = false;
-        allInputs.forEach(input => {if(input && !input.value) exit = true})
-        if(exit)return;
-        //switch submit actions based on form type
-
+        switch(form) {
+        case 'sign up': if(!username.value || !password.value)return
+            break;
+        case 'log in': if(!username.value || !password.value)return
+            break;
+        case 'new': if(!location.value || !departureDate.value || !returnDate.value)return
+            break;
+        case 'update': if(!location.value || !departureDate.value || ! returnDate.value)return
+            break;
+        case 'share': if(!addUser.value) return
+            break; 
+        }
+        //prevent sharing itinerary with more than 8 users
+        if(form === 'share' && itinerary.usernames.length === 8) return toggleError('8 User Limit');
+        //prevent sharing itinerary with more than 8 users
+        if(form === 'share' && itinerary.usernames.find(username => username === addUser.value)) return toggleError('Already Shared');
+        //switch submit actions based on form type        
         switch(form) {
             case 'sign up': signUp(username.value,password.value);
                 break;
@@ -54,9 +72,11 @@ function Form({form, error, toggleForm, signUp, logIn, page, postItinerary, user
                 break;
             case 'new': postItinerary(location.value,departureDate.value,returnDate.value,userID)
                 break;
-            case 'update': putItinerary(location.value,departureDate.value,returnDate.value,itinerary.id,itinerary.index)
+            case 'update': {putItinerary(location.value,departureDate.value,returnDate.value,itinerary.id,itinerary.index); console.log('triggered')}
                 break;
             case 'remove': deleteItinerary(itinerary, userID);
+                break;
+            case 'share': postLookup(itinerary.id,addUser.value, index);
                 break;
         }
         //reset values
@@ -69,7 +89,9 @@ function Form({form, error, toggleForm, signUp, logIn, page, postItinerary, user
             break;
         case 'update': legend = 'update itinerary';
             break;
-        case 'remove': legend = 'remove itinerary'
+        case 'remove': legend = 'remove itinerary';
+            break;
+        case 'share': legend = 'share itinerary';
     }
     //refactor departure and return date for update form default values
     let firstDay;
@@ -98,11 +120,11 @@ function Form({form, error, toggleForm, signUp, logIn, page, postItinerary, user
                 {page === 'home' &&
                     <>
                         <div className="input-container">
-                            <label>Username</label>
-                            <input type="text" ref={node => username = node}/>
+                            <label>Username:</label>
+                            <input type="text" ref={node => username = node} autoFocus/>
                         </div>
                         <div className="input-container">
-                            <label>Password</label>
+                            <label>Password:</label>
                             <input type={form==="log in" ? "password" : "text"} ref={node => password = node}/>
                         </div>
                     </>
@@ -111,27 +133,51 @@ function Form({form, error, toggleForm, signUp, logIn, page, postItinerary, user
                 {page === 'index' &&
                     <>
                         <div className="input-container">
-                            <label>Location</label>
-                            <input type="text" ref={node => location = node} defaultValue={form === 'update' ? itinerary.location : ''}/>
+                            <label>Location:</label>
+                            <input type="text" ref={node => location = node} defaultValue={form === 'update' ? itinerary.location : ''} autoFocus/>
                         </div>
                         <div className="input-container">
-                            <label>Departure</label>
+                            <label>Departure:</label>
                             <input type="date" ref={node => departureDate = node} defaultValue={firstDay}/>
                         </div>
                         <div className="input-container">
-                            <label>Return</label>
+                            <label>Return:</label>
                             <input type="date" ref={node => returnDate = node} defaultValue={lastDay}/>
                         </div>
                     </>
                 }
                 {page === 'show' &&
-                    <>
-                        
+                    <>  
+                        {form === 'remove' &&
+                        <div className='input-container'>
+                            <label className='remove-label'>Are you sure you want to remove this itinerary?</label>
+                        </div>
+                        }
+                        {form === 'share' && 
+                            <>
+                                 <div className="input-container">
+                                    <label className='all-users'>All Users:</label>
+                                    <div className="username-container">
+                                        {itinerary.usernames && itinerary.usernames.map(username =>{
+                                            return (
+                                                <div className='username' key={username}>{username}</div>
+                                            )
+                                        })}
+                                    </div>
+                                </div>
+                                <div className="input-container">
+                                    <label>Add User:</label>
+                                    <input type="text" ref={node => addUser = node} autoFocus/>
+                                </div>
+                            </>
+                        }
                     </>
                 }
                 <div className="button-container">
-                    <div onClick={page === 'index' ? ()=> {toggleForm(''); selectItinerary('')} : ()=> {toggleForm('')}} className="cancel">Cancel</div>
-                    <div type="submit" className="submit" onClick={ submit }>Submit</div>
+                    <div onClick={page === 'index' ? ()=> {toggleForm(''); selectItinerary('')} : ()=> {toggleForm('')}} className="cancel">
+                        {form === 'share' ? 'Close' : 'Cancel'}
+                    </div>
+                    <div type="submit" className="submit" onClick={ submit }>{form === 'remove' ? 'Confirm' : 'Submit'}</div>
                     {/* required for enter key to work on home page for unknown reason */}
                     <input className="invisible" type="submit"/>
                 </div>

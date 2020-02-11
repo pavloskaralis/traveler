@@ -50,7 +50,7 @@ function Show({dropdown, toggleDropdown, form, getItinerary, postPlanningRow, po
                 </div>
                 <div className='body'>
                     {/* render planning rows */}
-                    {itinerary && tableIndex === 0 && itinerary.planning_rows.sort((a,b) => a.id - b.id).map(planningRow => {
+                    {itinerary.planning_rows && tableIndex === 0 && itinerary.planning_rows.sort((a,b) => a.id - b.id).map(planningRow => {
                         return (
                             <Row rowType='planning' planningRow={planningRow} date={itinerary.dates} key={planningRow.id}/>
                         )

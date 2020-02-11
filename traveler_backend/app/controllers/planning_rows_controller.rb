@@ -23,7 +23,6 @@ class PlanningRowsController < ApplicationController
    
       render json: {planning_row: @planning_row, status: 200}
     else
-      p 'failed to save'
       render json: {error:"Failed To Save", status: 204}
     end
   end

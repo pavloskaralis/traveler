@@ -27,13 +27,15 @@ legend {
     font-family: 'Verdana';
     cursor: default;
     font-weight: 600;
+    font-size: 18px;
+    padding: 0;
 }
 
 .form-container .input-container {
     display: flex; 
     justify-content: space-between;
     padding: 0 64px;
-    padding-bottom: 16px;
+    margin-bottom: 16px;
 }
 
 label {
@@ -59,16 +61,23 @@ label {
 }
 
 .form-container .button-container {
-    margin: 8px 0 24px 0;
+    margin-bottom: 24px; 
 }
 
 .cancel, .submit {
-    padding: 6px; 
-    border-radius: 6px; 
-    width: 60px; 
+    border-radius: 8px; 
+    width: 80px; 
     text-align: center;
     font-family: 'Verdana';
     cursor: pointer;
+    box-sizing: border-box;
+    height: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 14px;
+    margin-top: 8px;
 }
 
 .submit {
@@ -92,4 +101,32 @@ label {
 
 .invisible {
     display: none;
+}
+
+.username-container {
+    margin: 0 auto;
+    /* margin-bottom: 24px; */
+    display: flex;
+    flex-direction: column;
+    /* flex-wrap: wrap; */
+    max-width: 270px;
+    justify-content: space-between;
+    /* text-align: center; */
+    font-family: Verdana;
+    color: white;
+    font-weight: 600;
+}
+
+.username {
+    margin-bottom: 4px;
+}
+
+.all-users {
+    justify-content: flex-start;
+}
+
+.remove-label {
+    text-align: center;
+    width: 220px;
+    margin: 0 auto;
 }

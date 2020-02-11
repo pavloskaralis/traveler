@@ -11,6 +11,7 @@ class ItinerariesController < ApplicationController
         usernames << user.username
       end
 
+      # add planning to dates so that planning table can render
       dates = @itinerary.dates.unshift 'Planning'
 
       render json: { 
@@ -20,7 +21,7 @@ class ItinerariesController < ApplicationController
         shared: @itinerary.shared, 
         location: @itinerary.location, 
         planning_rows: @itinerary.planning_rows, 
-        scheduling_rows: @itinerary.scheduling_rows 
+        scheduling_rows: @itinerary.scheduling_rows,
       }
 
     else
@@ -75,9 +76,11 @@ class ItinerariesController < ApplicationController
 
   # DELETE /itineraries/1
   def destroy
-    @itinerary.destroy
-
-    render json: {status: 204}
+    if @itinerary.destroy
+      render json: {status: 204}
+    else 
+      render json: {error: 'Failed To Delete', status: 422}
+    end
     
   end
 

@@ -11,7 +11,7 @@ export default function deleteItinerary(itinerary, userID) {
         const removeRequests = async () => {
             const result = await axios.delete(`http://localhost:3001/lookups/${userID}/${itinerary.id}`); 
             const {data} = result;     
-            if(data.status){
+            if(!data.error){
                 history.push('/');
                 dispatch(toggleForm(''));
                 dispatch(selectItinerary(''));
@@ -25,7 +25,7 @@ export default function deleteItinerary(itinerary, userID) {
         const deleteRequest = async () => {
             const result = await axios.delete(`http://localhost:3001/itineraries/${itinerary.id}`);  
             const {data} = result;  
-            if(data.status){
+            if(!data.error){
                 history.push('/');
                 dispatch(toggleForm(''));
                 dispatch(selectItinerary(''));
