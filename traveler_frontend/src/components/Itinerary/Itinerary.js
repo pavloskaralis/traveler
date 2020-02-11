@@ -16,11 +16,10 @@ const mapDispatchToProps = {
 
 function Itinerary({itinerary, toggleForm, selectItinerary, index, userID}) {
     const length = itinerary.dates.length
-    //prevent x-overscroll of long location names
-    if(itinerary.location.length > 8) itinerary.location = itinerary.location.slice(0,6) + '...';
     return (
         <a className='itinerary' href={`/${userID}/${itinerary.id}`}>
-            <div className='location'>{itinerary.location}</div>
+            {/* span css uses ellipsis to prevent overflow */}
+            <div className='location'><span>{itinerary.location}</span></div>
             {itinerary.shared ? 
                 <div className='shared'></div> :
                 <div className='unshared'></div>
@@ -29,7 +28,7 @@ function Itinerary({itinerary, toggleForm, selectItinerary, index, userID}) {
             <div className='date'>{itinerary.dates[length - 1]}</div>
             <div className='edit-container'>
                 {/* selectItinerary allows form to access specific itinerary through state */}
-                <div className='edit' onClick={e => {e.stopPropagations(); selectItinerary({...itinerary, index: index});toggleForm('update')}}></div>
+                <div className='edit' onClick={e => {e.preventDefault(); selectItinerary({...itinerary, index: index});toggleForm('update')}}></div>
             </div>
         </a>
     )

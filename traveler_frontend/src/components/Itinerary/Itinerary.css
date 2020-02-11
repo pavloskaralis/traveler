@@ -45,6 +45,7 @@ a {
     font-weight: 600;
     font-family: Verdana;
     cursor: pointer;
+    white-space: nowrap;
 }
 
 .date {
@@ -92,3 +93,11 @@ a {
     background-image: url('sharedhover.png'); 
 }
 
+.location span {
+    width: 100%;
+    display:block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+}

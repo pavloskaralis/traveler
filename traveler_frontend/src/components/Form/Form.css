@@ -53,6 +53,7 @@ label {
     height: 36px;
     box-sizing: border-box;
     font-size: 16px;
+    /* text-align: center; */
 }
 
 .input-container input:focus {

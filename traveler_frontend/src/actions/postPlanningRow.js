@@ -1,5 +1,4 @@
 import axios from 'axios'
-import toggleError from './toggleError.js'
 import addPlanningRow from './addPlanningRow.js';
 
 export default function postPlanningRow(itineraryID) {

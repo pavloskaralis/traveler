@@ -1,5 +1,6 @@
 class SchedulingRowsController < ApplicationController
   before_action :set_scheduling_row, only: [:show, :update, :destroy]
+  wrap_parameters false
 
   # GET /scheduling_rows
   def index
@@ -18,10 +19,13 @@ class SchedulingRowsController < ApplicationController
     @scheduling_row = SchedulingRow.new(scheduling_row_params)
 
     if @scheduling_row.save
-      render json: @scheduling_row, status: :created, location: @scheduling_row
+      @scheduling_row.itinerary_id = params[:itinerary_id]
+
+      render json: {scheduling_row: @scheduling_row, status: 200}
     else
-      render json: @scheduling_row.errors, status: :unprocessable_entity
+      render json: {error:"Failed To Save", status: 204}
     end
+
   end
 
   # PATCH/PUT /scheduling_rows/1
@@ -46,6 +50,6 @@ class SchedulingRowsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def scheduling_row_params
-      params.fetch(:scheduling_row, {})
+      params.permit(:activity, :category, :address, :website, :time, :date, :itinerary_id, :id)
     end
 end
