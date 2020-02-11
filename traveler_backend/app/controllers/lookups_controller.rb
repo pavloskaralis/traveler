@@ -46,14 +46,16 @@ class LookupsController < ApplicationController
 
   # DELETE /lookups/user_id/itinerary_id
   def destroy
-    @itinerary = Itinerary.find(lookup_params[:itinerary_id])
+    @lookup.destroy
+
+    @itinerary = Itinerary.find(params[:itinerary_id])
     planning_rows = @itinerary.planning_rows
 
     # remove user id from each planning row interest aray
     planning_rows.each do | pr | 
       interest = pr.interest
-      if interest.include? lookup_params[:user_id]
-        updated_interest = interest.delete_if {|id| id == lookup_params[:user_id]}
+      if interest.include? params[:user_id].to_i
+        updated_interest = interest.delete_if {|id| id == params[:user_id].to_i}
       
         if PlanningRow.find(pr.id).update(interest: updated_interest)
           p 'removed'
@@ -65,7 +67,7 @@ class LookupsController < ApplicationController
     end
 
     # toggle as unshared if only 1 user remains
-    if Lookup.where(itinerary_id: lookup_params[:itinerary_id]).count === 1 && @itinerary.shared === true
+    if Lookup.where(itinerary_id: params[:itinerary_id]).count === 1 && @itinerary.shared === true
       @itinerary.update(shared: false)
     end
   
@@ -76,7 +78,7 @@ class LookupsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_lookup
-      @lookup = Lookup.where(user_id: params[:user_id], itinerary_id: params[:itinerary_id])
+      @lookup = Lookup.where(user_id: params[:user_id], itinerary_id: params[:itinerary_id])[0]
     end
 
     # Only allow a trusted parameter "white list" through.
