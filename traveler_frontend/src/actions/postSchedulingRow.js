@@ -1,5 +1,5 @@
 import axios from 'axios'
-import addSchedulingRow from './addSchedulingRow.js'
+import addSchedulingRow from './addSchedulingRow.js';
 import selectPlanningRow from './selectPlanningRow.js'
 import toggleForm from './toggleForm.js'
 

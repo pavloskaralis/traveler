@@ -4,6 +4,7 @@ import axios from 'axios'
 import { TextareaAutosize } from '@material-ui/core'
 import toggleForm from '../../actions/toggleForm'
 import selectPlanningRow from '../../actions/selectPlanningRow.js'
+import putPlanningRow from '../../actions/putPlanningRow.js'
 import './Row.css'
 
 const mapStateToProps = state => {
@@ -14,11 +15,12 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = {
     toggleForm,
-    selectPlanningRow
+    selectPlanningRow,
+    putPlanningRow
 }
 
 
-function Row({rowType, row, userID, toggleForm, selectPlanningRow}) {
+function Row({rowType, row, rowIndex, userID, toggleForm, selectPlanningRow, putPlanningRow}) {
     //textarea cannot use ref; must rely on state values for storage
     const [activity, updateActivity] = useState(row.activity);
     const [type, updateType] = useState(row.category);
@@ -30,15 +32,16 @@ function Row({rowType, row, userID, toggleForm, selectPlanningRow}) {
     const [time, updateTime] = useState(row.time);
 
     //dispatch not required since state automatically renders changes 
-    const putRequest = (interestParam) => {
-        axios.put(`http://localhost:3001/planning_rows/${row.id}`, {
-            activity: document.querySelector(`#activity${row.id}`).value,
-            category: document.querySelector(`#type${row.id}`).value,
-            address: document.querySelector(`#address${row.id}`).value,
-            website: document.querySelector(`#website${row.id}`).value,
-            interest: JSON.stringify(interestParam)
-        }).catch(error => console.log(error));
-    }
+    // const putRequest = (interestParam) => {
+    //     axios.put(`http://localhost:3001/planning_rows/${row.id}`, {
+    //         activity: document.querySelector(`#activity${row.id}`).value,
+    //         category: document.querySelector(`#type${row.id}`).value,
+    //         address: document.querySelector(`#address${row.id}`).value,
+    //         website: document.querySelector(`#website${row.id}`).value,
+    //         interest: JSON.stringify(interestParam)
+    //     }).catch(error => console.log(error));
+    // }
+
 
     //onClick for interest button
     const toggleInterest = () => {
@@ -46,8 +49,14 @@ function Row({rowType, row, userID, toggleForm, selectPlanningRow}) {
             [...interest,userID] : [...interest.slice(0,interest.indexOf(userID)),...interest.slice(interest.indexOf(userID) + 1)];
         updateInterest(updatedInterest)
         //must use document.query instead of state, as there is a delay in update
-        putRequest(updatedInterest);
-
+        putPlanningRow(row.id, {
+                activity: document.querySelector(`#activity${row.id}`).value,
+                category: document.querySelector(`#type${row.id}`).value,
+                address: document.querySelector(`#address${row.id}`).value,
+                website: document.querySelector(`#website${row.id}`).value,
+                interest: JSON.stringify(updatedInterest)
+            }, rowIndex
+        );
     }
 
     //handles input value change
@@ -64,7 +73,14 @@ function Row({rowType, row, userID, toggleForm, selectPlanningRow}) {
         }
 
         //must use document.query instead of state, as there is a delay in update
-        putRequest(interest);
+        putPlanningRow(row.id, {
+                activity: document.querySelector(`#activity${row.id}`).value,
+                category: document.querySelector(`#type${row.id}`).value,
+                address: document.querySelector(`#address${row.id}`).value,
+                website: document.querySelector(`#website${row.id}`).value,
+                interest: JSON.stringify(interest)
+            }, rowIndex
+        );
     }
     
 

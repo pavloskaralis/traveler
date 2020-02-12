@@ -43,7 +43,7 @@ class PlanningRowsController < ApplicationController
     if @planning_row.update(new_planning_row_params)
       render json: @planning_row
     else
-      render json: @planning_row.errors, status: :unprocessable_entity
+      render json: {error:"Failed To Update", status: 204}
     end
   end
 

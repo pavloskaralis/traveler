@@ -50,16 +50,16 @@ function Show({dropdown, toggleDropdown, form, getItinerary, postPlanningRow, po
                 </div>
                 <div className='body'>
                     {/* render planning rows */}
-                    {itinerary.planning_rows && tableIndex === 0 && itinerary.planning_rows.sort((a,b) => a.id - b.id).map(planningRow => {
+                    {itinerary.planning_rows && tableIndex === 0 && itinerary.planning_rows.sort((a,b) => a.id - b.id).map((planningRow,index) => {
                         return (
-                            <Row rowType='planning' row={planningRow}  key={planningRow.id}/>
+                            <Row rowType='planning' row={planningRow}  rowIndex={index} key={planningRow.id}/>
                         )
                     })}
                     {/* render scheduling rows */}
-                    {itinerary.scheduling_rows && (tableIndex > 0) && itinerary.scheduling_rows.map(schedulingRow => {
+                    {itinerary.scheduling_rows && (tableIndex > 0) && itinerary.scheduling_rows.map((schedulingRow, index) => {
                         return (
                             // only render matching dates
-                            (itinerary.dates[tableIndex] === schedulingRow.date) && <Row rowType='scheduling' row={schedulingRow} key={schedulingRow.id}/>
+                            (itinerary.dates[tableIndex] === schedulingRow.date) && <Row rowType='scheduling' row={schedulingRow}  rowIndex={index} key={schedulingRow.id}/>
                         )
                     })}
                 </div>
