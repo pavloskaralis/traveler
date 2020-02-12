@@ -20,7 +20,8 @@ const mapStateToProps = state => {
         error: state.error,
         userID: state.userID,
         itinerary: state.itinerary,
-        index: state.itineraries.findIndex(itinerary => itinerary.location === state.itinerary.location)
+        index: state.itineraries.findIndex(itinerary => itinerary.location === state.itinerary.location),
+        planningRow: state.planningRow
     }
 }
 
@@ -42,7 +43,7 @@ const mapDispatchToProps = {
 function Form({
     form, error, toggleForm, signUp, logIn, page, userID, itinerary, toggleError, 
     postSchedulingRow, postItinerary, selectItinerary, selectPlanningRow, putItinerary, 
-    deleteItinerary, postLookup, index
+    deleteItinerary, postLookup, index, planningRow
 }) {
     //define variables for ref attributes
     let username,
@@ -110,7 +111,7 @@ function Form({
                 break;
             case 'share': postLookup(itinerary.id,addUser.value, index);
                 break;
-            case 'schedule': postSchedulingRow(itinerary.id, schedulingDate.value, schedulingTime.value + ' ' + meridian);
+            case 'schedule': postSchedulingRow(itinerary.id, schedulingDate.value, schedulingTime.value + ' ' + meridian, planningRow );
                 break;
         }
         //reset values

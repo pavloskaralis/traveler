@@ -90,7 +90,7 @@ function Row({rowType, row, userID, toggleForm, selectPlanningRow}) {
                     <input type='time' className='time'/>
                 </div>
                 <TextareaAutosize  value={activity} className='first' id={`activity${row.id}`}> </TextareaAutosize>
-                <TextareaAutosize  value={time} id={`time${row.id}`}></TextareaAutosize>
+                <TextareaAutosize  value={type} id={`time${row.id}`}></TextareaAutosize>
                 <TextareaAutosize  value={address} id={`address${row.id}`}></TextareaAutosize>
                 <TextareaAutosize  value={website} id={`website${row.id}`}></TextareaAutosize>
                 <div className='remove-container'>

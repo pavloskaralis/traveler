@@ -45,8 +45,9 @@ ActiveRecord::Schema.define(version: 2020_02_06_183755) do
 
   create_table "scheduling_rows", force: :cascade do |t|
     t.string "date"
+    t.string "time"
     t.integer "itinerary_id"
-    t.string "time", default: ""
+    t.string "category", default: ""
     t.string "activity", default: ""
     t.string "type", default: ""
     t.string "website", default: ""
