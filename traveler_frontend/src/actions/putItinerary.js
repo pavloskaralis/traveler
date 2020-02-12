@@ -24,11 +24,16 @@ export default function putItinerary(location,departureDate,returnDate, itinerar
         const parsedReturnDate = splitReturnDate.map(num => parseFloat(num));
         //check departure date occurs before return date, and on or after current date 
         // [0] = YY; [1] = MM; [2] = DD;
-        if((parsedDepartureDate[0] > parsedReturnDate[0]) || (parsedDepartureDate[0] < today[0])) {
+        if(parsedDepartureDate[0] > parsedReturnDate[0] || parsedDepartureDate[0] < today[0]) { 
+            // console.log(1)
             return dispatch(toggleError('Invalid Dates'));
-        } else if ((parsedDepartureDate[1] > parsedReturnDate[1]) || (parsedDepartureDate[1] < today[1])) {
+        //checks months
+        } else if(parsedDepartureDate[1] > parsedReturnDate[1] || (parsedDepartureDate[0] === today[0] && parsedDepartureDate[1] < today[1])) {
+            // console.log(2)
             return dispatch(toggleError('Invalid Dates'));
-        } else if (((parsedDepartureDate[1] === parsedReturnDate[1]) && (parsedDepartureDate[2] > parsedReturnDate[2])) || (parsedDepartureDate[2] < today[2])) {
+        //checks days
+        } else if (parsedDepartureDate[2] > parsedReturnDate[2] || (parsedDepartureDate[0] === today[0] && parsedDepartureDate[1] === today[1] && parsedDepartureDate[2] < today[2])) {
+            // console.log(3)
             return dispatch(toggleError('Invalid Dates'));
         }
         //make sure range won't break site; 

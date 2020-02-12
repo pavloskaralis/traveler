@@ -46,7 +46,7 @@ function Show({dropdown, toggleDropdown, form, getItinerary, postPlanningRow, po
                     <div className='th'>{tableIndex === 0 ? 'Address' : 'Type'}</div>
                     <div className='th'>{tableIndex === 0 ? 'Website' : 'Address'}</div>
                     <div className='th'>{tableIndex === 0 ? 'Interest' : 'Website'}</div>
-                    <div className='th'>{tableIndex === 0 ? 'Schedule' : 'Cancel'}</div>
+                    <div className='th'>{tableIndex === 0 ? 'Schedule' : 'Remove'}</div>
                 </div>
                 <div className='body'>
                     {/* render planning rows */}

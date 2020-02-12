@@ -78,25 +78,25 @@ function Form({
         //prevent sharing itinerary with more than 8 users
         if(form === 'share' && itinerary.usernames.find(username => username === addUser.value)) return toggleError('Already Shared');
         // redefine time input to find meridan
-        let meridian;
-        if(form === 'schedule') {
-            let timeSplit = schedulingTime.value.split(':'),
-            hours,
-            minutes;
-            hours = timeSplit[0];
-            minutes = timeSplit[1];
-            if (hours > 12) {
-                meridian = 'PM';
-                hours -= 12;
-            } else if (hours < 12) {
-                meridian = 'AM';
-                if (hours == 0) {
-                hours = 12;
-                }
-            } else {
-                meridian = 'PM';
-            }
-        }
+        // let meridian;
+        // if(form === 'schedule') {
+        //     let timeSplit = schedulingTime.value.split(':'),
+        //     hours,
+        //     minutes;
+        //     hours = timeSplit[0];
+        //     minutes = timeSplit[1];
+        //     if (hours > 12) {
+        //         meridian = 'PM';
+        //         hours -= 12;
+        //     } else if (hours < 12) {
+        //         meridian = 'AM';
+        //         if (hours == 0) {
+        //         hours = 12;
+        //         }
+        //     } else {
+        //         meridian = 'PM';
+        //     }
+        // }
         //switch submit actions based on form type        
         switch(form) {
             case 'sign up': signUp(username.value,password.value);
@@ -111,7 +111,7 @@ function Form({
                 break;
             case 'share': postLookup(itinerary.id,addUser.value, index);
                 break;
-            case 'schedule': postSchedulingRow(itinerary.id, schedulingDate.value, schedulingTime.value + ' ' + meridian, planningRow );
+            case 'schedule': postSchedulingRow(itinerary.id, schedulingDate.value, schedulingTime.value , planningRow );
                 break;
         }
         //reset values

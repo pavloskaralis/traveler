@@ -47,11 +47,6 @@ class PlanningRowsController < ApplicationController
     end
   end
 
-  # DELETE /planning_rows/1
-  def destroy
-    @planning_row.destroy
-  end
-
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_planning_row

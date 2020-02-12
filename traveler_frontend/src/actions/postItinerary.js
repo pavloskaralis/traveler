@@ -11,29 +11,29 @@ export default function postItinerary(location,departureDate,returnDate,userID) 
             return dispatch(toggleError('Invalid Date Format'));
         } 
         //find today's date
-        // const date = new Date();
-        // const dd = date.getDate();
-        // const mm = date.getMonth() + 1;
-        // const yyyy = date.getFullYear();
-        // const today = [parseFloat(yyyy), parseFloat(mm), parseFloat(dd)]
+        const date = new Date();
+        const dd = date.getDate();
+        const mm = date.getMonth() + 1;
+        const yyyy = date.getFullYear();
+        const today = [parseFloat(yyyy), parseFloat(mm), parseFloat(dd)]
         //breakdown depart and return dates 
         const splitDepartureDate = departureDate.split('-');
         const splitReturnDate = returnDate.split('-');
         const parsedDepartureDate = splitDepartureDate.map(num => parseFloat(num));
         const parsedReturnDate = splitReturnDate.map(num => parseFloat(num));
-        //check departure date occurs before return date,
+        //check departure date occurs before return date and after today,
         // [0] = YY; [1] = MM; [2] = DD;
         //checks years
-        if(parsedDepartureDate[0] > parsedReturnDate[0]) { 
-            console.log(1)
+        if(parsedDepartureDate[0] > parsedReturnDate[0] || parsedDepartureDate[0] < today[0]) { 
+            // console.log(1)
             return dispatch(toggleError('Invalid Dates'));
         //checks months
-        } else if(parsedDepartureDate[1] > parsedReturnDate[1]) {
-            console.log(2)
+        } else if(parsedDepartureDate[1] > parsedReturnDate[1] || (parsedDepartureDate[0] === today[0] && parsedDepartureDate[1] < today[1])) {
+            // console.log(2)
             return dispatch(toggleError('Invalid Dates'));
         //checks days
-        } else if (parsedDepartureDate[1] > parsedReturnDate[1]) {
-            console.log(3)
+        } else if (parsedDepartureDate[2] > parsedReturnDate[2] || (parsedDepartureDate[0] === today[0] && parsedDepartureDate[1] === today[1] && parsedDepartureDate[2] < today[2])) {
+            // console.log(3)
             return dispatch(toggleError('Invalid Dates'));
         }
         //make sure range won't break site; 

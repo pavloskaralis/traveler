@@ -39,7 +39,11 @@ class SchedulingRowsController < ApplicationController
 
   # DELETE /scheduling_rows/1
   def destroy
-    @scheduling_row.destroy
+    if @scheduling_row.destroy
+      render json: {status: 204}
+    else 
+      render json: {error: 'Failed To Delete', status: 422}
+    end
   end
 
   private
