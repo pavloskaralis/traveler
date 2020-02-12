@@ -107,8 +107,7 @@ function Row({rowType, row, rowIndex, userID, toggleForm, selectPlanningRow, put
             {/* scheduling row */}
             {rowType === 'scheduling' && <div id={row.id}className='row-container'>
                 <div className='time-container'>
-                    {/* update on blur so auto sort by date doesnt interfere */}
-                    <input type='time' onBlur={handleSchedulingChange} className='time' defaultValue={time} id={`time${row.id}`}/>
+                    <input type='time' onChange={handleSchedulingChange} className='time' defaultValue={time} id={`time${row.id}`}/>
                 </div>
                 <TextareaAutosize onChange={handleSchedulingChange} value={activity} id={`activity${row.id}`}> </TextareaAutosize>
                 <TextareaAutosize onChange={handleSchedulingChange} value={type} id={`type${row.id}`}></TextareaAutosize>
