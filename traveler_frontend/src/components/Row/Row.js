@@ -4,6 +4,7 @@ import { TextareaAutosize } from '@material-ui/core'
 import toggleForm from '../../actions/toggleForm'
 import selectPlanningRow from '../../actions/selectPlanningRow.js'
 import putPlanningRow from '../../actions/putPlanningRow.js'
+import putSchedulingRow from '../../actions/putSchedulingRow.js'
 import deleteSchedulingRow from '../../actions/deleteSchedulingRow.js'
 import './Row.css'
 
@@ -17,11 +18,12 @@ const mapDispatchToProps = {
     toggleForm,
     selectPlanningRow,
     putPlanningRow,
-    deleteSchedulingRow
+    deleteSchedulingRow,
+    putSchedulingRow
 }
 
 
-function Row({rowType, row, rowIndex, userID, toggleForm, selectPlanningRow, putPlanningRow, deleteSchedulingRow}) {
+function Row({rowType, row, rowIndex, userID, toggleForm, selectPlanningRow, putPlanningRow, deleteSchedulingRow, putSchedulingRow}) {
     //textarea cannot use ref; must rely on state values for storage
     const [activity, updateActivity] = useState(row.activity);
     const [type, updateType] = useState(row.category);
@@ -32,42 +34,55 @@ function Row({rowType, row, rowIndex, userID, toggleForm, selectPlanningRow, put
     // scheduling row only
     const [time, updateTime] = useState(row.time);
 
-    //onClick for interest button
-    const toggleInterest = () => {
-        let updatedInterest = interest.indexOf(userID) === -1 ? 
-            [...interest,userID] : [...interest.slice(0,interest.indexOf(userID)),...interest.slice(interest.indexOf(userID) + 1)];
-        updateInterest(updatedInterest)
-        //must use document.query instead of state, as there is a delay in update
-        putPlanningRow(row.id, {
-                activity: document.querySelector(`#activity${row.id}`).value,
-                category: document.querySelector(`#type${row.id}`).value,
-                address: document.querySelector(`#address${row.id}`).value,
-                website: document.querySelector(`#website${row.id}`).value,
-                interest: JSON.stringify(updatedInterest)
-            }, rowIndex
-        );
-    }
-
-    //handles input value change
-    const handlePlanningChange = (e) => {
-        switch(e.target.id){
-            case `activity${row.id}`: updateActivity(e.target.value);
-                break;
-            case `type${row.id}`: updateType(e.target.value);
-                break;
-            case `address${row.id}`:updateAddress(e.target.value);
-                break;
-            case `website${row.id}`:updateWebsite(e.target.value);
-                break;
-        }
-
-        //must use document.query instead of state, as there is a delay in update
-        putPlanningRow(row.id, {
+    //put request for planning row
+    //must use document.query instead of state, as there is a delay in update
+    const putRequestPlanning = (interest) => {
+        return putPlanningRow(row.id, {
                 activity: document.querySelector(`#activity${row.id}`).value,
                 category: document.querySelector(`#type${row.id}`).value,
                 address: document.querySelector(`#address${row.id}`).value,
                 website: document.querySelector(`#website${row.id}`).value,
                 interest: JSON.stringify(interest)
+            }, rowIndex
+        );
+    }
+
+    //onClick for interest button; not a text area
+    const toggleInterest = () => {
+        let updatedInterest = interest.indexOf(userID) === -1 ? 
+            [...interest,userID] : [...interest.slice(0,interest.indexOf(userID)),...interest.slice(interest.indexOf(userID) + 1)];
+        updateInterest(updatedInterest)
+        //must use document.query instead of state, as there is a delay in update
+        putRequestPlanning(updatedInterest);
+    }
+    
+
+    //handles input value change for both planning and scheduling row
+    const handleInput = (e) => {
+        switch(e.target.id){
+            case `activity${row.id}`:return updateActivity(e.target.value);
+            case `type${row.id}`:return updateType(e.target.value);
+            case `address${row.id}`:return updateAddress(e.target.value);
+            case `website${row.id}`:return updateWebsite(e.target.value);
+            case `time${row.id}`:return updateTime(e.target.value);
+        }
+    }
+
+    //handle change for planning row
+    const handlePlanningChange = (e) => {
+        handleInput(e);
+        putRequestPlanning(interest);
+    }
+
+     //handle change for scheduling row
+     const handleSchedulingChange = (e) => {
+        handleInput(e);
+        putSchedulingRow(row.id, {
+                activity: document.querySelector(`#activity${row.id}`).value,
+                category: document.querySelector(`#type${row.id}`).value,
+                address: document.querySelector(`#address${row.id}`).value,
+                website: document.querySelector(`#website${row.id}`).value,
+                time: document.querySelector(`#time${row.id}`).value,
             }, rowIndex
         );
     }
@@ -92,12 +107,13 @@ function Row({rowType, row, rowIndex, userID, toggleForm, selectPlanningRow, put
             {/* scheduling row */}
             {rowType === 'scheduling' && <div id={row.id}className='row-container'>
                 <div className='time-container'>
-                    <input type='time' className='time'/>
+                    {/* update on blur so auto sort by date doesnt interfere */}
+                    <input type='time' onBlur={handleSchedulingChange} className='time' defaultValue={time} id={`time${row.id}`}/>
                 </div>
-                <TextareaAutosize  value={activity} className='first' id={`activity${row.id}`}> </TextareaAutosize>
-                <TextareaAutosize  value={type} id={`time${row.id}`}></TextareaAutosize>
-                <TextareaAutosize  value={address} id={`address${row.id}`}></TextareaAutosize>
-                <TextareaAutosize  value={website} id={`website${row.id}`}></TextareaAutosize>
+                <TextareaAutosize onChange={handleSchedulingChange} value={activity} id={`activity${row.id}`}> </TextareaAutosize>
+                <TextareaAutosize onChange={handleSchedulingChange} value={type} id={`type${row.id}`}></TextareaAutosize>
+                <TextareaAutosize onChange={handleSchedulingChange} value={address} id={`address${row.id}`}></TextareaAutosize>
+                <TextareaAutosize onChange={handleSchedulingChange} value={website} id={`website${row.id}`}></TextareaAutosize>
                 <div className='remove-container'>
                     <div className='remove' onClick={()=> deleteSchedulingRow(row.id)}></div>
                 </div>

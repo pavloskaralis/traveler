@@ -30,10 +30,11 @@ class SchedulingRowsController < ApplicationController
 
   # PATCH/PUT /scheduling_rows/1
   def update
+
     if @scheduling_row.update(scheduling_row_params)
       render json: @scheduling_row
     else
-      render json: @scheduling_row.errors, status: :unprocessable_entity
+      render json: {error:"Failed To Update", status: 204}
     end
   end
 

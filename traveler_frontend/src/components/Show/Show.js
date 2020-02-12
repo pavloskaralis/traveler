@@ -36,6 +36,7 @@ function Show({dropdown, toggleDropdown, form, getItinerary, postPlanningRow, po
     // auto scroll to bottom on row creation; passed to add-row onClick
     const autoScroll = () => setTimeout(()=>document.querySelector('.body').scrollTop = document.querySelector('.body').scrollHeight, 100);
     return (
+        // dropdown off focus click
         <div className='show-container' onClick={()=> {if(dropdown)toggleDropdown(false)}}>
             {form && <Form page='show'/>}
             <Tools page='show'/>
@@ -56,7 +57,7 @@ function Show({dropdown, toggleDropdown, form, getItinerary, postPlanningRow, po
                         )
                     })}
                     {/* render scheduling rows */}
-                    {itinerary.scheduling_rows && (tableIndex > 0) && itinerary.scheduling_rows.map((schedulingRow, index) => {
+                    {itinerary.scheduling_rows && (tableIndex > 0) && itinerary.scheduling_rows.sort((a,b)=> a.time - b.time).map((schedulingRow, index) => {
                         return (
                             // only render matching dates
                             (itinerary.dates[tableIndex] === schedulingRow.date) && <Row rowType='scheduling' row={schedulingRow}  rowIndex={index} key={schedulingRow.id}/>

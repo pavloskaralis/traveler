@@ -34,9 +34,6 @@ class PlanningRowsController < ApplicationController
     address = planning_row_params["address"]
     website = planning_row_params["website"]
     interest = JSON.parse planning_row_params["interest"] 
-
-    p "this is the interest param"
-    p interest
     
     new_planning_row_params = { "activity" => activity , "category" => category, "address" => address, "website" => website, "interest" => interest }
 
