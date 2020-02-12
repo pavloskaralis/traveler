@@ -6,9 +6,11 @@ import logIn from '../../actions/logIn.js'
 import toggleError from '../../actions/toggleError.js'
 import postItinerary from '../../actions/postItinerary.js'
 import selectItinerary from '../../actions/selectItinerary.js'
+import selectPlanningRow from '../../actions/selectPlanningRow.js'
 import putItinerary from '../../actions/putItinerary.js'
 import deleteItinerary from '../../actions/deleteItinerary.js'
 import postLookup from '../../actions/postLookup.js';
+import postSchedulingRow from '../../actions/postSchedulingRow.js';
 import './Form.css'
 
 
@@ -28,42 +30,72 @@ const mapDispatchToProps = {
     logIn,
     postItinerary,
     selectItinerary,
+    selectPlanningRow,
     putItinerary,
     deleteItinerary,
     postLookup,
-    toggleError
+    toggleError,
+    postSchedulingRow
 }
 
 //form reused for home, index, and show pages
-function Form({form, error, toggleForm, signUp, logIn, page, userID, itinerary, toggleError, postItinerary, selectItinerary, putItinerary, deleteItinerary, postLookup, index}) {
+function Form({
+    form, error, toggleForm, signUp, logIn, page, userID, itinerary, toggleError, 
+    postSchedulingRow, postItinerary, selectItinerary, selectPlanningRow, putItinerary, 
+    deleteItinerary, postLookup, index
+}) {
     //define variables for ref attributes
-    let username;
-    let password;
-    let location;
-    let departureDate;
-    let returnDate;
-    let addUser; 
-    const allInputs = [username,password,location,departureDate,returnDate,addUser];
+    let username,
+    password,
+    location,
+    departureDate,
+    returnDate,
+    schedulingDate,
+    schedulingTime,
+    addUser; 
+    const allInputs = [username,password,location,departureDate,returnDate,addUser,schedulingDate,schedulingTime];
 
     const submit = e => {
+        
         e.preventDefault();
         //prevent empty input submission 
         switch(form) {
-        case 'sign up': if(!username.value || !password.value)return
-            break;
-        case 'log in': if(!username.value || !password.value)return
-            break;
-        case 'new': if(!location.value || !departureDate.value || !returnDate.value)return
-            break;
-        case 'update': if(!location.value || !departureDate.value || ! returnDate.value)return
-            break;
-        case 'share': if(!addUser.value) return
-            break; 
+            case 'sign up': if(!username.value || !password.value)return
+                break;
+            case 'log in': if(!username.value || !password.value)return
+                break;
+            case 'new': if(!location.value || !departureDate.value || !returnDate.value)return
+                break;
+            case 'update': if(!location.value || !departureDate.value || ! returnDate.value)return
+                break;
+            case 'share': if(!addUser.value) return
+                break; 
+            case 'schedule': if(!schedulingDate.value || !schedulingTime.value) return
         }
         //prevent sharing itinerary with more than 8 users
         if(form === 'share' && itinerary.usernames.length === 8) return toggleError('8 User Limit');
         //prevent sharing itinerary with more than 8 users
         if(form === 'share' && itinerary.usernames.find(username => username === addUser.value)) return toggleError('Already Shared');
+        // redefine time input to find meridan
+        let meridian;
+        if(form === 'schedule') {
+            let timeSplit = schedulingTime.value.split(':'),
+            hours,
+            minutes;
+            hours = timeSplit[0];
+            minutes = timeSplit[1];
+            if (hours > 12) {
+                meridian = 'PM';
+                hours -= 12;
+            } else if (hours < 12) {
+                meridian = 'AM';
+                if (hours == 0) {
+                hours = 12;
+                }
+            } else {
+                meridian = 'PM';
+            }
+        }
         //switch submit actions based on form type        
         switch(form) {
             case 'sign up': signUp(username.value,password.value);
@@ -77,6 +109,8 @@ function Form({form, error, toggleForm, signUp, logIn, page, userID, itinerary, 
             case 'remove': deleteItinerary(itinerary, userID);
                 break;
             case 'share': postLookup(itinerary.id,addUser.value, index);
+                break;
+            case 'schedule': postSchedulingRow(itinerary.id, schedulingDate.value, schedulingTime.value + ' ' + meridian);
                 break;
         }
         //reset values
@@ -92,6 +126,8 @@ function Form({form, error, toggleForm, signUp, logIn, page, userID, itinerary, 
         case 'remove': legend = 'remove itinerary';
             break;
         case 'share': legend = 'share itinerary';
+            break;
+        case 'schedule': legend = 'schedule activity';
     }
     //refactor departure and return date for update form default values
     let firstDay;
@@ -104,15 +140,14 @@ function Form({form, error, toggleForm, signUp, logIn, page, userID, itinerary, 
         firstDay = firstDay[2] + '-' + firstDay[0] + '-' + firstDay[1];
         lastDay = lastDay[2] + '-' + lastDay[0] + '-' + lastDay[1];
     }
+
+
     //inputs vary based on page and form type
-
-    
-
     return (
         // close dropdown on off focus
         <div className="form-container" onClick={()=>{
             if(form && page === 'index'){toggleForm('');selectItinerary('')}
-            else if(form && page === 'show')toggleForm('');
+            else if(form && page === 'show')toggleForm('');selectPlanningRow('');
         }}>
             <form onSubmit={ submit } onClick={e => e.stopPropagation()} >
                 <legend>{error? error : legend }</legend>
@@ -148,10 +183,28 @@ function Form({form, error, toggleForm, signUp, logIn, page, userID, itinerary, 
                 }
                 {page === 'show' &&
                     <>  
+                        {form === 'schedule' &&
+                            <>
+                                <div className="input-container">
+                                    <label>Date:</label>
+                                    <select ref={node => schedulingDate = node} autoFocus >
+                                        {itinerary.dates.slice(1).map(date => {
+                                            return (
+                                                <option key={date} value={date}>{date}</option>
+                                            )
+                                        })}
+                                    </select>
+                                </div>
+                                 <div className="input-container">
+                                    <label>Time:</label>
+                                    <input type="time" ref={node => schedulingTime = node}/>
+                                </div>
+                            </>
+                        }
                         {form === 'remove' &&
-                        <div className='input-container'>
-                            <label className='remove-label'>Are you sure you want to remove this itinerary?</label>
-                        </div>
+                            <div className='input-container'>
+                                <label className='remove-label'>Are you sure you want to remove this itinerary?</label>
+                            </div>
                         }
                         {form === 'share' && 
                             <>
@@ -174,7 +227,7 @@ function Form({form, error, toggleForm, signUp, logIn, page, userID, itinerary, 
                     </>
                 }
                 <div className="button-container">
-                    <div onClick={page === 'index' ? ()=> {toggleForm(''); selectItinerary('')} : ()=> {toggleForm('')}} className="cancel">
+                    <div onClick={page === 'index' ? ()=> {toggleForm(''); selectItinerary('')} : ()=> {toggleForm(''); selectPlanningRow('')}} className="cancel">
                         {form === 'share' ? 'Close' : 'Cancel'}
                     </div>
                     <div type="submit" className="submit" onClick={ submit }>{form === 'remove' ? 'Confirm' : 'Submit'}</div>

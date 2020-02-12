@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import axios from 'axios'
 import { TextareaAutosize } from '@material-ui/core'
+import toggleForm from '../../actions/toggleForm'
+import selectPlanningRow from '../../actions/selectPlanningRow.js'
 import './Row.css'
 
 const mapStateToProps = state => {
@@ -11,10 +13,12 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = {
+    toggleForm,
+    selectPlanningRow
 }
 
 
-function Row({rowType, row, userID}) {
+function Row({rowType, row, userID, toggleForm, selectPlanningRow}) {
     //textarea cannot use ref; must rely on state values for storage
     const [activity, updateActivity] = useState(row.activity);
     const [type, updateType] = useState(row.category);
@@ -43,8 +47,6 @@ function Row({rowType, row, userID}) {
         updateInterest(updatedInterest)
         //must use document.query instead of state, as there is a delay in update
         putRequest(updatedInterest);
-
-        console.log(interest.indexOf(userID))
 
     }
 
@@ -79,20 +81,20 @@ function Row({rowType, row, userID}) {
                     <div className={interest.indexOf(userID) === -1 ? 'interest-button' : 'interest-button-subtract'} onClick={toggleInterest} id='interest'></div>
                 </div>
                 <div className='schedule-container'>
-                    <div className='schedule'></div>
+                    <div className='schedule' onClick={()=> {selectPlanningRow(row); toggleForm('schedule')}}></div>
                 </div>
             </div>}
             {/* scheduling row */}
             {rowType === 'scheduling' && <div id={row.id}className='row-container'>
-                <div className='interest-container'>
-                    <div className='interest'>Time</div>
+                <div className='time-container'>
+                    <input type='time' className='time'/>
                 </div>
-                <TextareaAutosize onChange={handlePlanningChange} value={activity} className='first' id={`activity${row.id}`}> </TextareaAutosize>
-                <TextareaAutosize onChange={handlePlanningChange} value={time} id={`time${row.id}`}></TextareaAutosize>
-                <TextareaAutosize onChange={handlePlanningChange} value={address} id={`address${row.id}`}></TextareaAutosize>
-                <TextareaAutosize onChange={handlePlanningChange} value={website} id={`website${row.id}`}></TextareaAutosize>
-                <div className='schedule-container'>
-                    <div className='schedule'></div>
+                <TextareaAutosize  value={activity} className='first' id={`activity${row.id}`}> </TextareaAutosize>
+                <TextareaAutosize  value={time} id={`time${row.id}`}></TextareaAutosize>
+                <TextareaAutosize  value={address} id={`address${row.id}`}></TextareaAutosize>
+                <TextareaAutosize  value={website} id={`website${row.id}`}></TextareaAutosize>
+                <div className='remove-container'>
+                    <div className='remove'></div>
                 </div>
             </div>}
         </>

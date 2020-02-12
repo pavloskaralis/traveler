@@ -46,17 +46,39 @@ label {
     justify-content: center;
 }
 
-.input-container input {
+.input-container input, select {
+    border: 2px solid var(--opaque); 
     padding: 4px; 
     font-family: 'Verdana';
     width: 175px;
     height: 36px;
     box-sizing: border-box;
     font-size: 16px;
-    /* text-align: center; */
 }
 
-.input-container input:focus {
+input[type="date"], input[type="time"]{
+    cursor: text;
+}
+
+select {
+    -webkit-appearance: none;
+    -webkit-border-radius: 0px;
+    background-position: 100% 50%;
+    background-repeat: no-repeat;
+    background-image: url("data:image/svg+xml;utf8,<svg version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='24' height='24' viewBox='0 0 24 24'><path fill='%23444' d='M7.406 7.828l4.594 4.594 4.594-4.594 1.406 1.406-6 6-6-6z'></path></svg>");
+    cursor: pointer;
+}
+
+input::-webkit-datetime-edit-hour-field:focus,
+input::-webkit-datetime-edit-minute-field:focus,
+input::-webkit-datetime-edit-ampm-field:focus,
+input::-webkit-datetime-edit-day-field:focus,
+input::-webkit-datetime-edit-month-field:focus,
+input::-webkit-datetime-edit-year-field:focus {
+    background-color: var(--blue);
+}
+
+.input-container input:focus, select:focus {
     border: 2px solid var(--blue);
     outline: none;
 }
@@ -106,13 +128,10 @@ label {
 
 .username-container {
     margin: 0 auto;
-    /* margin-bottom: 24px; */
     display: flex;
     flex-direction: column;
-    /* flex-wrap: wrap; */
     max-width: 270px;
     justify-content: space-between;
-    /* text-align: center; */
     font-family: Verdana;
     color: white;
     font-weight: 600;

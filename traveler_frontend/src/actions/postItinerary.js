@@ -11,23 +11,29 @@ export default function postItinerary(location,departureDate,returnDate,userID) 
             return dispatch(toggleError('Invalid Date Format'));
         } 
         //find today's date
-        const date = new Date();
-        const dd = date.getDate();
-        const mm = date.getMonth() + 1;
-        const yyyy = date.getFullYear();
-        const today = [parseFloat(yyyy), parseFloat(mm), parseFloat(dd)]
+        // const date = new Date();
+        // const dd = date.getDate();
+        // const mm = date.getMonth() + 1;
+        // const yyyy = date.getFullYear();
+        // const today = [parseFloat(yyyy), parseFloat(mm), parseFloat(dd)]
         //breakdown depart and return dates 
         const splitDepartureDate = departureDate.split('-');
         const splitReturnDate = returnDate.split('-');
         const parsedDepartureDate = splitDepartureDate.map(num => parseFloat(num));
         const parsedReturnDate = splitReturnDate.map(num => parseFloat(num));
-        //check departure date occurs before return date, and on or after current date 
+        //check departure date occurs before return date,
         // [0] = YY; [1] = MM; [2] = DD;
-        if((parsedDepartureDate[0] > parsedReturnDate[0]) || (parsedDepartureDate[0] < today[0])) {
+        //checks years
+        if(parsedDepartureDate[0] > parsedReturnDate[0]) { 
+            console.log(1)
             return dispatch(toggleError('Invalid Dates'));
-        } else if ((parsedDepartureDate[1] > parsedReturnDate[1]) || (parsedDepartureDate[1] < today[1])) {
+        //checks months
+        } else if(parsedDepartureDate[1] > parsedReturnDate[1]) {
+            console.log(2)
             return dispatch(toggleError('Invalid Dates'));
-        } else if (((parsedDepartureDate[1] === parsedReturnDate[1]) && (parsedDepartureDate[2] > parsedReturnDate[2])) || (parsedDepartureDate[2] < today[2])) {
+        //checks days
+        } else if (parsedDepartureDate[1] > parsedReturnDate[1]) {
+            console.log(3)
             return dispatch(toggleError('Invalid Dates'));
         }
         //make sure range won't break site; 
@@ -51,6 +57,11 @@ export default function postItinerary(location,departureDate,returnDate,userID) 
             day[2] = day[2].toString().split('').slice(2).join('');
             dates.push(day[0] + '.' + day[1] + '.' + day[2]);
             nextDate.setDate(nextDate.getDate() + 1);
+        }
+        //error in Date class does not skip 2/30
+        if(dates.find(date => date.slice(0,5) === ('02.30'))) {
+            let errorIndex = dates.indexOf(dates.find(date => date.slice(0,5) === ('02.30')));
+            dates[errorIndex] = '03.01' + dates[errorIndex].slice(5);
         }
         //easier 60 day limit check
         if(dates.length > 60) return dispatch(toggleError('60 Day Limit'));

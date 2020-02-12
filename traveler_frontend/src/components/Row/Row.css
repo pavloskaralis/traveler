@@ -26,7 +26,7 @@ textarea {
     font-weight: 600;
 }
 
-.schedule-container, .interest-container {
+.schedule-container, .remove-container, .interest-container, .time-container {
     box-sizing: border-box;
     min-height: 60px;
     width: 16.67%;
@@ -40,9 +40,9 @@ textarea {
    justify-content: center; 
 }
 
-.schedule {
+.schedule, .remove {
     background-image: url('schedule.png');
-    background-size: 35px;
+    background-size: 37px;
     background-repeat: no-repeat;
     background-position: center; 
     width: 50px;
@@ -52,7 +52,11 @@ textarea {
     align-self: center;
 }
 
-.schedule:hover{
+.remove {
+    background-image: url('cancel.png');
+}
+
+.schedule:hover, .remove:hover{
     background-color: var(--orange);
 }
 
@@ -87,4 +91,22 @@ textarea {
     background-image: url('subtract.png');
 }
 
+.time {
+    padding: 4px; 
+    font-family: 'Verdana';
+    width: 125px;
+    height: 36px;
+    box-sizing: border-box;
+    font-size: 15px;
+    border: 0;
+    outline: 0;
+    cursor: text;
+    font-weight: 600;
+}
 
+
+input::-webkit-datetime-edit-hour-field:focus,
+input::-webkit-datetime-edit-minute-field:focus,
+input::-webkit-datetime-edit-ampm-field:focus {
+    background-color: var(--blue);
+}
