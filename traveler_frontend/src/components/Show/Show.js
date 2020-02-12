@@ -57,7 +57,7 @@ function Show({dropdown, toggleDropdown, form, getItinerary, postPlanningRow, po
                         )
                     })}
                     {/* render scheduling rows */}
-                    {itinerary.scheduling_rows && (tableIndex > 0) && itinerary.scheduling_rows.sort((a,b)=> a.time - b.time).map((schedulingRow, index) => {
+                    {itinerary.scheduling_rows && (tableIndex > 0) && itinerary.scheduling_rows.sort((a,b)=> parseFloat(a.time.replace(':',''))  - parseFloat(b.time.replace(':',''))).map((schedulingRow, index) => {
                         return (
                             // only render matching dates
                             (itinerary.dates[tableIndex] === schedulingRow.date) && <Row rowType='scheduling' row={schedulingRow}  rowIndex={index} key={schedulingRow.id}/>
