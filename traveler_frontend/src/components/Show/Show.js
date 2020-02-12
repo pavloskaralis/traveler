@@ -58,7 +58,7 @@ function Show({dropdown, toggleDropdown, form, getItinerary, postPlanningRow, po
                     })}
 
                     {/* empty schedulowing table messsage */}
-                    { itinerary && itinerary.scheduling_rows.filter(row => row.date === itinerary.dates[tableIndex]).length === 0 &&
+                    { itinerary && tableIndex > 0 && itinerary.scheduling_rows.filter(row => row.date === itinerary.dates[tableIndex]).length === 0 &&
                         <div className='empty-container'>
                             <div className='empty'>You Have Nothing Scheduled On This Date</div>
                         </div>
