@@ -23,12 +23,13 @@ legend {
     text-transform: capitalize;
     color: var(--orange); 
     text-align: center;
-    margin: 24px; 
+    margin: 24px auto; 
     font-family: 'Verdana';
     cursor: default;
     font-weight: 600;
     font-size: 17.5px;
     padding: 0;
+    width: 100%;
 }
 
 .form-container .input-container {

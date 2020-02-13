@@ -30,7 +30,6 @@ class SchedulingRowsController < ApplicationController
 
   # PATCH/PUT /scheduling_rows/1
   def update
-
     if @scheduling_row.update(scheduling_row_params)
       render json: @scheduling_row
     else

@@ -23,8 +23,7 @@ export default function postLookup(itinerary_id, username, index) {
                     //show page uses Planning but index does not
                     dates: data.dates.filter(date => date !== 'Planning')
                 }
-                console.log(index)
-                console.log(data.dates)
+                dispatch(toggleError(''));
                 dispatch(swapItinerary(updatedItinerary, index));
             } else {               
                 dispatch(toggleError('User Not Found'))

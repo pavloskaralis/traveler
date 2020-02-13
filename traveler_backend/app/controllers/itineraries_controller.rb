@@ -61,13 +61,15 @@ class ItinerariesController < ApplicationController
 
   # PATCH/PUT /itineraries/1
   def update
+
     dates = JSON.parse itinerary_params["dates"] 
     location = itinerary_params["location"]
-    shared = itinerary_params["shared"]
-
-    new_itinerary_params = { "location" => location , "dates" => dates, "shared" => shared }
+    
+    # shared does not get updated through edit form 
+    new_itinerary_params = { "location" => location , "dates" => dates, "shared" => @itinerary.shared }
 
     if @itinerary.update(new_itinerary_params)
+      ActionCable.server.broadcast('itineraries', @itinerary)
       render json: {status: 200}
     else
       render json: {error:"Failed To Save", status: 204}
@@ -92,6 +94,6 @@ class ItinerariesController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def itinerary_params
-      params.permit(:dates, :location, :shared, :user_id)
+      params.permit(:dates, :location, :shared, :user_id, :id)
     end
 end

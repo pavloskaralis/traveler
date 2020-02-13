@@ -77,26 +77,7 @@ function Form({
         if(form === 'share' && itinerary.usernames.length === 8) return toggleError('8 User Limit');
         //prevent sharing itinerary with more than 8 users
         if(form === 'share' && itinerary.usernames.find(username => username === addUser.value)) return toggleError('Already Shared');
-        // redefine time input to find meridan
-        // let meridian;
-        // if(form === 'schedule') {
-        //     let timeSplit = schedulingTime.value.split(':'),
-        //     hours,
-        //     minutes;
-        //     hours = timeSplit[0];
-        //     minutes = timeSplit[1];
-        //     if (hours > 12) {
-        //         meridian = 'PM';
-        //         hours -= 12;
-        //     } else if (hours < 12) {
-        //         meridian = 'AM';
-        //         if (hours == 0) {
-        //         hours = 12;
-        //         }
-        //     } else {
-        //         meridian = 'PM';
-        //     }
-        // }
+
         //switch submit actions based on form type        
         switch(form) {
             case 'sign up': signUp(username.value,password.value);
@@ -105,7 +86,7 @@ function Form({
                 break;
             case 'new': postItinerary(location.value,departureDate.value,returnDate.value,userID)
                 break;
-            case 'update': {putItinerary(location.value,departureDate.value,returnDate.value,itinerary.id,itinerary.index); console.log('triggered')}
+            case 'update': {putItinerary(location.value,departureDate.value,returnDate.value,itinerary.id,itinerary.index)}
                 break;
             case 'remove': deleteItinerary(itinerary, userID);
                 break;

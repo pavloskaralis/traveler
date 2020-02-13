@@ -64,10 +64,10 @@ export default function putItinerary(location,departureDate,returnDate, itinerar
         const updatedItinerary = {
             location: location,
             dates:  JSON.stringify(dates),
-            shared: false
         }
         const postRequest = async () => {
             const result = await axios.put(`http://localhost:3001/itineraries/${itineraryID}`, updatedItinerary);
+            console.log('updatedItinerary', updatedItinerary)
             const {data} = result;
             if (!data.error) {
                 dispatch(toggleError(''));
