@@ -12,6 +12,7 @@ class LookupsController < ApplicationController
       @lookup = Lookup.new(itinerary_id:lookup_params[:itinerary_id], user_id: @user.ids[0])
 
       if @lookup.save
+        
         # toggle share 
         @itinerary = Itinerary.find(lookup_params[:itinerary_id])
         @itinerary.update(shared: true);

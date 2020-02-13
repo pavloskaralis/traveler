@@ -1,16 +1,16 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import { TextareaAutosize } from '@material-ui/core'
 import toggleForm from '../../actions/toggleForm'
 import selectPlanningRow from '../../actions/selectPlanningRow.js'
 import putPlanningRow from '../../actions/putPlanningRow.js'
-import putSchedulingRow from '../../actions/putSchedulingRow.js'
 import deleteSchedulingRow from '../../actions/deleteSchedulingRow.js'
 import './Row.css'
 
 const mapStateToProps = state => {
     return {
-      userID: state.userID
+      userID: state.userID,
+      itinerary: state.itinerary
     }
 }
 
@@ -18,12 +18,12 @@ const mapDispatchToProps = {
     toggleForm,
     selectPlanningRow,
     putPlanningRow,
-    deleteSchedulingRow,
-    putSchedulingRow
+    deleteSchedulingRow
 }
 
 
 function Row({rowType, row, rowIndex, userID, toggleForm, selectPlanningRow, putPlanningRow, deleteSchedulingRow, putSchedulingRow}) {
+
     //textarea cannot use ref; must rely on state values for storage
     const [activity, updateActivity] = useState(row.activity);
     const [type, updateType] = useState(row.category);

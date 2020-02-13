@@ -1,6 +1,5 @@
 import React, {useEffect} from 'react'
 import { connect } from 'react-redux'
-import history from '../../history.js'
 import './Show.css'
 import getItinerary from '../../actions/getItinerary.js'
 import postPlanningRow from '../../actions/postPlanningRow.js'

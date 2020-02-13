@@ -69,7 +69,6 @@ class ItinerariesController < ApplicationController
     new_itinerary_params = { "location" => location , "dates" => dates, "shared" => @itinerary.shared }
 
     if @itinerary.update(new_itinerary_params)
-      ActionCable.server.broadcast('itineraries', @itinerary)
       render json: {status: 200}
     else
       render json: {error:"Failed To Save", status: 204}

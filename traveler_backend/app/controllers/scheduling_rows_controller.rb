@@ -2,18 +2,6 @@ class SchedulingRowsController < ApplicationController
   before_action :set_scheduling_row, only: [:show, :update, :destroy]
   wrap_parameters false
 
-  # GET /scheduling_rows
-  def index
-    @scheduling_rows = SchedulingRow.all
-
-    render json: @scheduling_rows
-  end
-
-  # GET /scheduling_rows/1
-  def show
-    render json: @scheduling_row
-  end
-
   # POST /scheduling_rows
   def create
     @scheduling_row = SchedulingRow.new(scheduling_row_params)

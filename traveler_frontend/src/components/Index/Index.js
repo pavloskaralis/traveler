@@ -1,12 +1,10 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
-import ActionCable from 'actioncable'
 import toggleDropdown from '../../actions/toggleDropdown.js'
 import './Index.css'
 import Tools from '../Tools/Tools.js'
 import Itinerary from '../Itinerary/Itinerary.js'
 import Form from '../Form/Form.js'
-import swapItinerary from '../../actions/swapItinerary.js';
 
 const mapStateToProps = state => {
     return {
@@ -18,30 +16,10 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = {
-    toggleDropdown,
-    swapItinerary
+    toggleDropdown
 }
 
-function Index({dropdown, toggleDropdown, itineraries, filter, form, swapItinerary}) {
-
-    // real time update
-    const handleReceive = ( response ) => {
-        console.log("response", response)
-        // console.log("itineraries.find(itinerary => itinerary.id === response.id)", itineraries.find(itinerary => itinerary.id === response.id))
-        const original = itineraries.find(itinerary => itinerary.id === response.id);
-        console.log("original", original)
-        // console.log(original.dates)
-        // created_at and updated_at ignored
-        if (original) {
-            if (response.dates !== original.dates || response.location !== original.location || response.shared !== original.shared) {
-                swapItinerary(response,itineraries.findIndex(itinerary => itinerary.id === response.id))
-            }
-        }  
-    }
-    const cable = ActionCable.createConsumer('ws://localhost:3001/cable')
-    const [sub, updateSub] = useState(cable.subscriptions.create('ItinerariesChannel', {received: handleReceive}))
-
-   
+function Index({dropdown, toggleDropdown, itineraries, filter, form}) {
 
     //filter itinerary by search bar query
     if(filter) itineraries = itineraries.filter(itinerary => itinerary.location.toLowerCase() === filter.toLowerCase());
