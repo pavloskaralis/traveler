@@ -1,12 +1,12 @@
 import React, {useEffect} from 'react'
 import { connect } from 'react-redux'
 import setFilter from '../../actions/setFilter.js'
-import toggleTableIndex from '../../actions/toggleTableIndex.js'
+import toggleTable from '../../actions/toggleTable.js'
 import './Search.css'
 
 const mapStateToProps = state => {
   return {
-    index: state.tableIndex,
+    table: state.table,
     tables: state.itinerary.dates,
     itinerary: state.itinerary
   }
@@ -14,40 +14,34 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = {
   setFilter,
-  toggleTableIndex
+  toggleTable
 }
-// component has conditional css based on index or show page
-function Search({setFilter, page, index, tables, toggleTableIndex, itinerary}) {
+// component has conditional css based on current table or show page
+function Search({setFilter, page, tables, toggleTable, itinerary, table}) {
 
   //conditional form submit 
   const submit = e => {
     e.preventDefault();
     
-    let indexOf;
-    if (tables) indexOf = tables.indexOf(query.value); 
-    //if query value has no match, reset to planning
-    let queryValue; 
-    if (tables) queryValue = indexOf > -1 ? indexOf : 0;
-
     switch(page) {
       case 'index': setFilter(query.value);
         break;
-      case 'show': toggleTableIndex(queryValue);
+      case 'show': toggleTable(query.value);
         break;
     }
-    //updates query value to submit value; required when query has no match and resets 
-    if(page==='show')document.querySelector('select').value = tables[queryValue];
+   
   }
 
   //required to update query value once submit is used; passed to left and right onClick
-  const update = (num) => document.querySelector('select').value = tables[num];
+  const update = (nextTable) => document.querySelector('select').value = nextTable;
 
   //conditional table arrow button values
   let left;
   let right;
   if(tables){
-    left = index !== 0 ? index - 1 : tables.length - 1; 
-    right = index !== (tables.length - 1 ) ? index + 1 : 0;  
+    const currentIndex = tables.indexOf(table);
+    left = currentIndex !== 0 ? tables[currentIndex - 1] : tables[tables.length - 1];
+    right = currentIndex !== tables.length - 1 ? tables[currentIndex + 1] : tables[0];
   }
 
   //input reference
@@ -55,10 +49,10 @@ function Search({setFilter, page, index, tables, toggleTableIndex, itinerary}) {
 
   return (
       <form className={page === 'index' ? 'search-container-index' : 'search-container-show'} onSubmit={ submit }>
-        {page === 'show' && <div className='search-submit' id='left' onClick={ ()=> {toggleTableIndex(left); update(left)}}></div>}
+        {page === 'show' && <div className='search-submit' id='left' onClick={ ()=> {toggleTable(left); update(left)}}></div>}
         {page === 'index' && <input type='text' ref={node => query = node}/>}
         {page === 'show' && itinerary &&       
-          <select className='tools-select' onChange={()=>{toggleTableIndex(tables.indexOf(query.value)); update(tables.indexOf(query.value))}} ref={node => query = node} autoFocus >
+          <select className='tools-select' onChange={()=>{toggleTable(query.value); update(query.value)}} ref={node => query = node} autoFocus >
               {itinerary.dates.map(date => {
                   return (
                       <option key={date} value={date}>{date}</option>
@@ -66,7 +60,7 @@ function Search({setFilter, page, index, tables, toggleTableIndex, itinerary}) {
               })}
           </select>
         }
-        {page === 'show' && <div className='search-submit' id='right' onClick={ ()=> {toggleTableIndex(right); update(right)}}></div>}
+        {page === 'show' && <div className='search-submit' id='right' onClick={ ()=> {toggleTable(right); update(right)}}></div>}
         {page === 'index' && <div className='search-submit' onClick={e => {e.preventDefault(); setFilter(query.value)}}></div>}
       </form> 
   )

@@ -16,7 +16,7 @@ const mapStateToProps = state => {
       form: state.form,
       userID: state.userID,
       itinerary: state.itinerary,
-      tableIndex: state.tableIndex
+      table: state.table
     }
 }
 
@@ -27,7 +27,7 @@ const mapDispatchToProps = {
     toggleDropdown
 }
 
-function Show({dropdown, toggleDropdown, form, getItinerary, postPlanningRow, postSchedulingRow, userID, itinerary, tableIndex}) {
+function Show({dropdown, toggleDropdown, form, getItinerary, postPlanningRow, postSchedulingRow, userID, itinerary, table}) {
     //pass userID to ensure user is associated with itineraryID in url param
     useEffect(()=> {
         getItinerary(userID);
@@ -41,38 +41,38 @@ function Show({dropdown, toggleDropdown, form, getItinerary, postPlanningRow, po
             <Tools page='show'/>
                 <div className='table'>
                 <div className='head'>
-                    <div className='th' id='orange'>{tableIndex === 0 ? 'Activity' : 'Time'}</div>
-                    <div className='th'>{tableIndex === 0 ? 'Type' : 'Activity'}</div>
-                    <div className='th'>{tableIndex === 0 ? 'Address' : 'Type'}</div>
-                    <div className='th'>{tableIndex === 0 ? 'Website' : 'Address'}</div>
-                    <div className='th'>{tableIndex === 0 ? 'Interest' : 'Website'}</div>
-                    <div className='th'>{tableIndex === 0 ? 'Schedule' : 'Remove'}</div>
+                    <div className='th' id='orange'>{table === 'Planning' ? 'Activity' : 'Time'}</div>
+                    <div className='th'>{table === 'Planning' ? 'Type' : 'Activity'}</div>
+                    <div className='th'>{table === 'Planning' ? 'Address' : 'Type'}</div>
+                    <div className='th'>{table === 'Planning' ? 'Website' : 'Address'}</div>
+                    <div className='th'>{table === 'Planning' ? 'Interest' : 'Website'}</div>
+                    <div className='th'>{table === 'Planning' ? 'Schedule' : 'Remove'}</div>
                 </div>
                 <div className='body'>
                     {/* render planning rows */}
-                    {itinerary.planning_rows && tableIndex === 0 && itinerary.planning_rows.sort((a,b) => a.id - b.id).map((planningRow,index) => {
+                    {itinerary.planning_rows && table === 'Planning' && itinerary.planning_rows.sort((a,b) => a.id - b.id).map((planningRow,index) => {
                         return (
                             <Row rowType='planning' row={planningRow}  rowIndex={index} key={planningRow.id}/>
                         )
                     })}
 
                     {/* empty schedulowing table messsage */}
-                    { itinerary && tableIndex > 0 && itinerary.scheduling_rows.filter(row => row.date === itinerary.dates[tableIndex]).length === 0 &&
+                    { itinerary && table !== 'Planning' && itinerary.scheduling_rows.filter(row => row.date === table).length === 0 &&
                         <div className='empty-container'>
                             <div className='empty'>You Have Nothing Scheduled On This Date</div>
                         </div>
                     }
                     
                     {/* render scheduling rows */}
-                    {itinerary.scheduling_rows && (tableIndex > 0) && itinerary.scheduling_rows.sort((a,b)=> parseFloat(a.time.replace(':',''))  - parseFloat(b.time.replace(':',''))).map((schedulingRow, index) => {
+                    {itinerary.scheduling_rows && (table !== 'Planning') && itinerary.scheduling_rows.sort((a,b)=> (parseFloat(a.time.replace(':','')) || 2500)  - (parseFloat(b.time.replace(':','')) || 2500)).map((schedulingRow, index) => {
                         return (
                             // only render matching dates
-                            (itinerary.dates[tableIndex] === schedulingRow.date) && <Row rowType='scheduling' row={schedulingRow}  rowIndex={index} key={schedulingRow.id}/>
+                            (table === schedulingRow.date) && <Row rowType='scheduling' row={schedulingRow}  rowIndex={index} key={schedulingRow.id}/>
                         )
                     })}
                 </div>
                 {/* create scheduling or planning row based on table */}
-                <div className='add-row' onClick={tableIndex !== 0 ? ()=> postSchedulingRow(itinerary.id, itinerary.dates[tableIndex]) : ()=> {postPlanningRow(itinerary.id); autoScroll();}}></div>
+                <div className='add-row' onClick={table !== 'Planning' ? ()=> postSchedulingRow(itinerary.id, table) : ()=> {postPlanningRow(itinerary.id); autoScroll();}}></div>
             </div>
         </div>
     )

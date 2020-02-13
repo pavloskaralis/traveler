@@ -7,7 +7,7 @@ import form from './form.js'
 import dropdown from './dropdown.js'
 import error from './error.js'
 import filter from './filter.js'
-import tableIndex from './tableIndex.js'
+import table from './table.js'
 import planningRow from './planningRow.js'
 
 const traveler = combineReducers({
@@ -16,7 +16,7 @@ const traveler = combineReducers({
     itineraries,
     itinerary,
     planningRow,
-    tableIndex,
+    table,
     form,
     dropdown,
     error,
