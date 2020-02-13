@@ -96,7 +96,7 @@ function Form({
                 break;
         }
         //reset values
-        allInputs.forEach(input => {if(input) input.value = ''});
+        document.querySelectorAll('input').forEach(input => input.value = '');
     }
     //transform button text to form legend text
     let legend = form;
@@ -123,13 +123,16 @@ function Form({
         lastDay = lastDay[2] + '-' + lastDay[0] + '-' + lastDay[1];
     }
 
+    // makes error message appear temporarily
+    if(toggleError !== '') setTimeout(()=> toggleError(''),1200);
 
     //inputs vary based on page and form type
     return (
         // close dropdown on off focus
         <div className="form-container" onClick={()=>{
             if(form && page === 'index'){toggleForm('');selectItinerary('')}
-            else if(form && page === 'show')toggleForm('');selectPlanningRow('');
+            else if(form && page === 'show'){toggleForm('');selectPlanningRow('')}
+            else if(form && page === 'home')toggleForm('');
         }}>
             <form onSubmit={ submit } onClick={e => e.stopPropagation()} >
                 <legend>{error? error : legend }</legend>

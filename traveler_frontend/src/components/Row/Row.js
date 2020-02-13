@@ -5,6 +5,7 @@ import toggleForm from '../../actions/toggleForm'
 import selectPlanningRow from '../../actions/selectPlanningRow.js'
 import putPlanningRow from '../../actions/putPlanningRow.js'
 import deleteSchedulingRow from '../../actions/deleteSchedulingRow.js'
+import putSchedulingRow from '../../actions/putSchedulingRow.js'
 import './Row.css'
 
 const mapStateToProps = state => {
@@ -18,7 +19,8 @@ const mapDispatchToProps = {
     toggleForm,
     selectPlanningRow,
     putPlanningRow,
-    deleteSchedulingRow
+    deleteSchedulingRow,
+    putSchedulingRow
 }
 
 

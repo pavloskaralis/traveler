@@ -58,6 +58,11 @@ export default function putItinerary(location,departureDate,returnDate, itinerar
             dates.push(day[0] + '.' + day[1] + '.' + day[2]);
             nextDate.setDate(nextDate.getDate() + 1);
         }
+        //error in Date class does not skip 2/30
+        if(dates.find(date => date.slice(0,5) === ('02.30'))) {
+            let errorIndex = dates.indexOf(dates.find(date => date.slice(0,5) === ('02.30')));
+            dates[errorIndex] = '03.01' + dates[errorIndex].slice(5);
+        }
         //easier 60 day limit check
         if(dates.length > 60) return dispatch(toggleError('60 Day Limit'));
         //post request

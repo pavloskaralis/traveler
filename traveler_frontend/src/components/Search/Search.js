@@ -7,7 +7,8 @@ import './Search.css'
 const mapStateToProps = state => {
   return {
     index: state.tableIndex,
-    tables: state.itinerary.dates
+    tables: state.itinerary.dates,
+    itinerary: state.itinerary
   }
 }
 
@@ -16,15 +17,14 @@ const mapDispatchToProps = {
   toggleTableIndex
 }
 // component has conditional css based on index or show page
-function Search({setFilter, page, index, tables, toggleTableIndex}) {
+function Search({setFilter, page, index, tables, toggleTableIndex, itinerary}) {
 
   //conditional form submit 
   const submit = e => {
     e.preventDefault();
     
-    //allow query to use -, /, or .
     let indexOf;
-    if (tables) indexOf = tables.indexOf(query.value.replace(/\//g,'.').replace(/-/g,'.')); 
+    if (tables) indexOf = tables.indexOf(query.value); 
     //if query value has no match, reset to planning
     let queryValue; 
     if (tables) queryValue = indexOf > -1 ? indexOf : 0;
@@ -36,11 +36,11 @@ function Search({setFilter, page, index, tables, toggleTableIndex}) {
         break;
     }
     //updates query value to submit value; required when query has no match and resets 
-    if(page==='show')document.querySelector('input').value = tables[queryValue];
+    if(page==='show')document.querySelector('select').value = tables[queryValue];
   }
 
   //required to update query value once submit is used; passed to left and right onClick
-  const update = (num) => document.querySelector('input').value = tables[num];
+  const update = (num) => document.querySelector('select').value = tables[num];
 
   //conditional table arrow button values
   let left;
@@ -56,8 +56,16 @@ function Search({setFilter, page, index, tables, toggleTableIndex}) {
   return (
       <form className={page === 'index' ? 'search-container-index' : 'search-container-show'} onSubmit={ submit }>
         {page === 'show' && <div className='search-submit' id='left' onClick={ ()=> {toggleTableIndex(left); update(left)}}></div>}
-        {/* default search bar value displays current table on show page */}
-        <input type='text' ref={node => query = node} defaultValue={page==='show' && tables ? tables[index] : ''}/>
+        {page === 'index' && <input type='text' ref={node => query = node}/>}
+        {page === 'show' && itinerary &&       
+          <select className='tools-select' onChange={()=>{toggleTableIndex(tables.indexOf(query.value)); update(tables.indexOf(query.value))}} ref={node => query = node} autoFocus >
+              {itinerary.dates.map(date => {
+                  return (
+                      <option key={date} value={date}>{date}</option>
+                  )
+              })}
+          </select>
+        }
         {page === 'show' && <div className='search-submit' id='right' onClick={ ()=> {toggleTableIndex(right); update(right)}}></div>}
         {page === 'index' && <div className='search-submit' onClick={e => {e.preventDefault(); setFilter(query.value)}}></div>}
       </form> 

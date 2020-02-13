@@ -128,18 +128,21 @@ input::-webkit-datetime-edit-year-field:focus {
 }
 
 .username-container {
-    margin: 0 auto;
     display: flex;
     flex-direction: column;
     max-width: 270px;
+    flex-wrap: wrap;
+    max-height: 120px;
     justify-content: space-between;
     font-family: Verdana;
     color: white;
     font-weight: 600;
+    width: 175px;
 }
 
 .username {
     margin-bottom: 4px;
+    margin: 4px;
 }
 
 .all-users {

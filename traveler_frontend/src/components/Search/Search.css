@@ -58,5 +58,13 @@
 
 .search-submit:hover, #left:hover, #right:hover {
     background-color: var(--blackHover);
-    /* background-image: url('./search_hover.png'); */
+}
+
+.tools-select {
+    min-height: 40px;
+    padding: 0 42px;
+}
+
+.tools-select:focus {
+    border: 2px solid var(--opaque);
 }
