@@ -6,7 +6,6 @@ import toggleForm from './toggleForm.js'
 export default function postSchedulingRow(itineraryID, date, time = '', planningRow = {}) {
 
     return dispatch => {
-        console.log("this is the data",planningRow)
         const schedulingRow = {...planningRow, date: date, time: time}
         delete schedulingRow.interest;
         delete schedulingRow.id;
