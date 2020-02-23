@@ -1,9 +1,37 @@
-import React, { Component } from 'react'
+import React from 'react'
+import styled from 'styled-components'
 import logOut from '../../actions/logOut.js'
 import { connect } from 'react-redux'
 import toggleForm from '../../actions/toggleForm.js'
-import './Dropdown.css'
 
+const Menu = styled.div`
+    z-index: 1;
+    position: absolute;
+    width: 35%;
+    background-color: var(--black);
+    top: 60px;
+    right: 0; 
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    box-shadow: -2px 0 2px 0 rgba(0,0,0,.5);
+    border-bottom: 1px solid var(--gray);
+    box-sizing: border-box;
+
+    & a {
+        text-decoration-line: none;
+        padding: 20px 16px;
+        color: white;
+        text-transform: capitalize;
+        font-family: Verdana;
+        border-top: 1px solid var(--gray);
+        cursor: pointer;
+    }
+
+    & a:hover {
+        color: ${props => props.theme.gray};
+    }
+`;
 
 const mapStateToProps = state => {
     return { isLoggedIn: state.isLoggedIn}
@@ -14,9 +42,9 @@ const mapDispatchToProps = {
     toggleForm
 }
 
-function Dropdown({isLoggedIn, logOut, toggleForm}) {
+let Dropdown = ({isLoggedIn, logOut, toggleForm}) => {
     return (
-        <div className='dropdown-menu'>
+        <Menu>
             {isLoggedIn ? 
                 <React.Fragment>
                     <a href='/'>itineraries</a>
@@ -27,7 +55,7 @@ function Dropdown({isLoggedIn, logOut, toggleForm}) {
                     <a onClick={()=> toggleForm('log in')}>log in</a>
                 </React.Fragment>
             }
-        </div>
+        </Menu>
     )
 }
 

@@ -1,9 +1,53 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import styled from 'styled-components'
 import toggleDropdown from '../../actions/toggleDropdown.js'
 import Dropdown from '../Dropdown/Dropdown.js'
-import './Nav.css'
 
+const NavStyle = styled.nav`
+    height: 60px;
+    width: 100%;
+    background-color: var(--black);
+    display: flex;
+    justify-content: space-between;
+    z-index: 3;
+
+    & h2 {
+        padding-left: 16px;
+        align-self: center;
+        margin: 0; 
+        color: var(--orange);
+        font-family: Georgia;
+        cursor: default;
+        display:block;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        -o-text-overflow: ellipsis;
+    }
+`;
+
+const DropdownContainer = styled.div`
+    height: 60px; 
+    min-width: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px 16px; 
+    box-sizing: border-box;
+    cursor: pointer;  
+
+    & span {
+        height: 2px;
+        cursor: pointer;
+        background-color: white;
+        display: block;
+    }
+
+    &:hover span{
+        background-color: ${props => props.theme.gray};
+    }
+`;
 
 const mapStateToProps = state => {
     return {
@@ -16,7 +60,7 @@ const mapDispatchToProps = {
     toggleDropdown
 }
 
-function Nav({dropdown, toggleDropdown, location}) {
+let Nav = ({dropdown, toggleDropdown, location}) => {
 
     const url = window.location.href;
     const regex = new RegExp(/\/\d+\/\d+/);
@@ -33,17 +77,17 @@ function Nav({dropdown, toggleDropdown, location}) {
     }
 
     return (
-        <nav>
+        <NavStyle>
             {/* nav title changes to location on edit form and show page */}
             <h2>{title}</h2>
-            <div className="dropdown-icon-container" onClick={() => toggleDropdown(!dropdown)}>
+            <DropdownContainer onClick={() => toggleDropdown(!dropdown)}>
                 {/* hamburder dropdown; thanks Madeline! */}
                 <span> </span>
                 <span> </span>
                 <span> </span>
-            </div>
+            </DropdownContainer>
             {dropdown && <Dropdown/>}
-        </nav>
+        </NavStyle>
     )
 }
 
