@@ -1,12 +1,114 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
+import styled from 'styled-components'
 import { TextareaAutosize } from '@material-ui/core'
+import scheduleIcon from '../../images/schedule.png'
+import cancelIcon from '../../images/cancel.png'
+import addIcon from '../../images/add.png'
+import subtractIcon from '../../images/subtract.png'
 import toggleForm from '../../actions/toggleForm'
 import selectPlanningRow from '../../actions/selectPlanningRow.js'
 import putPlanningRow from '../../actions/putPlanningRow.js'
 import deleteSchedulingRow from '../../actions/deleteSchedulingRow.js'
 import putSchedulingRow from '../../actions/putSchedulingRow.js'
 import './Row.css'
+
+
+const Wrapper = styled.div`
+    min-height: 60px;
+    width: 100%;
+    min-width: 768px;
+    display: flex;
+    border-bottom: 1px solid var(--gray);
+    padding: 0 8px;
+    box-sizing: border-box;
+
+    input::-webkit-datetime-edit-hour-field:focus,
+    input::-webkit-datetime-edit-minute-field:focus,
+    input::-webkit-datetime-edit-ampm-field:focus {
+        background-color: var(--blue);
+    }
+`;
+
+const TextArea = styled(TextareaAutosize)`
+    box-sizing: border-box;
+    min-height: 60px;
+    width: 16.67%;
+    background-color: white;
+    color: var(--black);
+    font-family: Verdana;
+    font-size: 16px;
+    padding: 19px 8px;
+    border: none;
+    resize: none;
+    outline: none;
+    font-weight: ${props => props.first ? '600' : ''};
+`;
+
+const TDContainer = styled.div`
+    box-sizing: border-box;
+    min-height: 60px;
+    width: 16.67%;
+    display: flex;
+    flex-direction: ${props => props.interest? 'row' : 'column'};
+    justify-content: center;
+`;
+
+const Icon = styled.div`
+    background-image: ${props => `url(${props.image})`};
+    background-size: 37px;
+    background-repeat: no-repeat;
+    background-position: center; 
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+    cursor: pointer;
+    align-self: center;
+
+    &:hover {
+        background-color: ${props => props.theme.orange};
+    }
+`;
+
+const Interest = styled.div`
+    font-family: Verdana;
+    color: var(--black);
+    align-self: center;
+    margin-right: 16px;
+    font-weight: 600;
+    cursor: default;
+    font-size: 18px;
+`;
+
+const Time = styled.input`
+    padding: 4px; 
+    font-family: 'Verdana';
+    width: 125px;
+    height: 36px;
+    box-sizing: border-box;
+    font-size: 15px;
+    border: 0;
+    outline: 0;
+    cursor: text;
+    font-weight: 600;
+`;
+
+const Button = styled.div`
+    cursor: pointer;
+    align-self: center;
+    background-color: var(--black);
+    width: 18px;
+    height: 18px;
+    border-radius: 4px;
+    background-image: ${props => `url(${props.image})`};
+    background-size: 10px;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    &:hover {
+        background-color: ${props => props.theme.blackHover};
+    }
+`;
 
 const mapStateToProps = state => {
     return {
@@ -90,32 +192,34 @@ function Row({rowType, row, userID, toggleForm, selectPlanningRow, putPlanningRo
     return (
         <>
             {/* planning row */}
-            {rowType === 'planning' && <div id={row.id}className='row-container'>
-                <TextareaAutosize onChange={handleInput} value={activity} className='first' id={`activity${row.id}`}> </TextareaAutosize>
-                <TextareaAutosize onChange={handleInput} value={type} id={`type${row.id}`}></TextareaAutosize>
-                <TextareaAutosize onChange={handleInput} value={address} id={`address${row.id}`}></TextareaAutosize>
-                <TextareaAutosize onChange={handleInput} value={website} id={`website${row.id}`}></TextareaAutosize>
-                <div className='interest-container'>
-                    <div className='interest'>{interest.length}</div>
-                    <div className={interest.indexOf(userID) === -1 ?'interest-button':'interest-button-subtract'} onClick={()=> toggleInterest(interest)} id='interest'></div>
-                </div>
-                <div className='schedule-container'>
-                    <div className='schedule' onClick={()=> {selectPlanningRow(row); toggleForm('schedule')}}></div>
-                </div>
-            </div>}
+            {rowType === 'planning' && 
+                <Wrapper id={row.id}>
+                    <TextArea onChange={handleInput} value={activity} first id={`activity${row.id}`}/>
+                    <TextArea onChange={handleInput} value={type} id={`type${row.id}`}/>
+                    <TextArea onChange={handleInput} value={address} id={`address${row.id}`}/>
+                    <TextArea onChange={handleInput} value={website} id={`website${row.id}`}/>
+                    <TDContainer interest>
+                        <Interest>{interest.length}</Interest>
+                        <Button image={interest.indexOf(userID) === -1 ? addIcon : subtractIcon} onClick={()=> toggleInterest(interest)} id='interest'/>
+                    </TDContainer>
+                    <TDContainer>
+                        <Icon image={scheduleIcon} onClick={()=> {selectPlanningRow(row); toggleForm('schedule')}}/>
+                    </TDContainer>
+                </Wrapper>}
             {/* scheduling row */}
-            {rowType === 'scheduling' && <div id={row.id}className='row-container'>
-                <div className='time-container'>
-                    <input type='time' onChange={handleInput} className='time' defaultValue={row.time} id={`time${row.id}`}/>
-                </div>
-                <TextareaAutosize onChange={handleInput} value={activity} id={`activity${row.id}`}> </TextareaAutosize>
-                <TextareaAutosize onChange={handleInput} value={type} id={`type${row.id}`}></TextareaAutosize>
-                <TextareaAutosize onChange={handleInput} value={address} id={`address${row.id}`}></TextareaAutosize>
-                <TextareaAutosize onChange={handleInput} value={website} id={`website${row.id}`}></TextareaAutosize>
-                <div className='remove-container'>
-                    <div className='remove' onClick={()=> deleteSchedulingRow(row.id)}></div>
-                </div>
-            </div>}
+            {rowType === 'scheduling' && 
+                <Wrapper id={row.id}>
+                    <TDContainer>
+                        <Time type='time' onChange={handleInput} defaultValue={row.time} id={`time${row.id}`}/>
+                    </TDContainer>
+                    <TextArea onChange={handleInput} value={activity} id={`activity${row.id}`}/>
+                    <TextArea onChange={handleInput} value={type} id={`type${row.id}`}/>
+                    <TextArea onChange={handleInput} value={address} id={`address${row.id}`}/>
+                    <TextArea onChange={handleInput} value={website} id={`website${row.id}`}/>
+                    <TDContainer>
+                        <Icon image={cancelIcon} onClick={()=> deleteSchedulingRow(row.id)}/>
+                    </TDContainer>
+                </Wrapper>}
         </>
     )
 }
