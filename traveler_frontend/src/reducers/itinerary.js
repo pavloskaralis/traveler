@@ -10,15 +10,15 @@ export default function itinerary(state = '', action) {
             let planning_index;
             if(state) planning_index = state.planning_rows.findIndex(planning_row => planning_row.id === action.id);
             if(state) return {...state, planning_rows: [...state.planning_rows.slice(0, planning_index), action.planning_row, ...state.planning_rows.slice(planning_index + 1)]}
-            return;
+            return state;
         case 'SWAP_SCHEDULING':
             let scheduling_index;
             if(state) scheduling_index = state.scheduling_rows.findIndex(scheduling_row => scheduling_row.id === action.id);
             if(state) return {...state, scheduling_rows: [...state.scheduling_rows.slice(0, scheduling_index), action.scheduling_row, ...state.scheduling_rows.slice(scheduling_index + 1)] }
-            return;
+            return state;
         case 'REMOVE_SCHEDULING':
             if(state) return {...state, scheduling_rows: state.scheduling_rows.filter(scheduling_row => scheduling_row.id !== action.id)}
-            return;
+            return state;
         default:
             return state
     }
