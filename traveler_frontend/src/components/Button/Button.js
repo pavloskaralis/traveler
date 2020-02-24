@@ -10,8 +10,8 @@ const ButtonStyle = styled.div`
     min-width: 80px;
     height: 40px;
     border-radius: 8px;
-    background-color: var(--black);
-    color: var(--orange);
+    background-color: ${props => props.theme.black};
+    color: ${props => props.theme.orange};
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -22,7 +22,7 @@ const ButtonStyle = styled.div`
     background-size: ${props => props.size};
     margin-right: ${props => props.margin ? '8px' : '0'};
     &:hover {
-        background-color: var(--blackHover);
+        background-color: ${props => props.theme.blackHover};
     }
 `;
 

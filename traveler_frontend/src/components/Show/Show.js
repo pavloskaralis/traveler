@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useCallback} from 'react'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
 import rowIcon from '../../images/row.png'
@@ -128,6 +128,8 @@ let Show = ({dropdown, toggleDropdown, form, getItinerary, postPlanningRow, post
     useEffect(()=> {
         getItinerary(userID);
     },[])
+
+  
     if(itinerary) console.log('itinerary', itinerary.scheduling_rows)
     // auto scroll to bottom on row creation; passed to add-row onClick
     const autoScroll = () => setTimeout(()=>document.querySelector('.body').scrollTop = document.querySelector('.body').scrollHeight, 100);

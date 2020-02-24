@@ -3,7 +3,6 @@ import { Route, Switch } from 'react-router-dom'
 import { connect } from 'react-redux'
 import styled, {ThemeProvider} from 'styled-components'
 import userSetup from '../../actions/userSetup.js'
-import './App.css'
 import Nav from '../Nav/Nav.js'
 import Home from '../Home/Home.js'
 import Index from '../Index/Index.js'
@@ -19,10 +18,10 @@ const Wrapper = styled.div`
   ::-webkit-scrollbar {
     width: 8px;    
     height: 8px;
-    background-color: var(--gray);
+    background-color: ${props => props.theme.gray};
   }
   ::-webkit-scrollbar-thumb {
-      background-color: var(--black);   
+      background-color: ${props => props.theme.black};   
   }
 `;
 

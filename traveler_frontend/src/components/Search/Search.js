@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
 import searchIcon from '../../images/search.png'
@@ -92,6 +92,7 @@ let Search = ({setFilter, page, tables, toggleTable, itinerary, table}) => {
         break;
       case 'show': toggleTable(query.value);
         break;
+      default: return;
     }
    
   }

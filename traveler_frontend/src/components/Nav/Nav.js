@@ -7,7 +7,7 @@ import Dropdown from '../Dropdown/Dropdown.js'
 const NavStyle = styled.nav`
     height: 60px;
     width: 100%;
-    background-color: var(--black);
+    background-color: ${props => props.theme.black};
     display: flex;
     justify-content: space-between;
     z-index: 3;
@@ -16,7 +16,7 @@ const NavStyle = styled.nav`
         padding-left: 16px;
         align-self: center;
         margin: 0; 
-        color: var(--orange);
+        color: ${props => props.theme.orange};
         font-family: Georgia;
         cursor: default;
         display:block;

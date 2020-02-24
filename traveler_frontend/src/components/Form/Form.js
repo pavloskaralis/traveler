@@ -74,7 +74,7 @@ const Wrapper = styled.div`
     input::-webkit-datetime-edit-day-field:focus,
     input::-webkit-datetime-edit-month-field:focus,
     input::-webkit-datetime-edit-year-field:focus {
-        background-color: var(--blue);
+        background-color: ${props => props.theme.blue};
     }
 `;
 
@@ -220,6 +220,8 @@ let Form = ({
             case 'share': if(!addUser.value) return
                 break; 
             case 'schedule': if(!schedulingDate.value || !schedulingTime.value) return
+                break;
+            default: console.log();
         }
         //prevent sharing itinerary with more than 8 users
         if(form === 'share' && itinerary.usernames.length === 8) return toggleError('8 User Limit');
@@ -232,9 +234,9 @@ let Form = ({
                 break;
             case 'log in': logIn(username.value,password.value);
                 break;
-            case 'new': postItinerary(location.value,departureDate.value,returnDate.value,userID)
+            case 'new': postItinerary(location.value,departureDate.value,returnDate.value,userID);
                 break;
-            case 'update': {putItinerary(location.value,departureDate.value,returnDate.value,itinerary.id,itinerary.index, itinerary.shared)}
+            case 'update': putItinerary(location.value,departureDate.value,returnDate.value,itinerary.id,itinerary.index, itinerary.shared);
                 break;
             case 'remove': deleteItinerary(itinerary, userID);
                 break;
@@ -242,6 +244,7 @@ let Form = ({
                 break;
             case 'schedule': postSchedulingRow(itinerary.id, schedulingDate.value, schedulingTime.value , planningRow );
                 break;
+            default: console.log();
         }
         //reset values
         document.querySelectorAll('input').forEach(input => input.value = '');
@@ -258,6 +261,8 @@ let Form = ({
         case 'share': legend = 'share itinerary';
             break;
         case 'schedule': legend = 'schedule activity';
+            break;
+        default: console.log();
     }
     //refactor departure and return date for update form default values
     let firstDay;

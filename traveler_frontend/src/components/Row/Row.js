@@ -18,14 +18,14 @@ const Wrapper = styled.div`
     width: 100%;
     min-width: 768px;
     display: flex;
-    border-bottom: 1px solid var(--gray);
+    border-bottom: 1px solid ${props => props.theme.gray};
     padding: 0 8px;
     box-sizing: border-box;
 
     input::-webkit-datetime-edit-hour-field:focus,
     input::-webkit-datetime-edit-minute-field:focus,
     input::-webkit-datetime-edit-ampm-field:focus {
-        background-color: var(--blue);
+        background-color: ${props => props.theme.blue};
     }
 `;
 
@@ -34,7 +34,7 @@ const TextArea = styled(TextareaAutosize)`
     min-height: 60px;
     width: 16.67%;
     background-color: white;
-    color: var(--black);
+    color: ${props => props.theme.black};
     font-family: Verdana;
     font-size: 16px;
     padding: 19px 8px;
@@ -71,7 +71,7 @@ const Icon = styled.div`
 
 const Interest = styled.div`
     font-family: Verdana;
-    color: var(--black);
+    color: ${props => props.theme.black};
     align-self: center;
     margin-right: 16px;
     font-weight: 600;
@@ -95,7 +95,7 @@ const Time = styled.input`
 const Button = styled.div`
     cursor: pointer;
     align-self: center;
-    background-color: var(--black);
+    background-color: ${props => props.theme.black};
     width: 18px;
     height: 18px;
     border-radius: 4px;
@@ -152,7 +152,8 @@ let Row = ({rowType, row, userID, toggleForm, selectPlanningRow, putPlanningRow,
             case `type${row.id}`:return updateType(e.target.value);
             case `address${row.id}`:return updateAddress(e.target.value);
             case `website${row.id}`:return updateWebsite(e.target.value);
-            case `time${row.id}`:return updateTime(e.target.value);
+            case `time${row.id}`: return updateTime(e.target.value);
+            default: console.log();
         }
         // updatedTime =  document.querySelector(`#time${row.id}`).value;
     }
@@ -160,6 +161,7 @@ let Row = ({rowType, row, userID, toggleForm, selectPlanningRow, putPlanningRow,
     useEffect(()=> {
         // put request row on dismount if changed
      
+        return (()=> {
             if(row.interest){
                 const updatedPlanning = {
                     activity: activity,
@@ -168,6 +170,8 @@ let Row = ({rowType, row, userID, toggleForm, selectPlanningRow, putPlanningRow,
                     website: website,
                     interest: JSON.stringify(interest)
                 }
+
+                console.log(updatedPlanning, row)
                 if (row.activity !== updatedPlanning.activity || row.category !== updatedPlanning.category ||
                     row.address !== updatedPlanning.address || row.website!== updatedPlanning.website || 
                     row.interest !== updatedPlanning.interest 
@@ -178,13 +182,14 @@ let Row = ({rowType, row, userID, toggleForm, selectPlanningRow, putPlanningRow,
                     category: type,
                     address: address,
                     website: website,
-                    time: time
+                    time: document.querySelectorAll(`#time${row.id}`)[0].value
                 }
                 if(row.activity !== updatedScheduling.activity || row.category !== updatedScheduling.category ||
                     row.address !== updatedScheduling.address || row.website!== updatedScheduling.website ||
-                    row.time!== updatedScheduling.time 
+                    row.time !== updatedScheduling.time 
                 ) putSchedulingRow(row.id,updatedScheduling,row.id);
             }
+        })
     },[time, activity, type, website, address, interest])
 
     return (
