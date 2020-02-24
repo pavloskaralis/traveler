@@ -234,7 +234,7 @@ let Form = ({
                 break;
             case 'new': postItinerary(location.value,departureDate.value,returnDate.value,userID)
                 break;
-            case 'update': {putItinerary(location.value,departureDate.value,returnDate.value,itinerary.id,itinerary.index)}
+            case 'update': {putItinerary(location.value,departureDate.value,returnDate.value,itinerary.id,itinerary.index, itinerary.shared)}
                 break;
             case 'remove': deleteItinerary(itinerary, userID);
                 break;

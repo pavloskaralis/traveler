@@ -18,6 +18,10 @@ const Menu = styled.div`
     border-bottom: 1px solid var(--gray);
     box-sizing: border-box;
 
+    @media (max-width: 992px) {
+        width: 29%;
+    }
+
     & a {
         text-decoration-line: none;
         padding: 20px 16px;
@@ -31,6 +35,7 @@ const Menu = styled.div`
     & a:hover {
         color: ${props => props.theme.gray};
     }
+    
 `;
 
 const mapStateToProps = state => {
