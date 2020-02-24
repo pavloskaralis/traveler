@@ -111,8 +111,7 @@ const Button = styled.div`
 
 const mapStateToProps = state => {
     return {
-      userID: state.userID,
-      scheduling_rows: state.itinerary.scheduling_rows
+      userID: state.userID
     }
 }
 
@@ -125,7 +124,7 @@ const mapDispatchToProps = {
 }
 
 
-let Row = ({rowType, row, userID, toggleForm, selectPlanningRow, putPlanningRow, deleteSchedulingRow, putSchedulingRow, scheduling_rows}) => {
+let Row = ({rowType, row, userID, toggleForm, selectPlanningRow, putPlanningRow, deleteSchedulingRow, putSchedulingRow}) => {
 
     //textarea cannot use ref; must rely on state values for storage
     const [activity, updateActivity] = useState(row.activity);
@@ -193,7 +192,7 @@ let Row = ({rowType, row, userID, toggleForm, selectPlanningRow, putPlanningRow,
             {/* planning row */}
             {rowType === 'planning' && 
                 <Wrapper id={row.id}>
-                    <TextArea onChange={handleInput} value={activity} first id={`activity${row.id}`}/>
+                    <TextArea onChange={handleInput} value={activity} first='true' id={`activity${row.id}`}/>
                     <TextArea onChange={handleInput} value={type} id={`type${row.id}`}/>
                     <TextArea onChange={handleInput} value={address} id={`address${row.id}`}/>
                     <TextArea onChange={handleInput} value={website} id={`website${row.id}`}/>

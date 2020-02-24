@@ -16,16 +16,15 @@ const Wrapper = styled.form`
   max-width: ${props => props.page === 'show' ? '400px' : ''};
   margin: ${props => props.page === 'show' ? '0 8px' : ''};
 
-  & input {
+  & input, select {
     font-size: 16px;
     padding: 16px;
     width: calc(100% - 80px);
     font-family: Verdana;
-    border-radius: ${props => props.page === 'index' ? '8px 0 0 8px' : '' };
+    border-radius: 8px 0 0 8px;
     border: none;
     outline: none;
     box-sizing: border-box;
-    text-align: ${props => props.page === 'show' ? 'center' : ''};
   }
 
   & select {
@@ -33,10 +32,7 @@ const Wrapper = styled.form`
     text-align-last: center;
     padding-right: 20px; 
     min-width:  0px; 
-
-    &:focus {
-      border: 2px solid ${props => props.theme.opaque};
-    }
+    cursor: pointer; 
   }
 
   &:hover {
