@@ -111,7 +111,7 @@ const mapDispatchToProps = {
     selectItinerary
 }
 
-function Itinerary({itinerary, toggleForm, selectItinerary, index, userID}) {
+let Itinerary = ({itinerary, toggleForm, selectItinerary, index, userID}) => {
     const length = itinerary.dates.length
     return (
         <Wrapper href={`/${userID}/${itinerary.id}`} shared={itinerary.shared}>

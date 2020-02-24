@@ -1,8 +1,74 @@
 import React, {useEffect} from 'react'
 import { connect } from 'react-redux'
+import styled from 'styled-components'
+import searchIcon from '../../images/search.png'
+import leftIcon from '../../images/left.png'
+import rightIcon from '../../images/right.png'
 import setFilter from '../../actions/setFilter.js'
 import toggleTable from '../../actions/toggleTable.js'
-import './Search.css'
+
+const Wrapper = styled.form`
+  display: flex;
+  height: 40px;
+  min-width: ${props => props.page === 'index' ? '50%' : '0%'}; 
+  border-radius: 8px;
+  box-sizing: border-box;
+  max-width: ${props => props.page === 'show' ? '400px' : ''};
+  margin: ${props => props.page === 'show' ? '0 8px' : ''};
+
+  & input {
+    font-size: 16px;
+    padding: 16px;
+    width: calc(100% - 80px);
+    font-family: Verdana;
+    border-radius: ${props => props.page === 'index' ? '8px 0 0 8px' : '' };
+    border: none;
+    outline: none;
+    box-sizing: border-box;
+    text-align: ${props => props.page === 'show' ? 'center' : ''};
+  }
+
+  & select {
+    min-height: 40px;
+    text-align-last: center;
+    padding-right: 20px; 
+    min-width:  0px; 
+
+    &:focus {
+      border: 2px solid ${props => props.theme.opaque};
+    }
+  }
+
+  &:hover {
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,.5);
+  }
+`;
+
+const Submit = styled.div`
+  background-color: ${props => props.theme.black};
+  width: 80px;
+  height: 40px;
+  border-radius: 0 8px 8px 0;
+  cursor: pointer;
+  background-image: url(${searchIcon});
+  background-size: 20px;
+  background-repeat: no-repeat;
+  background-position: center;
+  color: ${props => props.theme.opaque};
+
+  &:hover {
+    background-color: ${props => props.theme.blackHover};
+  }
+`;
+
+const Arrow = styled(Submit)`
+  background-size: 20px;
+  min-width: 40px;
+  max-width: 40px; 
+  background-image: ${props => `url(${props.image})`};
+  border-radius: ${props => props.radius}; 
+`;
+
 
 const mapStateToProps = state => {
   return {
@@ -16,8 +82,10 @@ const mapDispatchToProps = {
   setFilter,
   toggleTable
 }
+
+
 // component has conditional css based on current table or show page
-function Search({setFilter, page, tables, toggleTable, itinerary, table}) {
+let Search = ({setFilter, page, tables, toggleTable, itinerary, table}) => {
 
   //conditional form submit 
   const submit = e => {
@@ -48,11 +116,11 @@ function Search({setFilter, page, tables, toggleTable, itinerary, table}) {
   let query;
 
   return (
-      <form className={page === 'index' ? 'search-container-index' : 'search-container-show'} onSubmit={ submit }>
-        {page === 'show' && <div className='search-submit' id='left' onClick={ ()=> {toggleTable(left); update(left)}}></div>}
+      <Wrapper page={page} onSubmit={submit}>
+        {page === 'show' && <Arrow radius='8px 0 0 8px' image={leftIcon} onClick={ ()=> {toggleTable(left); update(left)}}/>}
         {page === 'index' && <input type='text' ref={node => query = node}/>}
         {page === 'show' && itinerary &&       
-          <select className='tools-select' onChange={()=>{toggleTable(query.value); update(query.value)}} ref={node => query = node} autoFocus >
+          <select  onChange={()=>{toggleTable(query.value); update(query.value)}} ref={node => query = node} autoFocus >
               {itinerary.dates.map(date => {
                   return (
                       <option key={date} value={date}>{date}</option>
@@ -60,9 +128,9 @@ function Search({setFilter, page, tables, toggleTable, itinerary, table}) {
               })}
           </select>
         }
-        {page === 'show' && <div className='search-submit' id='right' onClick={ ()=> {toggleTable(right); update(right)}}></div>}
-        {page === 'index' && <div className='search-submit' onClick={e => {e.preventDefault(); setFilter(query.value)}}></div>}
-      </form> 
+        {page === 'show' && <Arrow image={rightIcon} onClick={ ()=> {toggleTable(right); update(right)}}/>}
+        {page === 'index' && <Submit onClick={e => {e.preventDefault(); setFilter(query.value)}}/>}
+      </Wrapper> 
   )
 }
 
