@@ -50,7 +50,7 @@ let Tools = ({page}) => {
                         <Button type='return' size='30px' image={returnIcon}/>
                         <Search page={'show'}/>
                         <ButtonGroup>
-                            <Button type='share' size='35px' image={shareIcon} margin={true}/>
+                            <Button type='share' size='35px' image={shareIcon} margin/>
                             <Button type='remove' size='22px' image={removeIcon}/>
                         </ButtonGroup>
                     </>

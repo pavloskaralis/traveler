@@ -11,7 +11,6 @@ import selectPlanningRow from '../../actions/selectPlanningRow.js'
 import putPlanningRow from '../../actions/putPlanningRow.js'
 import deleteSchedulingRow from '../../actions/deleteSchedulingRow.js'
 import putSchedulingRow from '../../actions/putSchedulingRow.js'
-import './Row.css'
 
 
 const Wrapper = styled.div`
@@ -126,7 +125,7 @@ const mapDispatchToProps = {
 }
 
 
-function Row({rowType, row, userID, toggleForm, selectPlanningRow, putPlanningRow, deleteSchedulingRow, putSchedulingRow, scheduling_rows}) {
+let Row = ({rowType, row, userID, toggleForm, selectPlanningRow, putPlanningRow, deleteSchedulingRow, putSchedulingRow, scheduling_rows}) => {
 
     //textarea cannot use ref; must rely on state values for storage
     const [activity, updateActivity] = useState(row.activity);
