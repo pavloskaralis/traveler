@@ -5,7 +5,6 @@ import bg from '../../images/bg.jpeg'
 import toggleForm from '../../actions/toggleForm.js'
 import toggleDropdown from '../../actions/toggleDropdown.js'
 import Form from '../Form/Form.js'
-import './Home.css'
 
 
 const ImageOverlay = styled.div`
@@ -219,7 +218,7 @@ const mapDispatchToProps = {
     toggleDropdown
 }
   
-function Home({toggleForm, form, dropdown, toggleDropdown}) {
+let Home = ({toggleForm, form, dropdown, toggleDropdown}) => {
     return (
         <React.Fragment>
             {form && <Form page='home'/>}
