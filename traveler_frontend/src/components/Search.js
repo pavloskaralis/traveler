@@ -1,11 +1,11 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
-import searchIcon from '../../images/search.png'
-import leftIcon from '../../images/left.png'
-import rightIcon from '../../images/right.png'
-import setFilter from '../../actions/setFilter.js'
-import toggleTable from '../../actions/toggleTable.js'
+import searchIcon from '../images/search.png'
+import leftIcon from '../images/left.png'
+import rightIcon from '../images/right.png'
+import setFilter from '../actions/setFilter.js'
+import toggleTable from '../actions/toggleTable.js'
 
 const Wrapper = styled.form`
   display: flex;

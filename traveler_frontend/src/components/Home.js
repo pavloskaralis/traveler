@@ -1,10 +1,10 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
-import bg from '../../images/bg.jpeg'
-import toggleForm from '../../actions/toggleForm.js'
-import toggleDropdown from '../../actions/toggleDropdown.js'
-import Form from '../Form/Form.js'
+import bg from '../images/bg.jpeg'
+import toggleForm from '../actions/toggleForm.js'
+import toggleDropdown from '../actions/toggleDropdown.js'
+import Form from './Form.js'
 
 
 const ImageOverlay = styled.div`

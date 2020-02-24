@@ -1,11 +1,11 @@
 import React from 'react'
 import styled from 'styled-components'
-import Search from '../Search/Search.js'
-import Button from '../Button/Button.js'
-import newIcon from '../../images/new.png'
-import shareIcon from '../../images/share.png'
-import removeIcon from '../../images/remove.png'
-import returnIcon from '../../images/return.png'
+import Search from './Search.js'
+import Button from './Button.js'
+import newIcon from '../images/new.png'
+import shareIcon from '../images/share.png'
+import removeIcon from '../images/remove.png'
+import returnIcon from '../images/return.png'
 
 const Wrapper = styled.div`
     width: 100%;

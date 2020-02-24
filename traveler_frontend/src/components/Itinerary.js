@@ -1,12 +1,12 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
-import sharedIcon from '../../images/shared.png'
-import sharedHoverIcon from '../../images/sharedhover.png'
-import editIcon from '../../images/edit.png'
-import editHoverIcon from '../../images/edithover.png'
-import toggleForm from '../../actions/toggleForm.js'
-import selectItinerary from '../../actions/selectItinerary.js'
+import sharedIcon from '../images/shared.png'
+import sharedHoverIcon from '../images/sharedhover.png'
+import editIcon from '../images/edit.png'
+import editHoverIcon from '../images/edithover.png'
+import toggleForm from '../actions/toggleForm.js'
+import selectItinerary from '../actions/selectItinerary.js'
 
 const Container = styled.div`
     display: flex;

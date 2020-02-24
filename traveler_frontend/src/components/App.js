@@ -2,11 +2,11 @@ import React, { useEffect } from 'react'
 import { Route, Switch } from 'react-router-dom'
 import { connect } from 'react-redux'
 import styled, {ThemeProvider} from 'styled-components'
-import userSetup from '../../actions/userSetup.js'
-import Nav from '../Nav/Nav.js'
-import Home from '../Home/Home.js'
-import Index from '../Index/Index.js'
-import Show from '../Show/Show.js'
+import userSetup from '../actions/userSetup.js'
+import Nav from './Nav.js'
+import Home from './Home.js'
+import Index from './Index.js'
+import Show from './Show.js'
 
 const Wrapper = styled.div`
   min-height: 100vh;

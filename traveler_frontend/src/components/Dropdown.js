@@ -1,8 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
-import logOut from '../../actions/logOut.js'
+import logOut from '../actions/logOut.js'
 import { connect } from 'react-redux'
-import toggleForm from '../../actions/toggleForm.js'
+import toggleForm from '../actions/toggleForm.js'
 
 const Menu = styled.div`
     z-index: 1;

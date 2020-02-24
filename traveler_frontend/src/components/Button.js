@@ -1,9 +1,9 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
-import history from '../../history.js'
-import toggleForm from '../../actions/toggleForm.js';
-import selectItinerary from '../../actions/selectItinerary.js';
+import history from '../history.js'
+import toggleForm from '../actions/toggleForm.js';
+import selectItinerary from '../actions/selectItinerary.js';
 
 
 const ButtonStyle = styled.div`

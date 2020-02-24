@@ -1,10 +1,10 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
-import toggleDropdown from '../../actions/toggleDropdown.js'
-import Tools from '../Tools/Tools.js'
-import Itinerary from '../Itinerary/Itinerary.js'
-import Form from '../Form/Form.js'
+import toggleDropdown from '../actions/toggleDropdown.js'
+import Tools from './Tools.js'
+import Itinerary from './Itinerary.js'
+import Form from './Form.js'
 
 const Wrapper = styled.div`
     width: 100%;

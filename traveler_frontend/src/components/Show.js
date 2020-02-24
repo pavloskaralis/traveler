@@ -1,14 +1,14 @@
 import React, {useEffect, useCallback} from 'react'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
-import rowIcon from '../../images/row.png'
-import getItinerary from '../../actions/getItinerary.js'
-import postPlanningRow from '../../actions/postPlanningRow.js'
-import postSchedulingRow from '../../actions/postSchedulingRow.js'
-import toggleDropdown from '../../actions/toggleDropdown.js'
-import Tools from '../Tools/Tools.js'
-import Row from '../Row/Row.js'
-import Form from '../Form/Form.js'
+import rowIcon from '../images/row.png'
+import getItinerary from '../actions/getItinerary.js'
+import postPlanningRow from '../actions/postPlanningRow.js'
+import postSchedulingRow from '../actions/postSchedulingRow.js'
+import toggleDropdown from '../actions/toggleDropdown.js'
+import Tools from './Tools.js'
+import Row from './Row.js'
+import Form from './Form.js'
 
 const Wrapper = styled.div`
     width: 100%;

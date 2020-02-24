@@ -1,8 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
-import toggleDropdown from '../../actions/toggleDropdown.js'
-import Dropdown from '../Dropdown/Dropdown.js'
+import toggleDropdown from '../actions/toggleDropdown.js'
+import Dropdown from './Dropdown.js'
 
 const NavStyle = styled.nav`
     height: 60px;

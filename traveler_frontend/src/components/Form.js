@@ -1,18 +1,18 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
-import selectIcon from '../../images/select.png'
-import toggleForm from '../../actions/toggleForm.js'
-import signUp from '../../actions/signUp.js'
-import logIn from '../../actions/logIn.js'
-import toggleError from '../../actions/toggleError.js'
-import postItinerary from '../../actions/postItinerary.js'
-import selectItinerary from '../../actions/selectItinerary.js'
-import selectPlanningRow from '../../actions/selectPlanningRow.js'
-import putItinerary from '../../actions/putItinerary.js'
-import deleteItinerary from '../../actions/deleteItinerary.js'
-import postLookup from '../../actions/postLookup.js';
-import postSchedulingRow from '../../actions/postSchedulingRow.js';
+import selectIcon from '../images/select.png'
+import toggleForm from '../actions/toggleForm.js'
+import signUp from '../actions/signUp.js'
+import logIn from '../actions/logIn.js'
+import toggleError from '../actions/toggleError.js'
+import postItinerary from '../actions/postItinerary.js'
+import selectItinerary from '../actions/selectItinerary.js'
+import selectPlanningRow from '../actions/selectPlanningRow.js'
+import putItinerary from '../actions/putItinerary.js'
+import deleteItinerary from '../actions/deleteItinerary.js'
+import postLookup from '../actions/postLookup.js';
+import postSchedulingRow from '../actions/postSchedulingRow.js';
 
 const Wrapper = styled.div`
     position: fixed;
