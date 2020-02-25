@@ -4,7 +4,7 @@ Purpose: Traveler was created to provide users with a platform for creating and 
 
 Technologies: React, React-Router-Dom, Redux-Thunk, Styled-Components, Ruby on Rails, PostgreSQL, Bcrypt, Axios
 
-Backend Overview: The app’s back-end was created with Ruby on Rails, and employs PostgreSQL for its database. Given that an itinerary can be shared between multiple users, these backend models are formatted for many to many relationships. Furthermore, there exists one to many relationships between an itinerary and its planning/scheduling rows. Finally, through an authentication controller Bcrypt is used to validate a client’s JWT. 
+Backend Overview: The app’s backend was created with Ruby on Rails, and employs PostgreSQL for its database. Given that an itinerary can be shared between multiple users, these backend models are formatted for many to many relationships. Furthermore, there exists one to many relationships between an itinerary and its planning/scheduling rows. Finally, through an authentication controller Bcrypt is used to validate a client’s JWT. 
 
 Frontend Overview: Traveler is exemplary of an advanced React application, as in addition to Create-React-App, it employs React-Router-Dom, Redux-Thunk, and Styled Components to build a dynamic and maintainable frontend. In total, the app comprises of 32 actions, 11 reducers, and 12 components. To best explain the interaction between these elements, each component will be summarized below. 
 
