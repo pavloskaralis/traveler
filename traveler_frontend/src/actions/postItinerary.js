@@ -8,7 +8,7 @@ export default function postItinerary(location,departureDate,returnDate,userID) 
         //check date format is valid
         const regex = /(20)[2-9]\d-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])/i;
         if(!departureDate.match(regex) || !returnDate.match(regex)){
-            return ()=> dispatch(toggleError('Invalid Date Format'));
+            return dispatch(toggleError('Invalid Date Format'));
         } 
         //find today's date
         const date = new Date();
@@ -73,7 +73,7 @@ export default function postItinerary(location,departureDate,returnDate,userID) 
         }
         const postRequest = async () => {
             dispatch(toggleError('Saving Itinerary...'));
-            const result = await axios.post(`http://localhost:3001/users/${userID}/itineraries`, newItinerary);
+            const result = await axios.post(`https://traveler-backend.herokuapp.com/users/${userID}/itineraries`, newItinerary);
             const {data} = result;
             if (!data.error) {
                 dispatch(toggleError(''));
